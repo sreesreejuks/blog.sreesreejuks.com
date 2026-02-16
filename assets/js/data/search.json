@@ -8,14 +8,6 @@
     "content": "Approach to creating a bash script that checks storage and alerts when it exceeds 70%"
   },
   {
-    "title": "Linux Process Management — Mastering ps, top, kill & Process Lifecycle",
-    "url": "/linux-process-management/",
-    "categories": "process, system-administration, ubuntu, monitoring",
-    "tags": "top, pid, ps, htop, tutorial",
-    "date": "2025-04-21 23:58:00 +0530",
-    "content": "🎯 What You Will Learn     How to inspect all running processes using ps aux and ps -ef with full output interpretation   How to monitor system processes in real time using top and htop   How to ter..."
-  },
-  {
     "title": "Setting up a Kubernetes Cluster on Proxmox (from Scratch!)",
     "url": "/Proxmox-Virtual-Environment/",
     "categories": "kubernetes, virtualization, proxmox, ubuntu",
