@@ -1,8 +1,1570 @@
-<!doctype html><html lang="en" data-mode="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="Text Processing with sed and awk - The Professional’s Guide" /><meta name="author" content="Sreeju KS" /><meta property="og:locale" content="en" /><meta name="description" content="A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently." /><meta property="og:description" content="A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently." /><link rel="canonical" href="https://blog.sreesreejuks.com/text-processing-with-sed-and-awk/" /><meta property="og:url" content="https://blog.sreesreejuks.com/text-processing-with-sed-and-awk/" /><meta property="og:site_name" content="Sreeju KS" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2025-04-17T11:45:00+05:30" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="Text Processing with sed and awk - The Professional’s Guide" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sreeju KS","url":"https://github.com/sreesreejuks/"},"dateModified":"2025-04-17T11:45:00+05:30","datePublished":"2025-04-17T11:45:00+05:30","description":"A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently.","headline":"Text Processing with sed and awk - The Professional’s Guide","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.sreesreejuks.com/text-processing-with-sed-and-awk/"},"url":"https://blog.sreesreejuks.com/text-processing-with-sed-and-awk/"}</script><title>Text Processing with sed and awk - The Professional's Guide | Sreeju KS</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Sreeju KS"><meta name="application-name" content="Sreeju KS"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-E66HPNGEJR"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-E66HPNGEJR'); </script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://gravatar.com/avatar/ed8980df17ba2ea58cd48fe0c6964ca3?size=256" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">Sreeju KS</a><p class="site-subtitle fst-italic mb-0">Documenting the journey of DevOps, cloud computing, and deployment</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>ABOUT</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"> <a href="https://github.com/sreesreejuks" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="https://www.linkedin.com/in/sreesreejuks" aria-label="linkedin" target="_blank" rel="noopener noreferrer" > <i class="fab fa-linkedin"></i> </a> <a href="https://www.instagram.com/sreesreejuks" aria-label="instagram" target="_blank" rel="noopener noreferrer" > <i class="fab fa-instagram"></i> </a> <a href="javascript:location.href = 'mailto:' + ['mail','sreesreejuks.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">Home</a> </span> <span>Text Processing with sed and awk - The Professional's Guide</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> Post</div><button type="button" id="search-trigger" class="btn btn-link"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>Text Processing with sed and awk - The Professional's Guide</h1><p class="post-desc fw-light mb-4">A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently.</p><div class="post-meta text-muted"> <span> Posted <time data-ts="1744870500" data-df="ll" data-bs-toggle="tooltip" data-bs-placement="bottom" > Apr 17, 2025 </time> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/sreesreejuks/">Sreeju KS</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="3896 words" > <em>21 min</em> read</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">Text Processing with sed and awk - The Professional's Guide</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">Contents</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">Text Processing with sed and awk - The Professional's Guide</div><button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75"> <i class="fas fa-close"></i> </button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><blockquote><p>“Give me sed, awk, and a terminal, and I can transform any text into exactly what I need.”</p></blockquote><h2 id="table-of-contents"><span class="me-2">Table of Contents</span><a href="#table-of-contents" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><a href="#-beginner-vs-professional-approach">Beginner vs Professional Approach</a><li><a href="#-why-sed-and-awk-matter">Why sed and awk Matter</a><li><a href="#-understanding-the-stream-model">Understanding the Stream Model</a><li><a href="#-sed-fundamentals">sed Fundamentals</a><li><a href="#-awk-fundamentals">awk Fundamentals</a><li><a href="#-pattern-matching-techniques">Pattern Matching Techniques</a><li><a href="#-advanced-sed-examples">Advanced sed Examples</a><li><a href="#-advanced-awk-examples">Advanced awk Examples</a><li><a href="#-combining-with-other-tools">Combining with Other Tools</a><li><a href="#-common-recipes">Common Recipes</a><li><a href="#-performance-considerations">Performance Considerations</a><li><a href="#-script-organization">Script Organization</a><li><a href="#-debugging-techniques">Debugging Techniques</a><li><a href="#-final-thought">Final Thought</a></ul><h2 id="-beginner-vs-professional-approach"><span class="me-2">🎯 Beginner vs Professional Approach</span><a href="#-beginner-vs-professional-approach" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="table-wrapper"><table><thead><tr><th>Beginner<th>Professional<tbody><tr><td>Uses GUI tools for text processing<td>Leverages sed/awk for speed and automation<tr><td>Processes files one at a time<td>Processes multiple files with single commands<tr><td>Edits files manually<td>Creates reusable sed/awk scripts<tr><td>Struggles with complex transformations<td>Creates elegant one-liners for complex tasks<tr><td>Limited to basic search and replace<td>Uses pattern matching and programmatic logic<tr><td>Relies on specific examples from the internet<td>Understands core principles to create custom solutions<tr><td>Only processes small datasets<td>Efficiently processes gigabytes of data<tr><td>Uses temporary files for multi-step processing<td>Pipes commands together for efficiency</table></div><blockquote><p><strong>Tip:</strong> Don’t think of sed and awk as just “find and replace” tools - they’re complete text processing languages that can transform data in powerful ways.</p></blockquote><h2 id="-why-sed-and-awk-matter"><span class="me-2">🧠 Why sed and awk Matter</span><a href="#-why-sed-and-awk-matter" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>In a world of graphical interfaces and modern programming languages, sed and awk remain essential tools for several reasons:</p><ol><li><strong>Ubiquity</strong> - Available on virtually every Linux/Unix system<li><strong>Efficiency</strong> - Process text without loading entire files into memory<li><strong>Streaming</strong> - Process data as it flows through pipelines<li><strong>Conciseness</strong> - Accomplish in one line what takes many in other languages<li><strong>Automation</strong> - Easily incorporate into scripts and scheduled tasks<li><strong>Speed</strong> - Process large files quickly without overhead</ol><p>The ability to manipulate text with sed and awk gives you superpowers in Linux environments, allowing you to:</p><ul><li>Transform configuration files programmatically<li>Process log files to extract meaningful data<li>Convert data between different formats<li>Clean and normalize inconsistent data<li>Extract specific information from structured text</ul><p>For system administrators, DevOps engineers, and data analysts, mastering these tools means being able to solve in seconds what might take hours manually.</p><h2 id="-understanding-the-stream-model"><span class="me-2">📚 Understanding the Stream Model</span><a href="#-understanding-the-stream-model" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Both sed and awk operate on a stream model, which is key to understanding how they work:</p><h3 id="the-sed-stream-model"><span class="me-2">The sed Stream Model</span><a href="#the-sed-stream-model" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>Input Stream → Pattern Space → Apply Commands → Output Stream
-</pre></table></code></div></div><ul><li><strong>Pattern Space</strong>: A working buffer that holds the current line<li><strong>Hold Space</strong>: An additional buffer for storing text between cycles<li><strong>Cycle</strong>: Reading a line, applying commands, printing, repeat</ul><h3 id="the-awk-stream-model"><span class="me-2">The awk Stream Model</span><a href="#the-awk-stream-model" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>Input Stream → Records → Fields → Process → Output Stream
-</pre></table></code></div></div><ul><li><strong>Records</strong>: Usually lines, separated by record separator (RS, default newline)<li><strong>Fields</strong>: Parts of records, separated by field separator (FS, default whitespace)<li><strong>Pattern-Action Pairs</strong>: <code class="language-plaintext highlighter-rouge">pattern { action }</code> structure</ul><h3 id="comparison"><span class="me-2">Comparison</span><a href="#comparison" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="table-wrapper"><table><thead><tr><th>Aspect<th>sed<th>awk<tbody><tr><td>Primary purpose<td>Stream editor<td>Text processing language<tr><td>Default processing unit<td>Line<td>Line (record) and fields<tr><td>Programming constructs<td>Limited<td>Full featured (variables, loops, conditionals)<tr><td>Math operations<td>Very limited<td>Extensive<tr><td>Default output<td>Modified input<td>Lines matching patterns<tr><td>Typical use cases<td>Find/replace, text transformations<td>Field-based processing, reports, data extraction</table></div><blockquote><p><strong>Info:</strong> Understanding this stream-based processing model helps visualize how data flows through these tools and why they’re so efficient for large files.</p></blockquote><h2 id="-sed-fundamentals"><span class="me-2">🧰 sed Fundamentals</span><a href="#-sed-fundamentals" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>sed (Stream EDitor) is designed for transforming text in a stream.</p><h3 id="basic-sed-commands"><span class="me-2">Basic sed Commands</span><a href="#basic-sed-commands" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="table-wrapper"><table><thead><tr><th>Command<th>Purpose<th>Example<tbody><tr><td><code class="language-plaintext highlighter-rouge">s</code><td>Substitute<td><code class="language-plaintext highlighter-rouge">sed 's/old/new/'</code><tr><td><code class="language-plaintext highlighter-rouge">d</code><td>Delete<td><code class="language-plaintext highlighter-rouge">sed '/pattern/d'</code><tr><td><code class="language-plaintext highlighter-rouge">p</code><td>Print<td><code class="language-plaintext highlighter-rouge">sed -n '/pattern/p'</code><tr><td><code class="language-plaintext highlighter-rouge">i</code><td>Insert before<td><code class="language-plaintext highlighter-rouge">sed '/pattern/i New line'</code><tr><td><code class="language-plaintext highlighter-rouge">a</code><td>Append after<td><code class="language-plaintext highlighter-rouge">sed '/pattern/a New line'</code><tr><td><code class="language-plaintext highlighter-rouge">c</code><td>Change line<td><code class="language-plaintext highlighter-rouge">sed '/pattern/c New content'</code><tr><td><code class="language-plaintext highlighter-rouge">y</code><td>Transliterate<td><code class="language-plaintext highlighter-rouge">sed 'y/abc/ABC/'</code><tr><td><code class="language-plaintext highlighter-rouge">q</code><td>Quit processing<td><code class="language-plaintext highlighter-rouge">sed '/pattern/q'</code><tr><td><code class="language-plaintext highlighter-rouge">r</code><td>Read file<td><code class="language-plaintext highlighter-rouge">sed '/pattern/r file.txt'</code><tr><td><code class="language-plaintext highlighter-rouge">w</code><td>Write to file<td><code class="language-plaintext highlighter-rouge">sed '/pattern/w output.txt'</code><tr><td><code class="language-plaintext highlighter-rouge">n</code><td>Next line<td><code class="language-plaintext highlighter-rouge">sed 'n;s/pattern/replace/'</code><tr><td><code class="language-plaintext highlighter-rouge">h</code><td>Copy to hold space<td><code class="language-plaintext highlighter-rouge">sed '/pattern/h'</code><tr><td><code class="language-plaintext highlighter-rouge">g</code><td>Get from hold space<td><code class="language-plaintext highlighter-rouge">sed '/pattern/g'</code></table></div><h3 id="address-specification"><span class="me-2">Address Specification</span><a href="#address-specification" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="table-wrapper"><table><thead><tr><th>Address Type<th>Example<th>Matches<tbody><tr><td>Line number<td><code class="language-plaintext highlighter-rouge">5</code><td>Line 5<tr><td>Line range<td><code class="language-plaintext highlighter-rouge">5,10</code><td>Lines 5 through 10<tr><td>Last line<td><code class="language-plaintext highlighter-rouge">$</code><td>Last line of input<tr><td>Regex<td><code class="language-plaintext highlighter-rouge">/pattern/</code><td>Lines matching pattern<tr><td>Regex range<td><code class="language-plaintext highlighter-rouge">/start/,/end/</code><td>From start pattern to end pattern<tr><td>Step<td><code class="language-plaintext highlighter-rouge">1~2</code><td>Every other line (1,3,5…)<tr><td>Negation<td><code class="language-plaintext highlighter-rouge">5!</code><td>All lines except line 5</table></div><h3 id="basic-sed-examples"><span class="me-2">Basic sed Examples</span><a href="#basic-sed-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- `site.alt_lang` can specify a language different from the UI -->
+<html lang="en" data-mode="light">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+  ><!-- Setup Open Graph image -->
+
+  
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Text Processing with sed and awk - The Professional’s Guide" />
+<meta name="author" content="Sreeju KS" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently." />
+<meta property="og:description" content="A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently." />
+<link rel="canonical" href="http://localhost:4000/text-processing-with-sed-and-awk/" />
+<meta property="og:url" content="http://localhost:4000/text-processing-with-sed-and-awk/" />
+<meta property="og:site_name" content="Sreeju KS" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-04-17T11:45:00+05:30" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Text Processing with sed and awk - The Professional’s Guide" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sreeju KS","url":"https://github.com/sreesreejuks/"},"dateModified":"2025-04-17T11:45:00+05:30","datePublished":"2025-04-17T11:45:00+05:30","description":"A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently.","headline":"Text Processing with sed and awk - The Professional’s Guide","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/text-processing-with-sed-and-awk/"},"url":"http://localhost:4000/text-processing-with-sed-and-awk/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <title>Text Processing with sed and awk - The Professional's Guide | Sreeju KS
+  </title>
+
+  <!--
+  The Favicons for Web, Android, Microsoft, and iOS (iPhone and iPad) Apps
+  Generated by: https://realfavicongenerator.net/
+-->
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+
+<link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="Sreeju KS">
+<meta name="application-name" content="Sreeju KS">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+
+  <!-- Resource Hints -->
+  
+    
+      
+        <link rel="preconnect" href="https://fonts.googleapis.com" >
+      
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" >
+      
+    
+      
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" >
+      
+    
+      
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" >
+      
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" >
+      
+    
+  
+
+  <!-- Bootstrap -->
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css">
+
+  <!-- Web Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css">
+
+  <!-- 3rd-party Dependencies -->
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
+  
+
+  
+    <!-- Image Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
+  
+
+  <!-- Scripts -->
+
+  <script src="/assets/js/dist/theme.min.js"></script>
+
+  <!-- JS selector for site. -->
+
+<!-- commons -->
+
+
+
+<!-- layout specified -->
+
+
+  
+
+  
+    <!-- image lazy-loading & popup & clipboard -->
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script>
+
+
+
+
+
+
+
+<script defer src="/assets/js/dist/post.min.js"></script>
+
+
+
+<!-- Pageviews -->
+
+  
+
+  
+
+
+
+  
+
+  <!-- A placeholder to allow defining custom metadata -->
+
+</head>
+
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E66HPNGEJR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E66HPNGEJR');
+  </script>
+
+  <body>
+    <!-- The Side Bar -->
+
+<aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
+  <header class="profile-wrapper">
+    <a href="/" id="avatar" class="rounded-circle"><img src="https://gravatar.com/avatar/ed8980df17ba2ea58cd48fe0c6964ca3?size=256" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a>
+
+    <a class="site-title d-block" href="/">Sreeju KS</a>
+    <p class="site-subtitle fst-italic mb-0">Documenting the journey of DevOps, cloud computing, and deployment</p>
+  </header>
+  <!-- .profile-wrapper -->
+
+  <nav class="flex-column flex-grow-1 w-100 ps-0">
+    <ul class="nav">
+      <!-- home -->
+      <li class="nav-item">
+        <a href="/" class="nav-link">
+          <i class="fa-fw fas fa-home"></i>
+          <span>HOME</span>
+        </a>
+      </li>
+      <!-- the real tabs -->
+      
+        <li class="nav-item">
+          <a href="/categories/" class="nav-link">
+            <i class="fa-fw fas fa-stream"></i>
+            
+
+            <span>CATEGORIES</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/tags/" class="nav-link">
+            <i class="fa-fw fas fa-tags"></i>
+            
+
+            <span>TAGS</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/archives/" class="nav-link">
+            <i class="fa-fw fas fa-archive"></i>
+            
+
+            <span>ARCHIVES</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/about/" class="nav-link">
+            <i class="fa-fw fas fa-info-circle"></i>
+            
+
+            <span>ABOUT</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+    </ul>
+  </nav>
+
+  <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
+    
+
+    
+      
+
+      
+        <a
+          href="https://github.com/sreesreejuks"
+          aria-label="github"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://www.linkedin.com/in/sreesreejuks"
+          aria-label="linkedin"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://www.instagram.com/sreesreejuks"
+          aria-label="instagram"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="javascript:location.href = 'mailto:' + ['mail','sreesreejuks.com'].join('@')"
+          aria-label="email"
+          
+
+          
+
+          
+
+          
+        >
+          <i class="fas fa-envelope"></i>
+        </a>
+      
+    
+  </div>
+  <!-- .sidebar-bottom -->
+</aside>
+<!-- #sidebar -->
+
+
+    <div id="main-wrapper" class="d-flex justify-content-center">
+      <div class="container d-flex flex-column px-xxl-5">
+        <!-- The Top Bar -->
+
+<header id="topbar-wrapper" aria-label="Top Bar">
+  <div
+    id="topbar"
+    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
+  >
+    <nav id="breadcrumb" aria-label="Breadcrumb">
+      
+
+      
+        
+          
+            <span>
+              <a href="/">Home</a>
+            </span>
+
+          
+        
+          
+            
+              <span>Text Processing with sed and awk - The Professional's Guide</span>
+            
+
+          
+        
+      
+    </nav>
+    <!-- endof #breadcrumb -->
+
+    <button type="button" id="sidebar-trigger" class="btn btn-link">
+      <i class="fas fa-bars fa-fw"></i>
+    </button>
+
+    <div id="topbar-title">
+      Post
+    </div>
+
+    <button type="button" id="search-trigger" class="btn btn-link">
+      <i class="fas fa-search fa-fw"></i>
+    </button>
+
+    <search id="search" class="align-items-center ms-3 ms-lg-0">
+      <i class="fas fa-search fa-fw"></i>
+      <input
+        class="form-control"
+        id="search-input"
+        type="search"
+        aria-label="search"
+        autocomplete="off"
+        placeholder="Search..."
+      >
+    </search>
+    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button>
+  </div>
+</header>
+
+
+        <div class="row flex-grow-1">
+          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              <!-- Refactor the HTML structure -->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Change the icon of checkbox -->
+
+
+
+<!-- Handle images -->
+
+
+
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- return -->
+
+
+
+
+
+
+
+
+
+
+<article class="px-1" data-toc="true">
+  <header>
+    <h1 data-toc-skip>Text Processing with sed and awk - The Professional's Guide</h1>
+    
+      <p class="post-desc fw-light mb-4">A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently.</p>
+    
+
+    <div class="post-meta text-muted">
+      <!-- published date -->
+      <span>
+        Posted
+        <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744870500"
+  data-df="ll"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  Apr 17, 2025
+</time>
+
+      </span>
+
+      <!-- lastmod date -->
+      
+
+      
+
+      <div class="d-flex justify-content-between">
+        <!-- author(s) -->
+        <span>
+          
+
+          By
+
+          <em>
+            
+              
+                <a href="https://github.com/sreesreejuks/">Sreeju KS</a>
+                
+              
+            
+          </em>
+        </span>
+
+        <div>
+          <!-- pageviews -->
+          
+
+          <!-- read time -->
+          <!-- Calculate the post's reading time, and display the word count in tooltip -->
+
+
+
+<!-- words per minute -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span
+  class="readtime"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="3896 words"
+>
+  <em>21 min</em> read</span>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  
+    <div id="toc-bar" class="d-flex align-items-center justify-content-between invisible">
+      <span class="label text-truncate">Text Processing with sed and awk - The Professional's Guide</span>
+      <button type="button" class="toc-trigger btn me-1">
+        <i class="fa-solid fa-list-ul fa-fw"></i>
+      </button>
+    </div>
+
+    <button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm">
+      <span class="label ps-2 pe-1">Contents</span>
+      <i class="fa-solid fa-angle-right fa-fw"></i>
+    </button>
+
+    <dialog id="toc-popup" class="p-0">
+      <div class="header d-flex flex-row align-items-center justify-content-between">
+        <div class="label text-truncate py-2 ms-4">Text Processing with sed and awk - The Professional's Guide</div>
+        <button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75">
+          <i class="fas fa-close"></i>
+        </button>
+      </div>
+      <div id="toc-popup-content" class="px-4 py-3 pb-4"></div>
+    </dialog>
+  
+
+  <div class="content">
+    <blockquote>
+  <p>“Give me sed, awk, and a terminal, and I can transform any text into exactly what I need.”</p>
+</blockquote>
+
+<h2 id="table-of-contents"><span class="me-2">Table of Contents</span><a href="#table-of-contents" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<ul>
+  <li><a href="#-beginner-vs-professional-approach">Beginner vs Professional Approach</a></li>
+  <li><a href="#-why-sed-and-awk-matter">Why sed and awk Matter</a></li>
+  <li><a href="#-understanding-the-stream-model">Understanding the Stream Model</a></li>
+  <li><a href="#-sed-fundamentals">sed Fundamentals</a></li>
+  <li><a href="#-awk-fundamentals">awk Fundamentals</a></li>
+  <li><a href="#-pattern-matching-techniques">Pattern Matching Techniques</a></li>
+  <li><a href="#-advanced-sed-examples">Advanced sed Examples</a></li>
+  <li><a href="#-advanced-awk-examples">Advanced awk Examples</a></li>
+  <li><a href="#-combining-with-other-tools">Combining with Other Tools</a></li>
+  <li><a href="#-common-recipes">Common Recipes</a></li>
+  <li><a href="#-performance-considerations">Performance Considerations</a></li>
+  <li><a href="#-script-organization">Script Organization</a></li>
+  <li><a href="#-debugging-techniques">Debugging Techniques</a></li>
+  <li><a href="#-final-thought">Final Thought</a></li>
+</ul>
+
+<h2 id="-beginner-vs-professional-approach"><span class="me-2">🎯 Beginner vs Professional Approach</span><a href="#-beginner-vs-professional-approach" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Beginner</th>
+      <th>Professional</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Uses GUI tools for text processing</td>
+      <td>Leverages sed/awk for speed and automation</td>
+    </tr>
+    <tr>
+      <td>Processes files one at a time</td>
+      <td>Processes multiple files with single commands</td>
+    </tr>
+    <tr>
+      <td>Edits files manually</td>
+      <td>Creates reusable sed/awk scripts</td>
+    </tr>
+    <tr>
+      <td>Struggles with complex transformations</td>
+      <td>Creates elegant one-liners for complex tasks</td>
+    </tr>
+    <tr>
+      <td>Limited to basic search and replace</td>
+      <td>Uses pattern matching and programmatic logic</td>
+    </tr>
+    <tr>
+      <td>Relies on specific examples from the internet</td>
+      <td>Understands core principles to create custom solutions</td>
+    </tr>
+    <tr>
+      <td>Only processes small datasets</td>
+      <td>Efficiently processes gigabytes of data</td>
+    </tr>
+    <tr>
+      <td>Uses temporary files for multi-step processing</td>
+      <td>Pipes commands together for efficiency</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> Don’t think of sed and awk as just “find and replace” tools - they’re complete text processing languages that can transform data in powerful ways.</p>
+</blockquote>
+
+<h2 id="-why-sed-and-awk-matter"><span class="me-2">🧠 Why sed and awk Matter</span><a href="#-why-sed-and-awk-matter" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>In a world of graphical interfaces and modern programming languages, sed and awk remain essential tools for several reasons:</p>
+
+<ol>
+  <li><strong>Ubiquity</strong> - Available on virtually every Linux/Unix system</li>
+  <li><strong>Efficiency</strong> - Process text without loading entire files into memory</li>
+  <li><strong>Streaming</strong> - Process data as it flows through pipelines</li>
+  <li><strong>Conciseness</strong> - Accomplish in one line what takes many in other languages</li>
+  <li><strong>Automation</strong> - Easily incorporate into scripts and scheduled tasks</li>
+  <li><strong>Speed</strong> - Process large files quickly without overhead</li>
+</ol>
+
+<p>The ability to manipulate text with sed and awk gives you superpowers in Linux environments, allowing you to:</p>
+
+<ul>
+  <li>Transform configuration files programmatically</li>
+  <li>Process log files to extract meaningful data</li>
+  <li>Convert data between different formats</li>
+  <li>Clean and normalize inconsistent data</li>
+  <li>Extract specific information from structured text</li>
+</ul>
+
+<p>For system administrators, DevOps engineers, and data analysts, mastering these tools means being able to solve in seconds what might take hours manually.</p>
+
+<h2 id="-understanding-the-stream-model"><span class="me-2">📚 Understanding the Stream Model</span><a href="#-understanding-the-stream-model" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Both sed and awk operate on a stream model, which is key to understanding how they work:</p>
+
+<h3 id="the-sed-stream-model"><span class="me-2">The sed Stream Model</span><a href="#the-sed-stream-model" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Input Stream → Pattern Space → Apply Commands → Output Stream
+</pre></td></tr></tbody></table></code></div></div>
+
+<ul>
+  <li><strong>Pattern Space</strong>: A working buffer that holds the current line</li>
+  <li><strong>Hold Space</strong>: An additional buffer for storing text between cycles</li>
+  <li><strong>Cycle</strong>: Reading a line, applying commands, printing, repeat</li>
+</ul>
+
+<h3 id="the-awk-stream-model"><span class="me-2">The awk Stream Model</span><a href="#the-awk-stream-model" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Input Stream → Records → Fields → Process → Output Stream
+</pre></td></tr></tbody></table></code></div></div>
+
+<ul>
+  <li><strong>Records</strong>: Usually lines, separated by record separator (RS, default newline)</li>
+  <li><strong>Fields</strong>: Parts of records, separated by field separator (FS, default whitespace)</li>
+  <li><strong>Pattern-Action Pairs</strong>: <code class="language-plaintext highlighter-rouge">pattern { action }</code> structure</li>
+</ul>
+
+<h3 id="comparison"><span class="me-2">Comparison</span><a href="#comparison" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>sed</th>
+      <th>awk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary purpose</td>
+      <td>Stream editor</td>
+      <td>Text processing language</td>
+    </tr>
+    <tr>
+      <td>Default processing unit</td>
+      <td>Line</td>
+      <td>Line (record) and fields</td>
+    </tr>
+    <tr>
+      <td>Programming constructs</td>
+      <td>Limited</td>
+      <td>Full featured (variables, loops, conditionals)</td>
+    </tr>
+    <tr>
+      <td>Math operations</td>
+      <td>Very limited</td>
+      <td>Extensive</td>
+    </tr>
+    <tr>
+      <td>Default output</td>
+      <td>Modified input</td>
+      <td>Lines matching patterns</td>
+    </tr>
+    <tr>
+      <td>Typical use cases</td>
+      <td>Find/replace, text transformations</td>
+      <td>Field-based processing, reports, data extraction</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p><strong>Info:</strong> Understanding this stream-based processing model helps visualize how data flows through these tools and why they’re so efficient for large files.</p>
+</blockquote>
+
+<h2 id="-sed-fundamentals"><span class="me-2">🧰 sed Fundamentals</span><a href="#-sed-fundamentals" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>sed (Stream EDitor) is designed for transforming text in a stream.</p>
+
+<h3 id="basic-sed-commands"><span class="me-2">Basic sed Commands</span><a href="#basic-sed-commands" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Purpose</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>Substitute</td>
+      <td><code class="language-plaintext highlighter-rouge">sed 's/old/new/'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">d</code></td>
+      <td>Delete</td>
+      <td><code class="language-plaintext highlighter-rouge">sed '/pattern/d'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">p</code></td>
+      <td>Print</td>
+      <td><code class="language-plaintext highlighter-rouge">sed -n '/pattern/p'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>Insert before</td>
+      <td><code class="language-plaintext highlighter-rouge">sed '/pattern/i New line'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">a</code></td>
+      <td>Append after</td>
+      <td><code class="language-plaintext highlighter-rouge">sed '/pattern/a New line'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">c</code></td>
+      <td>Change line</td>
+      <td><code class="language-plaintext highlighter-rouge">sed '/pattern/c New content'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">y</code></td>
+      <td>Transliterate</td>
+      <td><code class="language-plaintext highlighter-rouge">sed 'y/abc/ABC/'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">q</code></td>
+      <td>Quit processing</td>
+      <td><code class="language-plaintext highlighter-rouge">sed '/pattern/q'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">r</code></td>
+      <td>Read file</td>
+      <td><code class="language-plaintext highlighter-rouge">sed '/pattern/r file.txt'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">w</code></td>
+      <td>Write to file</td>
+      <td><code class="language-plaintext highlighter-rouge">sed '/pattern/w output.txt'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">n</code></td>
+      <td>Next line</td>
+      <td><code class="language-plaintext highlighter-rouge">sed 'n;s/pattern/replace/'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">h</code></td>
+      <td>Copy to hold space</td>
+      <td><code class="language-plaintext highlighter-rouge">sed '/pattern/h'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">g</code></td>
+      <td>Get from hold space</td>
+      <td><code class="language-plaintext highlighter-rouge">sed '/pattern/g'</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="address-specification"><span class="me-2">Address Specification</span><a href="#address-specification" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Address Type</th>
+      <th>Example</th>
+      <th>Matches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Line number</td>
+      <td><code class="language-plaintext highlighter-rouge">5</code></td>
+      <td>Line 5</td>
+    </tr>
+    <tr>
+      <td>Line range</td>
+      <td><code class="language-plaintext highlighter-rouge">5,10</code></td>
+      <td>Lines 5 through 10</td>
+    </tr>
+    <tr>
+      <td>Last line</td>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>Last line of input</td>
+    </tr>
+    <tr>
+      <td>Regex</td>
+      <td><code class="language-plaintext highlighter-rouge">/pattern/</code></td>
+      <td>Lines matching pattern</td>
+    </tr>
+    <tr>
+      <td>Regex range</td>
+      <td><code class="language-plaintext highlighter-rouge">/start/,/end/</code></td>
+      <td>From start pattern to end pattern</td>
+    </tr>
+    <tr>
+      <td>Step</td>
+      <td><code class="language-plaintext highlighter-rouge">1~2</code></td>
+      <td>Every other line (1,3,5…)</td>
+    </tr>
+    <tr>
+      <td>Negation</td>
+      <td><code class="language-plaintext highlighter-rouge">5!</code></td>
+      <td>All lines except line 5</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="basic-sed-examples"><span class="me-2">Basic sed Examples</span><a href="#basic-sed-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -31,7 +1593,7 @@
 27
 28
 29
-</pre><td class="rouge-code"><pre><span class="c"># Replace first occurrence of 'apple' with 'orange' in each line</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Replace first occurrence of 'apple' with 'orange' in each line</span>
 <span class="nb">sed</span> <span class="s1">'s/apple/orange/'</span> fruits.txt
 
 <span class="c"># Replace all occurrences of 'apple' with 'orange' in each line</span>
@@ -60,15 +1622,99 @@
 
 <span class="c"># Create backup before editing</span>
 <span class="nb">sed</span> <span class="nt">-i</span>.bak <span class="s1">'s/apple/orange/g'</span> fruits.txt
-</pre></table></code></div></div><blockquote><p><strong>Warning:</strong> The <code class="language-plaintext highlighter-rouge">-i</code> flag modifies files in-place. Always test your sed commands without <code class="language-plaintext highlighter-rouge">-i</code> first, or use <code class="language-plaintext highlighter-rouge">-i.bak</code> to create backups.</p></blockquote><h2 id="-awk-fundamentals"><span class="me-2">🔧 awk Fundamentals</span><a href="#-awk-fundamentals" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>awk is a pattern-matching, record-processing language particularly good for column-based data.</p><h3 id="basic-awk-structure"><span class="me-2">Basic awk Structure</span><a href="#basic-awk-structure" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Warning:</strong> The <code class="language-plaintext highlighter-rouge">-i</code> flag modifies files in-place. Always test your sed commands without <code class="language-plaintext highlighter-rouge">-i</code> first, or use <code class="language-plaintext highlighter-rouge">-i.bak</code> to create backups.</p>
+</blockquote>
+
+<h2 id="-awk-fundamentals"><span class="me-2">🔧 awk Fundamentals</span><a href="#-awk-fundamentals" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>awk is a pattern-matching, record-processing language particularly good for column-based data.</p>
+
+<h3 id="basic-awk-structure"><span class="me-2">Basic awk Structure</span><a href="#basic-awk-structure" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-</pre><td class="rouge-code"><pre><span class="nb">awk</span> <span class="s1">'BEGIN { initializations } 
+</pre></td><td class="rouge-code"><pre><span class="nb">awk</span> <span class="s1">'BEGIN { initializations } 
      pattern1 { actions }
      pattern2 { actions }
      END { final actions }'</span> filename
-</pre></table></code></div></div><h3 id="key-awk-concepts"><span class="me-2">Key awk Concepts</span><a href="#key-awk-concepts" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="table-wrapper"><table><thead><tr><th>Concept<th>Description<th>Example<tbody><tr><td><code class="language-plaintext highlighter-rouge">$0</code><td>Entire record (line)<td><code class="language-plaintext highlighter-rouge">{ print $0 }</code><tr><td><code class="language-plaintext highlighter-rouge">$1, $2, ...</code><td>Field 1, Field 2, etc.<td><code class="language-plaintext highlighter-rouge">{ print $1, $3 }</code><tr><td><code class="language-plaintext highlighter-rouge">NF</code><td>Number of fields<td><code class="language-plaintext highlighter-rouge">{ print NF }</code><tr><td><code class="language-plaintext highlighter-rouge">NR</code><td>Record number (line number)<td><code class="language-plaintext highlighter-rouge">{ print NR, $0 }</code><tr><td><code class="language-plaintext highlighter-rouge">FS</code><td>Field separator<td><code class="language-plaintext highlighter-rouge">BEGIN { FS="," }</code><tr><td><code class="language-plaintext highlighter-rouge">OFS</code><td>Output field separator<td><code class="language-plaintext highlighter-rouge">BEGIN { OFS="\t" }</code><tr><td><code class="language-plaintext highlighter-rouge">RS</code><td>Record separator<td><code class="language-plaintext highlighter-rouge">BEGIN { RS="\n\n" }</code><tr><td><code class="language-plaintext highlighter-rouge">ORS</code><td>Output record separator<td><code class="language-plaintext highlighter-rouge">BEGIN { ORS="\n\n" }</code><tr><td>Arrays<td>Associative arrays<td><code class="language-plaintext highlighter-rouge">count[$1]++</code><tr><td>Functions<td>Built-in and user-defined<td><code class="language-plaintext highlighter-rouge">{ print length($1) }</code></table></div><h3 id="basic-awk-examples"><span class="me-2">Basic awk Examples</span><a href="#basic-awk-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="key-awk-concepts"><span class="me-2">Key awk Concepts</span><a href="#key-awk-concepts" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$0</code></td>
+      <td>Entire record (line)</td>
+      <td><code class="language-plaintext highlighter-rouge">{ print $0 }</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$1, $2, ...</code></td>
+      <td>Field 1, Field 2, etc.</td>
+      <td><code class="language-plaintext highlighter-rouge">{ print $1, $3 }</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NF</code></td>
+      <td>Number of fields</td>
+      <td><code class="language-plaintext highlighter-rouge">{ print NF }</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NR</code></td>
+      <td>Record number (line number)</td>
+      <td><code class="language-plaintext highlighter-rouge">{ print NR, $0 }</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">FS</code></td>
+      <td>Field separator</td>
+      <td><code class="language-plaintext highlighter-rouge">BEGIN { FS="," }</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OFS</code></td>
+      <td>Output field separator</td>
+      <td><code class="language-plaintext highlighter-rouge">BEGIN { OFS="\t" }</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RS</code></td>
+      <td>Record separator</td>
+      <td><code class="language-plaintext highlighter-rouge">BEGIN { RS="\n\n" }</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ORS</code></td>
+      <td>Output record separator</td>
+      <td><code class="language-plaintext highlighter-rouge">BEGIN { ORS="\n\n" }</code></td>
+    </tr>
+    <tr>
+      <td>Arrays</td>
+      <td>Associative arrays</td>
+      <td><code class="language-plaintext highlighter-rouge">count[$1]++</code></td>
+    </tr>
+    <tr>
+      <td>Functions</td>
+      <td>Built-in and user-defined</td>
+      <td><code class="language-plaintext highlighter-rouge">{ print length($1) }</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="basic-awk-examples"><span class="me-2">Basic awk Examples</span><a href="#basic-awk-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -97,7 +1743,7 @@
 27
 28
 29
-</pre><td class="rouge-code"><pre><span class="c"># Print entire file</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Print entire file</span>
 <span class="nb">awk</span> <span class="s1">'{ print }'</span> data.txt
 
 <span class="c"># Print first and third field of each line</span>
@@ -126,7 +1772,48 @@
 
 <span class="c"># Use multiple field separators (space or comma)</span>
 <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">'[ ,]'</span> <span class="s1">'{ print $1, $3 }'</span> mixed.txt
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> Unlike sed, awk doesn’t print by default when you specify a pattern without an action. It prints only if the pattern evaluates to true: <code class="language-plaintext highlighter-rouge">awk '$3 &gt; 10' data.txt</code></p></blockquote><h2 id="-pattern-matching-techniques"><span class="me-2">🔍 Pattern Matching Techniques</span><a href="#-pattern-matching-techniques" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Both sed and awk use regular expressions for pattern matching, but with different syntax and capabilities.</p><h3 id="basic-pattern-matching"><span class="me-2">Basic Pattern Matching</span><a href="#basic-pattern-matching" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="table-wrapper"><table><thead><tr><th>Tool<th>Basic Match<th>Case Insensitive<th>Extended Regex<tbody><tr><td>sed<td><code class="language-plaintext highlighter-rouge">/pattern/</code><td>No direct flag<td><code class="language-plaintext highlighter-rouge">-E</code> for extended regex<tr><td>awk<td><code class="language-plaintext highlighter-rouge">/pattern/</code><td>Use tolower()<td>Supports extended by default</table></div><h3 id="sed-pattern-examples"><span class="me-2">sed Pattern Examples</span><a href="#sed-pattern-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> Unlike sed, awk doesn’t print by default when you specify a pattern without an action. It prints only if the pattern evaluates to true: <code class="language-plaintext highlighter-rouge">awk '$3 &gt; 10' data.txt</code></p>
+</blockquote>
+
+<h2 id="-pattern-matching-techniques"><span class="me-2">🔍 Pattern Matching Techniques</span><a href="#-pattern-matching-techniques" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Both sed and awk use regular expressions for pattern matching, but with different syntax and capabilities.</p>
+
+<h3 id="basic-pattern-matching"><span class="me-2">Basic Pattern Matching</span><a href="#basic-pattern-matching" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Basic Match</th>
+      <th>Case Insensitive</th>
+      <th>Extended Regex</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sed</td>
+      <td><code class="language-plaintext highlighter-rouge">/pattern/</code></td>
+      <td>No direct flag</td>
+      <td><code class="language-plaintext highlighter-rouge">-E</code> for extended regex</td>
+    </tr>
+    <tr>
+      <td>awk</td>
+      <td><code class="language-plaintext highlighter-rouge">/pattern/</code></td>
+      <td>Use tolower()</td>
+      <td>Supports extended by default</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="sed-pattern-examples"><span class="me-2">sed Pattern Examples</span><a href="#sed-pattern-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -143,7 +1830,7 @@
 15
 16
 17
-</pre><td class="rouge-code"><pre><span class="c"># Match exact string</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Match exact string</span>
 <span class="nb">sed</span> <span class="s1">'/apple/s/fruit/food/'</span> data.txt
 
 <span class="c"># Match beginning of line</span>
@@ -160,7 +1847,13 @@
 
 <span class="c"># Multiple operations with -e</span>
 <span class="nb">sed</span> <span class="nt">-e</span> <span class="s1">'/apple/d'</span> <span class="nt">-e</span> <span class="s1">'/orange/d'</span> data.txt
-</pre></table></code></div></div><h3 id="awk-pattern-examples"><span class="me-2">awk Pattern Examples</span><a href="#awk-pattern-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="awk-pattern-examples"><span class="me-2">awk Pattern Examples</span><a href="#awk-pattern-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -180,7 +1873,7 @@
 18
 19
 20
-</pre><td class="rouge-code"><pre><span class="c"># Simple string match</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Simple string match</span>
 <span class="nb">awk</span> <span class="s1">'/error/ { print }'</span> logfile.txt
 
 <span class="c"># Match specific field</span>
@@ -200,7 +1893,21 @@
 
 <span class="c"># Range pattern (between start and end)</span>
 <span class="nb">awk</span> <span class="s1">'/START/,/END/ { print }'</span> data.txt
-</pre></table></code></div></div><blockquote><p><strong>Note:</strong> awk pattern matching is more powerful than sed because you can target specific fields and combine with programming logic.</p></blockquote><h2 id="-advanced-sed-examples"><span class="me-2">🚀 Advanced sed Examples</span><a href="#-advanced-sed-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Moving beyond basics, these examples demonstrate sed’s power:</p><h3 id="multi-line-operations"><span class="me-2">Multi-line Operations</span><a href="#multi-line-operations" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Note:</strong> awk pattern matching is more powerful than sed because you can target specific fields and combine with programming logic.</p>
+</blockquote>
+
+<h2 id="-advanced-sed-examples"><span class="me-2">🚀 Advanced sed Examples</span><a href="#-advanced-sed-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Moving beyond basics, these examples demonstrate sed’s power:</p>
+
+<h3 id="multi-line-operations"><span class="me-2">Multi-line Operations</span><a href="#multi-line-operations" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -211,7 +1918,7 @@
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Join lines ending with backslash</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Join lines ending with backslash</span>
 <span class="nb">sed</span> <span class="nt">-e</span> :a <span class="nt">-e</span> <span class="s1">'/\\$/N; s/\\\n//; ta'</span> file.txt
 
 <span class="c"># Join every pair of lines</span>
@@ -222,7 +1929,13 @@
 
 <span class="c"># Convert multi-blank lines to single blank</span>
 <span class="nb">sed</span> <span class="s1">'/^$/N;/^\n$/D'</span> file.txt
-</pre></table></code></div></div><h3 id="using-hold-space"><span class="me-2">Using Hold Space</span><a href="#using-hold-space" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="using-hold-space"><span class="me-2">Using Hold Space</span><a href="#using-hold-space" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -233,7 +1946,7 @@
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Reverse order of lines</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Reverse order of lines</span>
 <span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'1!G;h;$p'</span> file.txt
 
 <span class="c"># Duplicate each line</span>
@@ -244,7 +1957,13 @@
 
 <span class="c"># Swap two words</span>
 <span class="nb">sed</span> <span class="s1">'s/\(word1\) \(word2\)/\2 \1/'</span> file.txt
-</pre></table></code></div></div><h3 id="control-flow-in-sed"><span class="me-2">Control Flow in sed</span><a href="#control-flow-in-sed" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="control-flow-in-sed"><span class="me-2">Control Flow in sed</span><a href="#control-flow-in-sed" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -255,7 +1974,7 @@
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Process until certain pattern (quit after)</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Process until certain pattern (quit after)</span>
 <span class="nb">sed</span> <span class="s1">'/END OF SECTION/q'</span> file.txt
 
 <span class="c"># Skip processing for certain lines</span>
@@ -266,7 +1985,13 @@
 
 <span class="c"># Conditional branching with labels and tests</span>
 <span class="nb">sed</span> <span class="nt">-e</span> <span class="s1">'/start/,/end/{'</span> <span class="nt">-e</span> <span class="s1">'/find/b found'</span> <span class="nt">-e</span> <span class="s1">'b'</span> <span class="nt">-e</span> <span class="s1">':found'</span> <span class="nt">-e</span> <span class="s1">'s/find/replace/'</span> <span class="nt">-e</span> <span class="s1">'}'</span> file.txt
-</pre></table></code></div></div><h3 id="real-world-sed-recipes"><span class="me-2">Real-world sed Recipes</span><a href="#real-world-sed-recipes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="real-world-sed-recipes"><span class="me-2">Real-world sed Recipes</span><a href="#real-world-sed-recipes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -286,7 +2011,7 @@
 18
 19
 20
-</pre><td class="rouge-code"><pre><span class="c"># Convert Windows text files to Unix</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Convert Windows text files to Unix</span>
 <span class="nb">sed</span> <span class="s1">'s/\r$//'</span> windows_file.txt <span class="o">&gt;</span> unix_file.txt
 
 <span class="c"># Extract text between HTML tags</span>
@@ -306,7 +2031,21 @@
 
 <span class="c"># Create a backup script from crontab entries</span>
 <span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'s/^.*\(\/path\/to\/backup[^[:space:]]*\).*$/\1/p'</span> crontab.txt
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> For complex sed operations, use multiple <code class="language-plaintext highlighter-rouge">-e</code> options or write a sed script file with one command per line: <code class="language-plaintext highlighter-rouge">sed -f script.sed input.txt</code></p></blockquote><h2 id="-advanced-awk-examples"><span class="me-2">🔨 Advanced awk Examples</span><a href="#-advanced-awk-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>awk’s programming capabilities make it suited for more complex tasks:</p><h3 id="control-flow"><span class="me-2">Control Flow</span><a href="#control-flow" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> For complex sed operations, use multiple <code class="language-plaintext highlighter-rouge">-e</code> options or write a sed script file with one command per line: <code class="language-plaintext highlighter-rouge">sed -f script.sed input.txt</code></p>
+</blockquote>
+
+<h2 id="-advanced-awk-examples"><span class="me-2">🔨 Advanced awk Examples</span><a href="#-advanced-awk-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>awk’s programming capabilities make it suited for more complex tasks:</p>
+
+<h3 id="control-flow"><span class="me-2">Control Flow</span><a href="#control-flow" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -317,7 +2056,7 @@
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># If-else conditional</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># If-else conditional</span>
 <span class="nb">awk</span> <span class="s1">'{if ($3 &gt; 100) print $1, "High"; else print $1, "Low"}'</span> data.txt
 
 <span class="c"># For loops</span>
@@ -328,7 +2067,13 @@
 
 <span class="c"># Continue and break</span>
 <span class="nb">awk</span> <span class="s1">'{for (i=1; i&lt;=NF; i++) {if ($i == "skip") continue; if ($i == "stop") break; print $i}}'</span> data.txt
-</pre></table></code></div></div><h3 id="functions-and-calculations"><span class="me-2">Functions and Calculations</span><a href="#functions-and-calculations" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="functions-and-calculations"><span class="me-2">Functions and Calculations</span><a href="#functions-and-calculations" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -342,7 +2087,7 @@
 12
 13
 14
-</pre><td class="rouge-code"><pre><span class="c"># Calculate average of column</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Calculate average of column</span>
 <span class="nb">awk</span> <span class="s1">'{sum += $2} END {print "Average:", sum/NR}'</span> data.txt
 
 <span class="c"># Find minimum and maximum</span>
@@ -356,7 +2101,13 @@
 
 <span class="c"># Use system time</span>
 <span class="nb">awk</span> <span class="s1">'BEGIN {srand(); print rand()}'</span>
-</pre></table></code></div></div><h3 id="advanced-data-processing"><span class="me-2">Advanced Data Processing</span><a href="#advanced-data-processing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="advanced-data-processing"><span class="me-2">Advanced Data Processing</span><a href="#advanced-data-processing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -370,7 +2121,7 @@
 12
 13
 14
-</pre><td class="rouge-code"><pre><span class="c"># Pivot table (count by two dimensions)</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Pivot table (count by two dimensions)</span>
 <span class="nb">awk</span> <span class="s1">'{count[$1,$2]++} END {for (key in count) {split(key, arr, SUBSEP); print arr[1], arr[2], count[key]}}'</span> data.txt
 
 <span class="c"># Parse key-value pairs</span>
@@ -384,7 +2135,13 @@
 
 <span class="c"># Running totals and window calculations</span>
 <span class="nb">awk</span> <span class="s1">'{sum += $1; print $1, sum, sum/NR}'</span> data.txt
-</pre></table></code></div></div><h3 id="real-world-awk-recipes"><span class="me-2">Real-world awk Recipes</span><a href="#real-world-awk-recipes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="real-world-awk-recipes"><span class="me-2">Real-world awk Recipes</span><a href="#real-world-awk-recipes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -401,7 +2158,7 @@
 15
 16
 17
-</pre><td class="rouge-code"><pre><span class="c"># Parse Apache/Nginx logs</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Parse Apache/Nginx logs</span>
 <span class="nb">awk</span> <span class="s1">'{split($0, a, "\""); print a[2]}'</span> access_log
 
 <span class="c"># Extract domain from email addresses</span>
@@ -418,7 +2175,21 @@
 
 <span class="c"># Generate shell commands</span>
 <span class="nb">awk</span> <span class="s1">'{print "mkdir -p " $1}'</span> directories.txt
-</pre></table></code></div></div><blockquote><p><strong>Info:</strong> awk’s ability to handle structured data makes it ideal for transforming data between different formats and generating reports.</p></blockquote><h2 id="-combining-with-other-tools"><span class="me-2">🔄 Combining with Other Tools</span><a href="#-combining-with-other-tools" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>sed and awk reach their full potential when combined with other Unix tools:</p><h3 id="common-pipeline-combinations"><span class="me-2">Common Pipeline Combinations</span><a href="#common-pipeline-combinations" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Info:</strong> awk’s ability to handle structured data makes it ideal for transforming data between different formats and generating reports.</p>
+</blockquote>
+
+<h2 id="-combining-with-other-tools"><span class="me-2">🔄 Combining with Other Tools</span><a href="#-combining-with-other-tools" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>sed and awk reach their full potential when combined with other Unix tools:</p>
+
+<h3 id="common-pipeline-combinations"><span class="me-2">Common Pipeline Combinations</span><a href="#common-pipeline-combinations" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -432,7 +2203,7 @@
 12
 13
 14
-</pre><td class="rouge-code"><pre><span class="c"># Extract, sort, and count unique values</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Extract, sort, and count unique values</span>
 <span class="nb">grep</span> <span class="s2">"ERROR"</span> logfile.txt | <span class="nb">awk</span> <span class="s1">'{print $4}'</span> | <span class="nb">sort</span> | <span class="nb">uniq</span> <span class="nt">-c</span> | <span class="nb">sort</span> <span class="nt">-nr</span>
 
 <span class="c"># Process only certain lines before transforming</span>
@@ -446,7 +2217,13 @@
 
 <span class="c"># Chain multiple transformations</span>
 <span class="nb">sed</span> <span class="s1">'s/^/"/; s/$/"/; s/\t/","/g'</span> data.txt | <span class="nb">awk</span> <span class="nt">-F</span>, <span class="s1">'{print $2,$1,$3}'</span> <span class="nv">OFS</span><span class="o">=</span><span class="s2">","</span>
-</pre></table></code></div></div><h3 id="creating-reusable-scripts"><span class="me-2">Creating Reusable Scripts</span><a href="#creating-reusable-scripts" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="creating-reusable-scripts"><span class="me-2">Creating Reusable Scripts</span><a href="#creating-reusable-scripts" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -462,7 +2239,7 @@
 14
 15
 16
-</pre><td class="rouge-code"><pre><span class="c"># CSV to markdown table converter</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># CSV to markdown table converter</span>
 <span class="c">#!/bin/bash</span>
 <span class="c"># csv2md.sh</span>
 <span class="nb">echo</span> <span class="s1">'| '</span><span class="si">$(</span><span class="nb">head</span> <span class="nt">-1</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> | <span class="nb">sed</span> <span class="s1">'s/,/ | /g'</span><span class="si">)</span><span class="s1">' |'</span>
@@ -478,7 +2255,21 @@
 <span class="c">#!/bin/bash</span>
 <span class="c"># enable_config.sh</span>
 <span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">'/^#'</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span><span class="s1">'=/s/^#//'</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span>
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> Creating small, reusable scripts that combine sed, awk, and other tools helps build a personal toolkit for common tasks.</p></blockquote><h2 id="-common-recipes"><span class="me-2">📋 Common Recipes</span><a href="#-common-recipes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Here are some frequently needed text processing recipes:</p><h3 id="data-cleaning"><span class="me-2">Data Cleaning</span><a href="#data-cleaning" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> Creating small, reusable scripts that combine sed, awk, and other tools helps build a personal toolkit for common tasks.</p>
+</blockquote>
+
+<h2 id="-common-recipes"><span class="me-2">📋 Common Recipes</span><a href="#-common-recipes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Here are some frequently needed text processing recipes:</p>
+
+<h3 id="data-cleaning"><span class="me-2">Data Cleaning</span><a href="#data-cleaning" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -495,7 +2286,7 @@
 15
 16
 17
-</pre><td class="rouge-code"><pre><span class="c"># Remove trailing whitespace</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Remove trailing whitespace</span>
 <span class="nb">sed</span> <span class="s1">'s/[ \t]*$//'</span> file.txt
 
 <span class="c"># Remove blank lines</span>
@@ -512,7 +2303,13 @@
 
 <span class="c"># Normalize phone numbers</span>
 <span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'s/[\(\)\.\-\ ]//g; s/^([0-9]{3})([0-9]{3})([0-9]{4})$/(\1) \2-\3/'</span> phones.txt
-</pre></table></code></div></div><h3 id="data-extraction"><span class="me-2">Data Extraction</span><a href="#data-extraction" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="data-extraction"><span class="me-2">Data Extraction</span><a href="#data-extraction" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -526,7 +2323,7 @@
 12
 13
 14
-</pre><td class="rouge-code"><pre><span class="c"># Extract email addresses</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Extract email addresses</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="nt">-o</span> <span class="s1">'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'</span> file.txt
 
 <span class="c"># Extract IP addresses</span>
@@ -540,7 +2337,13 @@
 
 <span class="c"># Extract text between delimiters</span>
 <span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/START/,/END/p'</span> file.txt | <span class="nb">sed</span> <span class="s1">'1d;$d'</span>
-</pre></table></code></div></div><h3 id="data-transformation"><span class="me-2">Data Transformation</span><a href="#data-transformation" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="data-transformation"><span class="me-2">Data Transformation</span><a href="#data-transformation" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -557,7 +2360,7 @@
 15
 16
 17
-</pre><td class="rouge-code"><pre><span class="c"># Convert lowercase to uppercase</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Convert lowercase to uppercase</span>
 <span class="nb">awk</span> <span class="s1">'{print toupper($0)}'</span> file.txt
 
 <span class="c"># Convert JSON to CSV (simple)</span>
@@ -574,7 +2377,13 @@
 
 <span class="c"># Generate SQL from data file</span>
 <span class="nb">awk</span> <span class="s1">'{print "INSERT INTO users (name, age) VALUES ('</span><span class="s2">"'"</span><span class="s1">'" $1 "'</span><span class="s2">"'"</span><span class="s1">', " $2 ");"}'</span> users.txt
-</pre></table></code></div></div><h3 id="configuration-management"><span class="me-2">Configuration Management</span><a href="#configuration-management" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="configuration-management"><span class="me-2">Configuration Management</span><a href="#configuration-management" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -591,7 +2400,7 @@
 15
 16
 17
-</pre><td class="rouge-code"><pre><span class="c"># Comment out matching lines</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Comment out matching lines</span>
 <span class="nb">sed</span> <span class="s1">'/pattern/s/^/#/'</span> config.txt
 
 <span class="c"># Uncomment matching lines</span>
@@ -608,7 +2417,21 @@
 new_setting1=value1\
 new_setting2=value2
 }'</span> config.txt
-</pre></table></code></div></div><blockquote><p><strong>Warning:</strong> Always make backups before batch-modifying configuration files: <code class="language-plaintext highlighter-rouge">cp config.txt config.txt.bak</code></p></blockquote><h2 id="-performance-considerations"><span class="me-2">⚡ Performance Considerations</span><a href="#-performance-considerations" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>When processing very large files or many files, performance matters:</p><h3 id="optimizing-sed-performance"><span class="me-2">Optimizing sed Performance</span><a href="#optimizing-sed-performance" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Warning:</strong> Always make backups before batch-modifying configuration files: <code class="language-plaintext highlighter-rouge">cp config.txt config.txt.bak</code></p>
+</blockquote>
+
+<h2 id="-performance-considerations"><span class="me-2">⚡ Performance Considerations</span><a href="#-performance-considerations" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>When processing very large files or many files, performance matters:</p>
+
+<h3 id="optimizing-sed-performance"><span class="me-2">Optimizing sed Performance</span><a href="#optimizing-sed-performance" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -622,7 +2445,7 @@ new_setting2=value2
 12
 13
 14
-</pre><td class="rouge-code"><pre><span class="c"># Use -E instead of excessive backslashing</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Use -E instead of excessive backslashing</span>
 <span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'s/(pattern1|pattern2)/replacement/'</span> file.txt  <span class="c"># Faster than basic regex</span>
 
 <span class="c"># Quit early when possible</span>
@@ -636,7 +2459,13 @@ new_setting2=value2
 
 <span class="c"># Use more specific patterns to avoid unnecessary work</span>
 <span class="nb">sed</span> <span class="s1">'/specific_context/s/pattern/replacement/'</span> file.txt  <span class="c"># Only substitute in context</span>
-</pre></table></code></div></div><h3 id="optimizing-awk-performance"><span class="me-2">Optimizing awk Performance</span><a href="#optimizing-awk-performance" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="optimizing-awk-performance"><span class="me-2">Optimizing awk Performance</span><a href="#optimizing-awk-performance" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -650,7 +2479,7 @@ new_setting2=value2
 12
 13
 14
-</pre><td class="rouge-code"><pre><span class="c"># Use more specific patterns before actions</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Use more specific patterns before actions</span>
 <span class="nb">awk</span> <span class="s1">'$1 == "needle" {print $2}'</span> haystack.txt  <span class="c"># Better than scanning every line</span>
 
 <span class="c"># Exit early when done</span>
@@ -664,7 +2493,13 @@ new_setting2=value2
 
 <span class="c"># Pre-compile patterns for repeated use</span>
 <span class="nb">awk</span> <span class="s1">'BEGIN {pattern = "^[0-9]+$"} $1 ~ pattern {print}'</span> data.txt
-</pre></table></code></div></div><h3 id="general-performance-tips"><span class="me-2">General Performance Tips</span><a href="#general-performance-tips" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="general-performance-tips"><span class="me-2">General Performance Tips</span><a href="#general-performance-tips" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -675,7 +2510,7 @@ new_setting2=value2
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Use grep to pre-filter</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Use grep to pre-filter</span>
 <span class="nb">grep</span> <span class="s2">"relevant"</span> huge_file.txt | <span class="nb">awk</span> <span class="s1">'{print $2, $3}'</span>
 
 <span class="c"># Process file once with multiple operations</span>
@@ -686,7 +2521,21 @@ new_setting2=value2
 
 <span class="c"># Use parallel processing (GNU parallel)</span>
 parallel <span class="s2">"sed 's/pattern/replacement/' {} &gt; {}.out"</span> ::: file1.txt file2.txt file3.txt
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> When performance matters, test with increasingly large datasets to identify bottlenecks.</p></blockquote><h2 id="-script-organization"><span class="me-2">📂 Script Organization</span><a href="#-script-organization" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>For complex text processing tasks, organize your sed and awk scripts properly:</p><h3 id="sed-script-files"><span class="me-2">sed Script Files</span><a href="#sed-script-files" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> When performance matters, test with increasingly large datasets to identify bottlenecks.</p>
+</blockquote>
+
+<h2 id="-script-organization"><span class="me-2">📂 Script Organization</span><a href="#-script-organization" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>For complex text processing tasks, organize your sed and awk scripts properly:</p>
+
+<h3 id="sed-script-files"><span class="me-2">sed Script Files</span><a href="#sed-script-files" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -698,7 +2547,7 @@ parallel <span class="s2">"sed 's/pattern/replacement/' {} &gt; {}.out"</span> :
 10
 11
 12
-</pre><td class="rouge-code"><pre><span class="c"># Organize commands in a file (script.sed)</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Organize commands in a file (script.sed)</span>
 <span class="c"># Add comments with # at start of line</span>
 <span class="c"># Convert Windows to Unix</span>
 s/<span class="se">\r</span><span class="nv">$/</span>/
@@ -710,7 +2559,13 @@ s/pattern2/replacement2/g
 
 <span class="c"># Run with:</span>
 <span class="nb">sed</span> <span class="nt">-f</span> script.sed input.txt
-</pre></table></code></div></div><h3 id="awk-script-files"><span class="me-2">awk Script Files</span><a href="#awk-script-files" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="awk-script-files"><span class="me-2">awk Script Files</span><a href="#awk-script-files" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -742,7 +2597,7 @@ s/pattern2/replacement2/g
 30
 31
 32
-</pre><td class="rouge-code"><pre><span class="c"># Create structured awk program (script.awk)</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Create structured awk program (script.awk)</span>
 <span class="c">#!/usr/bin/awk -f</span>
 
 <span class="c"># Define variables</span>
@@ -774,7 +2629,13 @@ END <span class="o">{</span>
 
 <span class="c"># Run with:</span>
 <span class="nb">awk</span> <span class="nt">-f</span> script.awk input.csv
-</pre></table></code></div></div><h3 id="shell-script-wrappers"><span class="me-2">Shell Script Wrappers</span><a href="#shell-script-wrappers" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="shell-script-wrappers"><span class="me-2">Shell Script Wrappers</span><a href="#shell-script-wrappers" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -808,7 +2669,7 @@ END <span class="o">{</span>
 32
 33
 34
-</pre><td class="rouge-code"><pre><span class="c">#!/bin/bash</span>
+</pre></td><td class="rouge-code"><pre><span class="c">#!/bin/bash</span>
 <span class="c"># data_transformer.sh</span>
 
 <span class="c"># Check arguments</span>
@@ -842,7 +2703,21 @@ END <span class="o">{</span>
 <span class="k">esac</span>
 
 <span class="nb">echo</span> <span class="s2">"Transformation complete: </span><span class="nv">$INPUT</span><span class="s2"> → </span><span class="nv">$OUTPUT</span><span class="s2">"</span>
-</pre></table></code></div></div><blockquote><p><strong>Note:</strong> Embedding sed/awk in shell scripts makes your text processing more reusable and maintainable.</p></blockquote><h2 id="-debugging-techniques"><span class="me-2">🔍 Debugging Techniques</span><a href="#-debugging-techniques" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Troubleshooting complex sed and awk scripts:</p><h3 id="debugging-sed"><span class="me-2">Debugging sed</span><a href="#debugging-sed" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Note:</strong> Embedding sed/awk in shell scripts makes your text processing more reusable and maintainable.</p>
+</blockquote>
+
+<h2 id="-debugging-techniques"><span class="me-2">🔍 Debugging Techniques</span><a href="#-debugging-techniques" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Troubleshooting complex sed and awk scripts:</p>
+
+<h3 id="debugging-sed"><span class="me-2">Debugging sed</span><a href="#debugging-sed" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -856,7 +2731,7 @@ END <span class="o">{</span>
 12
 13
 14
-</pre><td class="rouge-code"><pre><span class="c"># Show what would change without making changes</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Show what would change without making changes</span>
 <span class="nb">sed</span> <span class="nt">--debug</span> <span class="s1">'s/pattern/replacement/g'</span> file.txt
 
 <span class="c"># Print line numbers with content</span>
@@ -870,7 +2745,13 @@ END <span class="o">{</span>
 
 <span class="c"># Test script on a smaller sample</span>
 <span class="nb">head</span> <span class="nt">-100</span> big_file.txt | <span class="nb">sed</span> <span class="nt">-f</span> script.sed
-</pre></table></code></div></div><h3 id="debugging-awk"><span class="me-2">Debugging awk</span><a href="#debugging-awk" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="debugging-awk"><span class="me-2">Debugging awk</span><a href="#debugging-awk" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -887,7 +2768,7 @@ END <span class="o">{</span>
 15
 16
 17
-</pre><td class="rouge-code"><pre><span class="c"># Print variables and values</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Print variables and values</span>
 <span class="nb">awk</span> <span class="s1">'{print "Debug:", $1, $2, NR, NF; process rest normally...}'</span> file.txt
 
 <span class="c"># Trace all variables at critical points</span>
@@ -904,7 +2785,22 @@ END <span class="o">{</span>
     debug {print "DEBUG: Processing " $0}
     {process normally...}
 '</span> file.txt
-</pre></table></code></div></div><h3 id="general-debugging-tips"><span class="me-2">General Debugging Tips</span><a href="#general-debugging-tips" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><ol><li>Test on small inputs first<li>Break complex pipelines into stages, examining output at each step<li>Use temporary files to capture intermediate results<li>Add visible markers to track transformations<li>Test edge cases: empty files, single lines, unusual characters</ol><p>Example of breaking down a pipeline:</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="general-debugging-tips"><span class="me-2">General Debugging Tips</span><a href="#general-debugging-tips" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<ol>
+  <li>Test on small inputs first</li>
+  <li>Break complex pipelines into stages, examining output at each step</li>
+  <li>Use temporary files to capture intermediate results</li>
+  <li>Add visible markers to track transformations</li>
+  <li>Test edge cases: empty files, single lines, unusual characters</li>
+</ol>
+
+<p>Example of breaking down a pipeline:</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -914,7 +2810,7 @@ END <span class="o">{</span>
 8
 9
 10
-</pre><td class="rouge-code"><pre><span class="c"># Instead of this complex pipeline</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Instead of this complex pipeline</span>
 <span class="nb">cat </span>file.txt | <span class="nb">sed</span> <span class="s1">'s/a/A/g'</span> | <span class="nb">awk</span> <span class="s1">'{print $2}'</span> | <span class="nb">sort</span> | <span class="nb">uniq</span> <span class="nt">-c</span> | <span class="nb">sort</span> <span class="nt">-nr</span> <span class="o">&gt;</span> result.txt
 
 <span class="c"># Debug step by step</span>
@@ -924,4 +2820,4299 @@ END <span class="o">{</span>
 <span class="nb">sort </span>step3.txt <span class="o">&gt;</span> step4.txt
 <span class="nb">uniq</span> <span class="nt">-c</span> step4.txt <span class="o">&gt;</span> step5.txt
 <span class="nb">sort</span> <span class="nt">-nr</span> step5.txt <span class="o">&gt;</span> result.txt
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> Use <code class="language-plaintext highlighter-rouge">echo '...' | sed '...'</code> to test sed commands on simple strings before applying to files.</p></blockquote><h2 id="-final-thought"><span class="me-2">📌 Final Thought</span><a href="#-final-thought" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><blockquote><p>“sed and awk aren’t just tools - they’re languages that let you talk directly to your data, asking it questions and transforming it at will.”</p></blockquote><p>Mastering sed and awk represents a fundamental shift in how you approach text processing problems. While beginners copy-paste commands without understanding, professionals develop fluency in these languages that allows them to compose solutions on the fly.</p><p>The real power comes not from memorizing commands, but from understanding the stream processing model and pattern-action paradigm. With that foundation, you can combine these tools to solve almost any text processing challenge.</p><p>Remember that even complex transformations can often be broken down into a series of small, understandable steps. Don’t be afraid to write your solutions incrementally, testing each component before combining them into elegant pipelines.</p><h2 id="related-articles"><span class="me-2">Related Articles</span><a href="#related-articles" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><a href="/linux-beginner-vs-professional-mindset">Linux Beginner vs Professional Mindset</a><li><a href="/linux-command-line-basics">Linux Command Line Basics</a><li><a href="/regular-expressions-guide">Regular Expressions Guide</a><li><a href="/man-page-reading-strategies">Man Page Reading Strategies</a><li><a href="/bash-scripting-fundamentals">Bash Scripting Fundamentals</a><li><a href="/git-workflow-best-practices">Git Workflow Best Practices</a><li><a href="/linux-troubleshooting-checklist">Linux Troubleshooting Checklist</a><li><a href="/shell-script-templates">Shell Script Templates</a></ul></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/tutorials/">tutorials</a>, <a href="/categories/system-administration/">system-administration</a>, <a href="/categories/devops/">devops</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw me-1"></i> <a href="/tags/linux/" class="post-tag no-text-decoration" >linux</a> <a href="/tags/text-processing/" class="post-tag no-text-decoration" >text-processing</a> <a href="/tags/sed/" class="post-tag no-text-decoration" >sed</a> <a href="/tags/awk/" class="post-tag no-text-decoration" >awk</a> <a href="/tags/command-line/" class="post-tag no-text-decoration" >command-line</a></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">Share</span> <span class="share-icons"> <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fblog.sreesreejuks.com%2Ftext-processing-with-sed-and-awk%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin"> <i class="fa-fw fab fa-linkedin"></i> </a> <a href="https://twitter.com/intent/tweet?text=Text%20Processing%20with%20sed%20and%20awk%20-%20The%20Professional's%20Guide%20-%20Sreeju%20KS&url=https%3A%2F%2Fblog.sreesreejuks.com%2Ftext-processing-with-sed-and-awk%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Text%20Processing%20with%20sed%20and%20awk%20-%20The%20Professional's%20Guide%20-%20Sreeju%20KS&u=https%3A%2F%2Fblog.sreesreejuks.com%2Ftext-processing-with-sed-and-awk%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fblog.sreesreejuks.com%2Ftext-processing-with-sed-and-awk%2F&text=Text%20Processing%20with%20sed%20and%20awk%20-%20The%20Professional's%20Guide%20-%20Sreeju%20KS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy link" data-title-succeed="Link copied successfully!" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">Recently Updated</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/disk-monitoring-approach/">Interview Question: Disk Space Monitoring Approach</a><li class="text-truncate lh-lg"> <a href="/Proxmox-Virtual-Environment/">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</a><li class="text-truncate lh-lg"> <a href="/text-processing-with-sed-and-awk/">Text Processing with sed and awk - The Professional's Guide</a><li class="text-truncate lh-lg"> <a href="/regular-expressions-guide/">Regular Expressions Guide - Mastering Pattern Matching in Linux</a><li class="text-truncate lh-lg"> <a href="/linux-troubleshooting-checklist/">Linux Troubleshooting Checklist - A Professional Guide</a></ul></section><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a> <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a> <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a> <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a> <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a> <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a> <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a></div></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">Further Reading</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="/regular-expressions-guide/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1744857180" data-df="ll" > Apr 17, 2025 </time><h4 class="pt-0 my-2">Regular Expressions Guide - Mastering Pattern Matching in Linux</h4><div class="text-muted"><p>A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration.</p></div></div></a></article><article class="col"> <a href="/linux-beginner-vs-professional-mindset/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1744740060" data-df="ll" > Apr 15, 2025 </time><h4 class="pt-0 my-2">Beginner vs Professional – The Real Linux Mindset</h4><div class="text-muted"><p>A comprehensive guide to developing a professional Linux mindset, covering command-line mastery, documentation techniques, regex basics, and troubleshooting approaches for Linux users.</p></div></div></a></article><article class="col"> <a href="/man-page-reading-strategies/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1744784520" data-df="ll" > Apr 16, 2025 </time><h4 class="pt-0 my-2">Man Page Reading Strategies - A Professional Guide</h4><div class="text-muted"><p>A comprehensive guide to understanding and effectively using man pages in Linux, covering navigation techniques, section structures, practical examples, and pro tips for faster documentation mastery.</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/regular-expressions-guide/" class="btn btn-outline-primary" aria-label="Older" ><p>Regular Expressions Guide - Mastering Pattern Matching in Linux</p></a> <a href="/Proxmox-Virtual-Environment/" class="btn btn-outline-primary" aria-label="Newer" ><p>Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2025</time> <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author." >Some rights reserved.</span></p><p>Using the <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.2.4" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>.</p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a> <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a> <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a> <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a> <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a> <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a> <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a></div></section></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="toast-header"> <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" ></button></div><div class="toast-body text-center pt-0"><p class="px-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> Use <code class="language-plaintext highlighter-rouge">echo '...' | sed '...'</code> to test sed commands on simple strings before applying to files.</p>
+</blockquote>
+
+<h2 id="-final-thought"><span class="me-2">📌 Final Thought</span><a href="#-final-thought" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<blockquote>
+  <p>“sed and awk aren’t just tools - they’re languages that let you talk directly to your data, asking it questions and transforming it at will.”</p>
+</blockquote>
+
+<p>Mastering sed and awk represents a fundamental shift in how you approach text processing problems. While beginners copy-paste commands without understanding, professionals develop fluency in these languages that allows them to compose solutions on the fly.</p>
+
+<p>The real power comes not from memorizing commands, but from understanding the stream processing model and pattern-action paradigm. With that foundation, you can combine these tools to solve almost any text processing challenge.</p>
+
+<p>Remember that even complex transformations can often be broken down into a series of small, understandable steps. Don’t be afraid to write your solutions incrementally, testing each component before combining them into elegant pipelines.</p>
+
+<h2 id="related-articles"><span class="me-2">Related Articles</span><a href="#related-articles" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<ul>
+  <li><a href="/linux-beginner-vs-professional-mindset">Linux Beginner vs Professional Mindset</a></li>
+  <li><a href="/linux-command-line-basics">Linux Command Line Basics</a></li>
+  <li><a href="/regular-expressions-guide">Regular Expressions Guide</a></li>
+  <li><a href="/man-page-reading-strategies">Man Page Reading Strategies</a></li>
+  <li><a href="/bash-scripting-fundamentals">Bash Scripting Fundamentals</a></li>
+  <li><a href="/git-workflow-best-practices">Git Workflow Best Practices</a></li>
+  <li><a href="/linux-troubleshooting-checklist">Linux Troubleshooting Checklist</a></li>
+  <li><a href="/shell-script-templates">Shell Script Templates</a></li>
+</ul>
+
+  </div>
+
+  <div class="post-tail-wrapper text-muted">
+    <!-- categories -->
+    
+      <div class="post-meta mb-3">
+        <i class="far fa-folder-open fa-fw me-1"></i>
+        
+          <a href="/categories/tutorials/">tutorials</a>,
+          <a href="/categories/system-administration/">system-administration</a>,
+          <a href="/categories/devops/">devops</a>
+      </div>
+    
+
+    <!-- tags -->
+    
+      <div class="post-tags">
+        <i class="fa fa-tags fa-fw me-1"></i>
+        
+          <a
+            href="/tags/linux/"
+            class="post-tag no-text-decoration"
+          >linux</a>
+        
+          <a
+            href="/tags/text-processing/"
+            class="post-tag no-text-decoration"
+          >text-processing</a>
+        
+          <a
+            href="/tags/sed/"
+            class="post-tag no-text-decoration"
+          >sed</a>
+        
+          <a
+            href="/tags/awk/"
+            class="post-tag no-text-decoration"
+          >awk</a>
+        
+          <a
+            href="/tags/command-line/"
+            class="post-tag no-text-decoration"
+          >command-line</a>
+        
+      </div>
+    
+
+    <div
+      class="
+        post-tail-bottom
+        d-flex justify-content-between align-items-center mt-5 pb-2
+      "
+    >
+      <div class="license-wrapper">
+        
+          
+
+          This post is licensed under 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         by the author.
+        
+      </div>
+
+      <!-- Post sharing snippet -->
+
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted">Share</span>
+  <span class="share-icons">
+    
+    
+    
+
+    
+
+      
+
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Flocalhost%3A4000%2Ftext-processing-with-sed-and-awk%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin">
+        <i class="fa-fw fab fa-linkedin"></i>
+      </a>
+    
+
+      
+
+      <a href="https://twitter.com/intent/tweet?text=Text%20Processing%20with%20sed%20and%20awk%20-%20The%20Professional's%20Guide%20-%20Sreeju%20KS&url=http%3A%2F%2Flocalhost%3A4000%2Ftext-processing-with-sed-and-awk%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter">
+        <i class="fa-fw fa-brands fa-square-x-twitter"></i>
+      </a>
+    
+
+      
+
+      <a href="https://www.facebook.com/sharer/sharer.php?title=Text%20Processing%20with%20sed%20and%20awk%20-%20The%20Professional's%20Guide%20-%20Sreeju%20KS&u=http%3A%2F%2Flocalhost%3A4000%2Ftext-processing-with-sed-and-awk%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook">
+        <i class="fa-fw fab fa-facebook-square"></i>
+      </a>
+    
+
+      
+
+      <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Ftext-processing-with-sed-and-awk%2F&text=Text%20Processing%20with%20sed%20and%20awk%20-%20The%20Professional's%20Guide%20-%20Sreeju%20KS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram">
+        <i class="fa-fw fab fa-telegram"></i>
+      </a>
+    
+
+    <button
+      id="copy-link"
+      aria-label="Copy link"
+      class="btn small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="Copy link"
+      data-title-succeed="Link copied successfully!"
+    >
+      <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
+  </span>
+</div>
+
+    </div>
+    <!-- .post-tail-bottom -->
+  </div>
+  <!-- div.post-tail-wrapper -->
+</article>
+
+
+            
+          </main>
+
+          <!-- panel -->
+          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
+            <div class="access">
+              <!-- Get 5 last posted/updated posts -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section id="access-lastmod">
+    <h2 class="panel-heading">Recently Updated</h2>
+    <ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2">
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/linux-process-management/">🔬 Linux Process Management — Mastering ps, top, kill & Process Lifecycle</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/disk-monitoring-approach/">Interview Question: Disk Space Monitoring Approach</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/Proxmox-Virtual-Environment/">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/text-processing-with-sed-and-awk/">Text Processing with sed and awk - The Professional's Guide</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/regular-expressions-guide/">Regular Expressions Guide - Mastering Pattern Matching in Linux</a>
+        </li>
+      
+    </ul>
+  </section>
+  <!-- #access-lastmod -->
+
+
+              <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a>
+      
+    </div>
+  </section>
+
+
+            </div>
+
+            
+              
+              
+
+
+
+
+
+
+  <div class="toc-border-cover z-3"></div>
+  <section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4">
+    <h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2>
+    <nav id="toc"></nav>
+  </section>
+
+
+            
+          </aside>
+        </div>
+
+        <div class="row">
+          <!-- tail -->
+          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              
+              <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
+
+<!-- The total size of related posts -->
+
+
+<!-- An random integer that bigger than 0 -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+
+
+
+
+
+
+
+
+
+
+  <aside id="related-posts" aria-labelledby="related-label">
+    <h3 class="mb-4" id="related-label">Further Reading</h3>
+    <nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+      
+        <article class="col">
+          <a href="/regular-expressions-guide/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744857180"
+  data-df="ll"
+  
+>
+  Apr 17, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Regular Expressions Guide - Mastering Pattern Matching in Linux</h4>
+              <div class="text-muted">
+                <p>A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration.</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/linux-beginner-vs-professional-mindset/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744740060"
+  data-df="ll"
+  
+>
+  Apr 15, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Beginner vs Professional – The Real Linux Mindset</h4>
+              <div class="text-muted">
+                <p>A comprehensive guide to developing a professional Linux mindset, covering command-line mastery, documentation techniques, regex basics, and troubleshooting approaches for Linux users.</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/man-page-reading-strategies/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744784520"
+  data-df="ll"
+  
+>
+  Apr 16, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Man Page Reading Strategies - A Professional Guide</h4>
+              <div class="text-muted">
+                <p>A comprehensive guide to understanding and effectively using man pages in Linux, covering navigation techniques, section structures, practical examples, and pro tips for faster documentation mastery.</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+    </nav>
+  </aside>
+  <!-- #related-posts -->
+
+
+            
+              
+              <!-- Navigation buttons at the bottom of the post. -->
+
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  
+  
+
+  
+    <a
+      href="/regular-expressions-guide/"
+      class="btn btn-outline-primary"
+      aria-label="Older"
+    >
+      <p>Regular Expressions Guide - Mastering Pattern Matching in Linux</p>
+    </a>
+  
+
+  
+    <a
+      href="/Proxmox-Virtual-Environment/"
+      class="btn btn-outline-primary"
+      aria-label="Newer"
+    >
+      <p>Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</p>
+    </a>
+  
+</nav>
+
+            
+
+            <!-- The Footer -->
+
+<footer
+  aria-label="Site Info"
+  class="
+    d-flex flex-column justify-content-center text-muted
+    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
+  "
+>
+  <p>©
+    <time>2026</time>
+
+    
+      <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a>.
+    
+
+    
+      <span
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author."
+      >Some rights reserved.</span>
+    
+  </p>
+
+  <p>Using the <a
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="v7.2.4"
+        href="https://github.com/cotes2020/jekyll-theme-chirpy"
+        target="_blank"
+        rel="noopener"
+      >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>.
+  </p>
+</footer>
+
+          </div>
+        </div>
+
+        <!-- The Search results -->
+
+<div id="search-result-wrapper" class="d-flex justify-content-center d-none">
+  <div class="col-11 content">
+    <div id="search-hints">
+      <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a>
+      
+    </div>
+  </section>
+
+
+    </div>
+    <div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div>
+  </div>
+</div>
+
+      </div>
+
+      <aside aria-label="Scroll to Top">
+        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
+          <i class="fas fa-angle-up"></i>
+        </button>
+      </aside>
+    </div>
+
+    <div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div>
+
+    
+      <aside
+  id="notification"
+  class="toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-bs-animation="true"
+  data-bs-autohide="false"
+>
+  <div class="toast-header">
+    <button
+      type="button"
+      class="btn-close ms-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="toast-body text-center pt-0">
+    <p class="px-2 mb-3">A new version of content is available.</p>
+    <button type="button" class="btn btn-primary" aria-label="Update">
+      Update
+    </button>
+  </div>
+</aside>
+
+    
+
+    <!-- Embedded scripts -->
+
+    
+      
+      <!-- The comments switcher -->
+
+
+    
+
+    <!--
+  Jekyll Simple Search loader
+  See: <https://github.com/christian-fei/Simple-Jekyll-Search>
+-->
+
+
+
+
+
+<script>
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    SimpleJekyllSearch({
+      searchInput: document.getElementById('search-input'),
+      resultsContainer: document.getElementById('search-results'),
+      json: '/assets/js/data/search.json',
+      searchResultTemplate: '  <article class="px-1 px-sm-2 px-lg-4 px-xl-0">    <header>      <h2><a href="{url}">{title}</a></h2>      <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">        {categories}        {tags}      </div>    </header>    <p>{content}</p>  </article>',
+      noResultsText: '<p class="mt-5">Oops! No results found.</p>',
+      templateMiddleware: function(prop, value, template) {
+        if (prop === 'categories') {
+          if (value === '') {
+            return `${value}`;
+          } else {
+            return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`;
+          }
+        }
+
+        if (prop === 'tags') {
+          if (value === '') {
+            return `${value}`;
+          } else {
+            return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`;
+          }
+        }
+      }
+    });
+  });
+</script>
+
+  </body>
+</html>
+
