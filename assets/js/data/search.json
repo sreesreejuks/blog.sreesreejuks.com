@@ -1,5 +1,13 @@
 [
   {
+    "title": "Linux Process Management — Mastering ps, top, kill & Process Lifecycle",
+    "url": "/linux-process-management/",
+    "categories": "process, system-administration, ubuntu, monitoring",
+    "tags": "top, pid, ps, htop, tutorial",
+    "date": "2026-02-16 19:58:00 +0530",
+    "content": "🎯 What You Will Learn     How to inspect all running processes using ps aux and ps -ef with full output interpretation   How to monitor system processes in real time using top and htop   How to ter..."
+  },
+  {
     "title": "Interview Question: Disk Space Monitoring Approach",
     "url": "/disk-monitoring-approach/",
     "categories": "devops, scripting",

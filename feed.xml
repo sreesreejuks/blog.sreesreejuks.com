@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Sreeju KS</title>
   <subtitle>A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development.</subtitle>
-  <updated>2026-02-16T20:51:33+05:30</updated>
+  <updated>2026-02-16T20:53:59+05:30</updated>
   <author>
     <name>Sreeju KS</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,36 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Linux Process Management — Mastering ps, top, kill &amp; Process Lifecycle</title>
+    <link href="http://localhost:4000/linux-process-management/" rel="alternate" type="text/html" title="Linux Process Management — Mastering ps, top, kill &amp;amp; Process Lifecycle" />
+    <published>2026-02-16T19:58:00+05:30</published>
+  
+    <updated>2026-02-16T19:58:00+05:30</updated>
+  
+    <id>http://localhost:4000/linux-process-management/</id>
+    <content type="text/html" src="http://localhost:4000/linux-process-management/" />
+    <author>
+      <name>sreeju</name>
+    </author>
+
+  
+    
+    <category term="process" />
+    
+    <category term="system-administration" />
+    
+    <category term="ubuntu" />
+    
+    <category term="monitoring" />
+    
+  
+
+  <summary>🎯 What You Will Learn     How to inspect all running processes using ps aux and ps -ef with full output interpretation   How to monitor system processes in real time using top and htop   How to terminate processes cleanly and forcefully using kill and killall   What PID and PPID mean and why the parent-child process relationship matters   What a zombie process is, why it forms, and how to deal ...</summary>
+
+  </entry>
 
   
   <entry>
@@ -127,34 +157,6 @@
   
 
   <summary>A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration.</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>Linux Troubleshooting Checklist - A Professional Guide</title>
-    <link href="http://localhost:4000/linux-troubleshooting-checklist/" rel="alternate" type="text/html" title="Linux Troubleshooting Checklist - A Professional Guide" />
-    <published>2025-04-16T15:30:00+05:30</published>
-  
-    <updated>2025-04-16T15:30:00+05:30</updated>
-  
-    <id>http://localhost:4000/linux-troubleshooting-checklist/</id>
-    <content type="text/html" src="http://localhost:4000/linux-troubleshooting-checklist/" />
-    <author>
-      <name>sreeju</name>
-    </author>
-
-  
-    
-    <category term="tutorials" />
-    
-    <category term="system-administration" />
-    
-    <category term="troubleshooting" />
-    
-  
-
-  <summary>A comprehensive guide to systematic Linux troubleshooting, covering system health checks, performance analysis, and standardized logging practices.</summary>
 
   </entry>
 
