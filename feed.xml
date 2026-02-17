@@ -1,1 +1,163 @@
-<feed xmlns="http://www.w3.org/2005/Atom"> <id>https://blog.sreesreejuks.com/</id><title>Sreeju KS</title><subtitle>A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development.</subtitle> <updated>2026-02-16T21:33:51+05:30</updated> <author> <name>Sreeju KS</name> <uri>https://blog.sreesreejuks.com/</uri> </author><link rel="self" type="application/atom+xml" href="https://blog.sreesreejuks.com/feed.xml"/><link rel="alternate" type="text/html" hreflang="en" href="https://blog.sreesreejuks.com/"/> <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator> <rights> © 2026 Sreeju KS </rights> <icon>/assets/img/favicons/favicon.ico</icon> <logo>/assets/img/favicons/favicon-96x96.png</logo> <entry><title>Linux Process Management — Mastering ps, top, kill &amp; Process Lifecycle</title><link href="https://blog.sreesreejuks.com/linux-process-management/" rel="alternate" type="text/html" title="Linux Process Management — Mastering ps, top, kill &amp;amp; Process Lifecycle" /><published>2026-02-16T19:58:00+05:30</published> <updated>2026-02-16T19:58:00+05:30</updated> <id>https://blog.sreesreejuks.com/linux-process-management/</id> <content type="text/html" src="https://blog.sreesreejuks.com/linux-process-management/" /> <author> <name>sreeju</name> </author> <category term="process" /> <category term="system-administration" /> <category term="ubuntu" /> <category term="monitoring" /> <summary>🎯 What You Will Learn How to inspect all running processes using ps aux and ps -ef with full output interpretation How to monitor system processes in real time using top and htop How to terminate processes cleanly and forcefully using kill and killall What PID and PPID mean and why the parent-child process relationship matters What a zombie process is, why it forms, and how to deal ...</summary> </entry> <entry><title>Linux System Internals</title><link href="https://blog.sreesreejuks.com/linux-system-internals/" rel="alternate" type="text/html" title="Linux System Internals" /><published>2026-02-07T00:00:00+05:30</published> <updated>2026-02-07T00:00:00+05:30</updated> <id>https://blog.sreesreejuks.com/linux-system-internals/</id> <content type="text/html" src="https://blog.sreesreejuks.com/linux-system-internals/" /> <author> <name>Sreeju KS</name> </author> <summary>🖥️ Linux System Internals — Understanding the Engine Under the Hood 🎯 What You Will Learn What actually happens inside the OS when you type and run a command in a terminal What a process is, how it’s represented, and how it differs from a program What a system call (syscall) is and why it’s the bridge between user space and kernel space What file descriptors are and why almost ever...</summary> </entry> <entry><title>Interview Question: Disk Space Monitoring Approach</title><link href="https://blog.sreesreejuks.com/disk-monitoring-approach/" rel="alternate" type="text/html" title="Interview Question: Disk Space Monitoring Approach" /><published>2025-04-25T18:09:00+05:30</published> <updated>2025-04-25T18:09:00+05:30</updated> <id>https://blog.sreesreejuks.com/disk-monitoring-approach/</id> <content type="text/html" src="https://blog.sreesreejuks.com/disk-monitoring-approach/" /> <author> <name>sreeju</name> </author> <category term="devops" /> <category term="scripting" /> <summary>Approach to creating a bash script that checks storage and alerts when it exceeds 70%</summary> </entry> <entry><title>Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</title><link href="https://blog.sreesreejuks.com/Proxmox-Virtual-Environment/" rel="alternate" type="text/html" title="Setting up a Kubernetes Cluster on Proxmox (from Scratch!)" /><published>2025-04-21T23:58:00+05:30</published> <updated>2025-04-21T23:58:00+05:30</updated> <id>https://blog.sreesreejuks.com/Proxmox-Virtual-Environment/</id> <content type="text/html" src="https://blog.sreesreejuks.com/Proxmox-Virtual-Environment/" /> <author> <name>sreeju</name> </author> <category term="kubernetes" /> <category term="virtualization" /> <category term="proxmox" /> <category term="ubuntu" /> <summary>Table of Contents Introduction Prerequisites Setting up Virtual Machines in Proxmox Preliminary Tweaks Installing Kubernetes Creating a Node Template Initializing the Cluster Joining Nodes to the Cluster Running an Nginx Container and NodePort Service Conclusion Introduction This tutorial demonstrates setting up a Kubernetes cluster from scratch using Proxmox Virtual Env...</summary> </entry> <entry><title>Text Processing with sed and awk - The Professional's Guide</title><link href="https://blog.sreesreejuks.com/text-processing-with-sed-and-awk/" rel="alternate" type="text/html" title="Text Processing with sed and awk - The Professional&amp;apos;s Guide" /><published>2025-04-17T11:45:00+05:30</published> <updated>2025-04-17T11:45:00+05:30</updated> <id>https://blog.sreesreejuks.com/text-processing-with-sed-and-awk/</id> <content type="text/html" src="https://blog.sreesreejuks.com/text-processing-with-sed-and-awk/" /> <author> <name>sreeju</name> </author> <category term="tutorials" /> <category term="system-administration" /> <category term="devops" /> <summary>A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently.</summary> </entry> </feed>
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://localhost:4000/</id>
+  <title>Sreeju KS</title>
+  <subtitle>A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development.</subtitle>
+  <updated>2026-02-17T07:54:13+05:30</updated>
+  <author>
+    <name>Sreeju KS</name>
+    <uri>http://localhost:4000/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="http://localhost:4000/"/>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
+  <rights> © 2026 Sreeju KS </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>Linux Process Management — Mastering ps, top, kill &amp; Process Lifecycle</title>
+    <link href="http://localhost:4000/linux-process-management/" rel="alternate" type="text/html" title="Linux Process Management — Mastering ps, top, kill &amp;amp; Process Lifecycle" />
+    <published>2026-02-16T19:58:00+05:30</published>
+  
+    <updated>2026-02-16T19:58:00+05:30</updated>
+  
+    <id>http://localhost:4000/linux-process-management/</id>
+    <content type="text/html" src="http://localhost:4000/linux-process-management/" />
+    <author>
+      <name>sreeju</name>
+    </author>
+
+  
+    
+    <category term="process" />
+    
+    <category term="system-administration" />
+    
+    <category term="ubuntu" />
+    
+    <category term="monitoring" />
+    
+  
+
+  <summary>🎯 What You Will Learn     How to inspect all running processes using ps aux and ps -ef with full output interpretation   How to monitor system processes in real time using top and htop   How to terminate processes cleanly and forcefully using kill and killall   What PID and PPID mean and why the parent-child process relationship matters   What a zombie process is, why it forms, and how to deal ...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Linux System Internals — Understanding the Engine Under the Hood</title>
+    <link href="http://localhost:4000/linux-system-internals/" rel="alternate" type="text/html" title="Linux System Internals — Understanding the Engine Under the Hood" />
+    <published>2026-02-07T10:00:00+05:30</published>
+  
+    <updated>2026-02-07T10:00:00+05:30</updated>
+  
+    <id>http://localhost:4000/linux-system-internals/</id>
+    <content type="text/html" src="http://localhost:4000/linux-system-internals/" />
+    <author>
+      <name>sreeju</name>
+    </author>
+
+  
+    
+    <category term="linux" />
+    
+    <category term="system-internals" />
+    
+  
+
+  <summary>🎯 What You Will Learn     What actually happens inside the OS when you type and run a command in a terminal   What a process is, how it’s represented, and how it differs from a program   What a system call (syscall) is and why it’s the bridge between user space and kernel space   What file descriptors are and why almost everything in Linux is treated as a file   How /proc and /dev expose the ke...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Interview Question: Disk Space Monitoring Approach</title>
+    <link href="http://localhost:4000/disk-monitoring-approach/" rel="alternate" type="text/html" title="Interview Question: Disk Space Monitoring Approach" />
+    <published>2025-04-25T18:09:00+05:30</published>
+  
+    <updated>2025-04-25T18:09:00+05:30</updated>
+  
+    <id>http://localhost:4000/disk-monitoring-approach/</id>
+    <content type="text/html" src="http://localhost:4000/disk-monitoring-approach/" />
+    <author>
+      <name>sreeju</name>
+    </author>
+
+  
+    
+    <category term="devops" />
+    
+    <category term="scripting" />
+    
+  
+
+  <summary>Approach to creating a bash script that checks storage and alerts when it exceeds 70%</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</title>
+    <link href="http://localhost:4000/Proxmox-Virtual-Environment/" rel="alternate" type="text/html" title="Setting up a Kubernetes Cluster on Proxmox (from Scratch!)" />
+    <published>2025-04-21T23:58:00+05:30</published>
+  
+    <updated>2025-04-21T23:58:00+05:30</updated>
+  
+    <id>http://localhost:4000/Proxmox-Virtual-Environment/</id>
+    <content type="text/html" src="http://localhost:4000/Proxmox-Virtual-Environment/" />
+    <author>
+      <name>sreeju</name>
+    </author>
+
+  
+    
+    <category term="kubernetes" />
+    
+    <category term="virtualization" />
+    
+    <category term="proxmox" />
+    
+    <category term="ubuntu" />
+    
+  
+
+  <summary>Table of Contents    Introduction   Prerequisites   Setting up Virtual Machines in Proxmox   Preliminary Tweaks   Installing Kubernetes   Creating a Node Template   Initializing the Cluster   Joining Nodes to the Cluster   Running an Nginx Container and NodePort Service   Conclusion   Introduction  This tutorial demonstrates setting up a Kubernetes cluster from scratch using Proxmox Virtual Env...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Text Processing with sed and awk - The Professional's Guide</title>
+    <link href="http://localhost:4000/text-processing-with-sed-and-awk/" rel="alternate" type="text/html" title="Text Processing with sed and awk - The Professional&amp;apos;s Guide" />
+    <published>2025-04-17T11:45:00+05:30</published>
+  
+    <updated>2025-04-17T11:45:00+05:30</updated>
+  
+    <id>http://localhost:4000/text-processing-with-sed-and-awk/</id>
+    <content type="text/html" src="http://localhost:4000/text-processing-with-sed-and-awk/" />
+    <author>
+      <name>sreeju</name>
+    </author>
+
+  
+    
+    <category term="tutorials" />
+    
+    <category term="system-administration" />
+    
+    <category term="devops" />
+    
+  
+
+  <summary>A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently.</summary>
+
+  </entry>
+
+</feed>
+
+

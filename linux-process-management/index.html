@@ -1,6 +1,1072 @@
-<!doctype html><html lang="en" data-mode="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="Linux Process Management — Mastering ps, top, kill &amp; Process Lifecycle" /><meta name="author" content="Sreeju KS" /><meta property="og:locale" content="en" /><meta name="description" content="A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development." /><meta property="og:description" content="A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development." /><link rel="canonical" href="https://blog.sreesreejuks.com/linux-process-management/" /><meta property="og:url" content="https://blog.sreesreejuks.com/linux-process-management/" /><meta property="og:site_name" content="Sreeju KS" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2026-02-16T19:58:00+05:30" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="Linux Process Management — Mastering ps, top, kill &amp; Process Lifecycle" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sreeju KS","url":"https://github.com/sreesreejuks/"},"dateModified":"2026-02-16T19:58:00+05:30","datePublished":"2026-02-16T19:58:00+05:30","description":"A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development.","headline":"Linux Process Management — Mastering ps, top, kill &amp; Process Lifecycle","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.sreesreejuks.com/linux-process-management/"},"url":"https://blog.sreesreejuks.com/linux-process-management/"}</script><title>Linux Process Management — Mastering ps, top, kill & Process Lifecycle | Sreeju KS</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Sreeju KS"><meta name="application-name" content="Sreeju KS"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-E66HPNGEJR"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-E66HPNGEJR'); </script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://gravatar.com/avatar/ed8980df17ba2ea58cd48fe0c6964ca3?size=256" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">Sreeju KS</a><p class="site-subtitle fst-italic mb-0">Documenting the journey of DevOps, cloud computing, and deployment</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>ABOUT</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"> <a href="https://github.com/sreesreejuks" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="https://www.linkedin.com/in/sreesreejuks" aria-label="linkedin" target="_blank" rel="noopener noreferrer" > <i class="fab fa-linkedin"></i> </a> <a href="https://www.instagram.com/sreesreejuks" aria-label="instagram" target="_blank" rel="noopener noreferrer" > <i class="fab fa-instagram"></i> </a> <a href="javascript:location.href = 'mailto:' + ['mail','sreesreejuks.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">Home</a> </span> <span>Linux Process Management — Mastering ps, top, kill & Process Lifecycle</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> Post</div><button type="button" id="search-trigger" class="btn btn-link"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>Linux Process Management — Mastering ps, top, kill & Process Lifecycle</h1><div class="post-meta text-muted"> <span> Posted <time data-ts="1771252080" data-df="ll" data-bs-toggle="tooltip" data-bs-placement="bottom" > Feb 16, 2026 </time> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/sreesreejuks/">Sreeju KS</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="2494 words" > <em>13 min</em> read</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">Contents</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</div><button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75"> <i class="fas fa-close"></i> </button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><hr /><h2 id="-what-you-will-learn"><span class="me-2">🎯 What You Will Learn</span><a href="#-what-you-will-learn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>How to inspect all running processes using <code class="language-plaintext highlighter-rouge">ps aux</code> and <code class="language-plaintext highlighter-rouge">ps -ef</code> with full output interpretation<li>How to monitor system processes in real time using <code class="language-plaintext highlighter-rouge">top</code> and <code class="language-plaintext highlighter-rouge">htop</code><li>How to terminate processes cleanly and forcefully using <code class="language-plaintext highlighter-rouge">kill</code> and <code class="language-plaintext highlighter-rouge">killall</code><li>What <strong>PID</strong> and <strong>PPID</strong> mean and why the parent-child process relationship matters<li>What a <strong>zombie process</strong> is, why it forms, and how to deal with it</ul><hr /><h2 id="-topic-overview"><span class="me-2">📝 Topic Overview</span><a href="#-topic-overview" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><hr /><h3 id="-ps-aux--bsd-style-full-process-snapshot"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">ps aux</code> — BSD-Style Full Process Snapshot</span><a href="#-ps-aux--bsd-style-full-process-snapshot" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><code class="language-plaintext highlighter-rouge">ps</code> (<strong>process status</strong>) prints a snapshot of currently running processes. The <code class="language-plaintext highlighter-rouge">aux</code> flags are the most commonly used combination.</p><p><strong>Flag breakdown:</strong></p><ul><li><code class="language-plaintext highlighter-rouge">a</code> — show processes from <strong>all users</strong> (not just the current user)<li><code class="language-plaintext highlighter-rouge">u</code> — show in <strong>user-oriented format</strong> (adds USER, CPU%, MEM% columns)<li><code class="language-plaintext highlighter-rouge">x</code> — include processes <strong>not attached to a terminal</strong> (daemons, background services)</ul><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>ps aux
-</pre></table></code></div></div><p><strong>Sample output and column meanings:</strong></p><div class="table-wrapper"><table><thead><tr><th>Column<th>Meaning<tbody><tr><td><code class="language-plaintext highlighter-rouge">USER</code><td>Owner of the process<tr><td><code class="language-plaintext highlighter-rouge">PID</code><td>Process ID — unique identifier<tr><td><code class="language-plaintext highlighter-rouge">%CPU</code><td>CPU usage since process started<tr><td><code class="language-plaintext highlighter-rouge">%MEM</code><td>Physical RAM usage percentage<tr><td><code class="language-plaintext highlighter-rouge">VSZ</code><td>Virtual memory size (KB) — total address space reserved<tr><td><code class="language-plaintext highlighter-rouge">RSS</code><td>Resident Set Size (KB) — actual RAM currently in use<tr><td><code class="language-plaintext highlighter-rouge">TTY</code><td>Terminal associated with the process (<code class="language-plaintext highlighter-rouge">?</code> = no terminal/daemon)<tr><td><code class="language-plaintext highlighter-rouge">STAT</code><td>Process state (see state codes below)<tr><td><code class="language-plaintext highlighter-rouge">START</code><td>Time or date the process started<tr><td><code class="language-plaintext highlighter-rouge">TIME</code><td>Total accumulated CPU time used<tr><td><code class="language-plaintext highlighter-rouge">COMMAND</code><td>Command that launched the process</table></div><p><strong>Process state codes (STAT column):</strong></p><div class="table-wrapper"><table><thead><tr><th>Code<th>Meaning<tbody><tr><td><code class="language-plaintext highlighter-rouge">R</code><td>Running or runnable (on the CPU or ready queue)<tr><td><code class="language-plaintext highlighter-rouge">S</code><td>Interruptible sleep (waiting for an event, e.g., I/O)<tr><td><code class="language-plaintext highlighter-rouge">D</code><td>Uninterruptible sleep (usually waiting on disk I/O — cannot be killed)<tr><td><code class="language-plaintext highlighter-rouge">Z</code><td><strong>Zombie</strong> — process finished but not yet reaped by parent<tr><td><code class="language-plaintext highlighter-rouge">T</code><td>Stopped (via <code class="language-plaintext highlighter-rouge">SIGSTOP</code> or <code class="language-plaintext highlighter-rouge">Ctrl+Z</code>)<tr><td><code class="language-plaintext highlighter-rouge">&lt;</code><td>High priority (negative nice value)<tr><td><code class="language-plaintext highlighter-rouge">N</code><td>Low priority (positive nice value)<tr><td><code class="language-plaintext highlighter-rouge">s</code><td>Session leader (e.g., a shell)<tr><td><code class="language-plaintext highlighter-rouge">l</code><td>Multi-threaded process<tr><td><code class="language-plaintext highlighter-rouge">+</code><td>In the foreground process group</table></div><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- `site.alt_lang` can specify a language different from the UI -->
+<html lang="en" data-mode="light">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+  ><!-- Setup Open Graph image -->
+
+  
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Linux Process Management — Mastering ps, top, kill &amp; Process Lifecycle" />
+<meta name="author" content="Sreeju KS" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development." />
+<meta property="og:description" content="A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development." />
+<link rel="canonical" href="http://localhost:4000/linux-process-management/" />
+<meta property="og:url" content="http://localhost:4000/linux-process-management/" />
+<meta property="og:site_name" content="Sreeju KS" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-02-16T19:58:00+05:30" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Linux Process Management — Mastering ps, top, kill &amp; Process Lifecycle" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sreeju KS","url":"https://github.com/sreesreejuks/"},"dateModified":"2026-02-16T19:58:00+05:30","datePublished":"2026-02-16T19:58:00+05:30","description":"A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development.","headline":"Linux Process Management — Mastering ps, top, kill &amp; Process Lifecycle","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/linux-process-management/"},"url":"http://localhost:4000/linux-process-management/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <title>Linux Process Management — Mastering ps, top, kill & Process Lifecycle | Sreeju KS
+  </title>
+
+  <!--
+  The Favicons for Web, Android, Microsoft, and iOS (iPhone and iPad) Apps
+  Generated by: https://realfavicongenerator.net/
+-->
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+
+<link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="Sreeju KS">
+<meta name="application-name" content="Sreeju KS">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+
+  <!-- Resource Hints -->
+  
+    
+      
+        <link rel="preconnect" href="https://fonts.googleapis.com" >
+      
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" >
+      
+    
+      
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" >
+      
+    
+      
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" >
+      
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" >
+      
+    
+  
+
+  <!-- Bootstrap -->
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css">
+
+  <!-- Web Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css">
+
+  <!-- 3rd-party Dependencies -->
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
+  
+
+  
+    <!-- Image Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
+  
+
+  <!-- Scripts -->
+
+  <script src="/assets/js/dist/theme.min.js"></script>
+
+  <!-- JS selector for site. -->
+
+<!-- commons -->
+
+
+
+<!-- layout specified -->
+
+
+  
+
+  
+    <!-- image lazy-loading & popup & clipboard -->
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script>
+
+
+
+
+
+
+
+<script defer src="/assets/js/dist/post.min.js"></script>
+
+
+
+<!-- Pageviews -->
+
+  
+
+  
+
+
+
+  
+
+  <!-- A placeholder to allow defining custom metadata -->
+
+</head>
+
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E66HPNGEJR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E66HPNGEJR');
+  </script>
+
+  <body>
+    <!-- The Side Bar -->
+
+<aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
+  <header class="profile-wrapper">
+    <a href="/" id="avatar" class="rounded-circle"><img src="https://gravatar.com/avatar/ed8980df17ba2ea58cd48fe0c6964ca3?size=256" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a>
+
+    <a class="site-title d-block" href="/">Sreeju KS</a>
+    <p class="site-subtitle fst-italic mb-0">Documenting the journey of DevOps, cloud computing, and deployment</p>
+  </header>
+  <!-- .profile-wrapper -->
+
+  <nav class="flex-column flex-grow-1 w-100 ps-0">
+    <ul class="nav">
+      <!-- home -->
+      <li class="nav-item">
+        <a href="/" class="nav-link">
+          <i class="fa-fw fas fa-home"></i>
+          <span>HOME</span>
+        </a>
+      </li>
+      <!-- the real tabs -->
+      
+        <li class="nav-item">
+          <a href="/categories/" class="nav-link">
+            <i class="fa-fw fas fa-stream"></i>
+            
+
+            <span>CATEGORIES</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/tags/" class="nav-link">
+            <i class="fa-fw fas fa-tags"></i>
+            
+
+            <span>TAGS</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/archives/" class="nav-link">
+            <i class="fa-fw fas fa-archive"></i>
+            
+
+            <span>ARCHIVES</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/about/" class="nav-link">
+            <i class="fa-fw fas fa-info-circle"></i>
+            
+
+            <span>ABOUT</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+    </ul>
+  </nav>
+
+  <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
+    
+
+    
+      
+
+      
+        <a
+          href="https://github.com/sreesreejuks"
+          aria-label="github"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://www.linkedin.com/in/sreesreejuks"
+          aria-label="linkedin"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://www.instagram.com/sreesreejuks"
+          aria-label="instagram"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="javascript:location.href = 'mailto:' + ['mail','sreesreejuks.com'].join('@')"
+          aria-label="email"
+          
+
+          
+
+          
+
+          
+        >
+          <i class="fas fa-envelope"></i>
+        </a>
+      
+    
+  </div>
+  <!-- .sidebar-bottom -->
+</aside>
+<!-- #sidebar -->
+
+
+    <div id="main-wrapper" class="d-flex justify-content-center">
+      <div class="container d-flex flex-column px-xxl-5">
+        <!-- The Top Bar -->
+
+<header id="topbar-wrapper" aria-label="Top Bar">
+  <div
+    id="topbar"
+    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
+  >
+    <nav id="breadcrumb" aria-label="Breadcrumb">
+      
+
+      
+        
+          
+            <span>
+              <a href="/">Home</a>
+            </span>
+
+          
+        
+          
+            
+              <span>Linux Process Management — Mastering ps, top, kill & Process Lifecycle</span>
+            
+
+          
+        
+      
+    </nav>
+    <!-- endof #breadcrumb -->
+
+    <button type="button" id="sidebar-trigger" class="btn btn-link">
+      <i class="fas fa-bars fa-fw"></i>
+    </button>
+
+    <div id="topbar-title">
+      Post
+    </div>
+
+    <button type="button" id="search-trigger" class="btn btn-link">
+      <i class="fas fa-search fa-fw"></i>
+    </button>
+
+    <search id="search" class="align-items-center ms-3 ms-lg-0">
+      <i class="fas fa-search fa-fw"></i>
+      <input
+        class="form-control"
+        id="search-input"
+        type="search"
+        aria-label="search"
+        autocomplete="off"
+        placeholder="Search..."
+      >
+    </search>
+    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button>
+  </div>
+</header>
+
+
+        <div class="row flex-grow-1">
+          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              <!-- Refactor the HTML structure -->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Change the icon of checkbox -->
+
+
+
+<!-- Handle images -->
+
+
+
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- return -->
+
+
+
+
+
+
+
+
+
+
+<article class="px-1" data-toc="true">
+  <header>
+    <h1 data-toc-skip>Linux Process Management — Mastering ps, top, kill & Process Lifecycle</h1>
+    
+
+    <div class="post-meta text-muted">
+      <!-- published date -->
+      <span>
+        Posted
+        <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1771252080"
+  data-df="ll"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  Feb 16, 2026
+</time>
+
+      </span>
+
+      <!-- lastmod date -->
+      
+
+      
+
+      <div class="d-flex justify-content-between">
+        <!-- author(s) -->
+        <span>
+          
+
+          By
+
+          <em>
+            
+              
+                <a href="https://github.com/sreesreejuks/">Sreeju KS</a>
+                
+              
+            
+          </em>
+        </span>
+
+        <div>
+          <!-- pageviews -->
+          
+
+          <!-- read time -->
+          <!-- Calculate the post's reading time, and display the word count in tooltip -->
+
+
+
+<!-- words per minute -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span
+  class="readtime"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="2548 words"
+>
+  <em>14 min</em> read</span>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  
+    <div id="toc-bar" class="d-flex align-items-center justify-content-between invisible">
+      <span class="label text-truncate">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</span>
+      <button type="button" class="toc-trigger btn me-1">
+        <i class="fa-solid fa-list-ul fa-fw"></i>
+      </button>
+    </div>
+
+    <button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm">
+      <span class="label ps-2 pe-1">Contents</span>
+      <i class="fa-solid fa-angle-right fa-fw"></i>
+    </button>
+
+    <dialog id="toc-popup" class="p-0">
+      <div class="header d-flex flex-row align-items-center justify-content-between">
+        <div class="label text-truncate py-2 ms-4">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</div>
+        <button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75">
+          <i class="fas fa-close"></i>
+        </button>
+      </div>
+      <div id="toc-popup-content" class="px-4 py-3 pb-4"></div>
+    </dialog>
+  
+
+  <div class="content">
+    <hr />
+
+<h2 id="-what-you-will-learn"><span class="me-2">🎯 What You Will Learn</span><a href="#-what-you-will-learn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<ul>
+  <li>How to inspect all running processes using <code class="language-plaintext highlighter-rouge">ps aux</code> and <code class="language-plaintext highlighter-rouge">ps -ef</code> with full output interpretation</li>
+  <li>How to monitor system processes in real time using <code class="language-plaintext highlighter-rouge">top</code> and <code class="language-plaintext highlighter-rouge">htop</code></li>
+  <li>How to terminate processes cleanly and forcefully using <code class="language-plaintext highlighter-rouge">kill</code> and <code class="language-plaintext highlighter-rouge">killall</code></li>
+  <li>What <strong>PID</strong> and <strong>PPID</strong> mean and why the parent-child process relationship matters</li>
+  <li>What a <strong>zombie process</strong> is, why it forms, and how to deal with it</li>
+</ul>
+
+<hr />
+
+<h2 id="-topic-overview"><span class="me-2">📝 Topic Overview</span><a href="#-topic-overview" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<hr />
+
+<h3 id="-ps-aux--bsd-style-full-process-snapshot"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">ps aux</code> — BSD-Style Full Process Snapshot</span><a href="#-ps-aux--bsd-style-full-process-snapshot" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p><code class="language-plaintext highlighter-rouge">ps</code> (<strong>process status</strong>) prints a snapshot of currently running processes. The <code class="language-plaintext highlighter-rouge">aux</code> flags are the most commonly used combination.</p>
+
+<p><strong>Flag breakdown:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">a</code> — show processes from <strong>all users</strong> (not just the current user)</li>
+  <li><code class="language-plaintext highlighter-rouge">u</code> — show in <strong>user-oriented format</strong> (adds USER, CPU%, MEM% columns)</li>
+  <li><code class="language-plaintext highlighter-rouge">x</code> — include processes <strong>not attached to a terminal</strong> (daemons, background services)</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ps aux
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample output and column meanings:</strong></p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">USER</code></td>
+      <td>Owner of the process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PID</code></td>
+      <td>Process ID — unique identifier</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%CPU</code></td>
+      <td>CPU usage since process started</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%MEM</code></td>
+      <td>Physical RAM usage percentage</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">VSZ</code></td>
+      <td>Virtual memory size (KB) — total address space reserved</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RSS</code></td>
+      <td>Resident Set Size (KB) — actual RAM currently in use</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">TTY</code></td>
+      <td>Terminal associated with the process (<code class="language-plaintext highlighter-rouge">?</code> = no terminal/daemon)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">STAT</code></td>
+      <td>Process state (see state codes below)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">START</code></td>
+      <td>Time or date the process started</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">TIME</code></td>
+      <td>Total accumulated CPU time used</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">COMMAND</code></td>
+      <td>Command that launched the process</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Process state codes (STAT column):</strong></p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">R</code></td>
+      <td>Running or runnable (on the CPU or ready queue)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">S</code></td>
+      <td>Interruptible sleep (waiting for an event, e.g., I/O)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">D</code></td>
+      <td>Uninterruptible sleep (usually waiting on disk I/O — cannot be killed)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Z</code></td>
+      <td><strong>Zombie</strong> — process finished but not yet reaped by parent</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">T</code></td>
+      <td>Stopped (via <code class="language-plaintext highlighter-rouge">SIGSTOP</code> or <code class="language-plaintext highlighter-rouge">Ctrl+Z</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td>High priority (negative nice value)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">N</code></td>
+      <td>Low priority (positive nice value)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>Session leader (e.g., a shell)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">l</code></td>
+      <td>Multi-threaded process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>In the foreground process group</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -8,7 +1074,7 @@
 6
 7
 8
-</pre><td class="rouge-code"><pre><span class="c"># Filter ps output for a specific process name</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Filter ps output for a specific process name</span>
 ps aux | <span class="nb">grep </span>nginx
 
 <span class="c"># Sort by CPU usage (highest first)</span>
@@ -16,51 +1082,508 @@ ps aux <span class="nt">--sort</span><span class="o">=</span>-%cpu | <span class
 
 <span class="c"># Sort by memory usage (highest first)</span>
 ps aux <span class="nt">--sort</span><span class="o">=</span>-%mem | <span class="nb">head</span> <span class="nt">-10</span>
-</pre></table></code></div></div><hr /><h3 id="-ps--ef--posixsystem-v-style-process-listing"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">ps -ef</code> — POSIX/System V Style Process Listing</span><a href="#-ps--ef--posixsystem-v-style-process-listing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><code class="language-plaintext highlighter-rouge">ps -ef</code> is the <strong>System V (POSIX)</strong> style equivalent — standard across all Unix-like systems including macOS, Solaris, and AIX.</p><p><strong>Flag breakdown:</strong></p><ul><li><code class="language-plaintext highlighter-rouge">-e</code> — show <strong>every</strong> process on the system<li><code class="language-plaintext highlighter-rouge">-f</code> — <strong>full format</strong> listing (adds PPID, STIME, UID columns)</ul><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>ps <span class="nt">-ef</span>
-</pre></table></code></div></div><p><strong>Key columns unique to <code class="language-plaintext highlighter-rouge">-ef</code>:</strong></p><div class="table-wrapper"><table><thead><tr><th>Column<th>Meaning<tbody><tr><td><code class="language-plaintext highlighter-rouge">UID</code><td>User ID (owner)<tr><td><code class="language-plaintext highlighter-rouge">PID</code><td>Process ID<tr><td><code class="language-plaintext highlighter-rouge">PPID</code><td><strong>Parent Process ID</strong> — the PID that spawned this process<tr><td><code class="language-plaintext highlighter-rouge">C</code><td>CPU utilization integer<tr><td><code class="language-plaintext highlighter-rouge">STIME</code><td>Start time<tr><td><code class="language-plaintext highlighter-rouge">TTY</code><td>Terminal<tr><td><code class="language-plaintext highlighter-rouge">TIME</code><td>CPU time consumed<tr><td><code class="language-plaintext highlighter-rouge">CMD</code><td>Full command with arguments</table></div><blockquote><p><strong><code class="language-plaintext highlighter-rouge">ps aux</code> vs <code class="language-plaintext highlighter-rouge">ps -ef</code>:</strong> Both show all processes. <code class="language-plaintext highlighter-rouge">aux</code> gives <code class="language-plaintext highlighter-rouge">%CPU</code>, <code class="language-plaintext highlighter-rouge">%MEM</code>, <code class="language-plaintext highlighter-rouge">VSZ</code>, <code class="language-plaintext highlighter-rouge">RSS</code> — better for resource analysis. <code class="language-plaintext highlighter-rouge">-ef</code> shows <code class="language-plaintext highlighter-rouge">PPID</code> natively — better for tracing the process tree. Combine them: <code class="language-plaintext highlighter-rouge">ps auxf</code> adds an ASCII tree visualization.</p></blockquote><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<hr />
+
+<h3 id="-ps--ef--posixsystem-v-style-process-listing"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">ps -ef</code> — POSIX/System V Style Process Listing</span><a href="#-ps--ef--posixsystem-v-style-process-listing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p><code class="language-plaintext highlighter-rouge">ps -ef</code> is the <strong>System V (POSIX)</strong> style equivalent — standard across all Unix-like systems including macOS, Solaris, and AIX.</p>
+
+<p><strong>Flag breakdown:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-e</code> — show <strong>every</strong> process on the system</li>
+  <li><code class="language-plaintext highlighter-rouge">-f</code> — <strong>full format</strong> listing (adds PPID, STIME, UID columns)</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ps <span class="nt">-ef</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Key columns unique to <code class="language-plaintext highlighter-rouge">-ef</code>:</strong></p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UID</code></td>
+      <td>User ID (owner)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PID</code></td>
+      <td>Process ID</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PPID</code></td>
+      <td><strong>Parent Process ID</strong> — the PID that spawned this process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">C</code></td>
+      <td>CPU utilization integer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">STIME</code></td>
+      <td>Start time</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">TTY</code></td>
+      <td>Terminal</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">TIME</code></td>
+      <td>CPU time consumed</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CMD</code></td>
+      <td>Full command with arguments</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p><strong><code class="language-plaintext highlighter-rouge">ps aux</code> vs <code class="language-plaintext highlighter-rouge">ps -ef</code>:</strong> Both show all processes. <code class="language-plaintext highlighter-rouge">aux</code> gives <code class="language-plaintext highlighter-rouge">%CPU</code>, <code class="language-plaintext highlighter-rouge">%MEM</code>, <code class="language-plaintext highlighter-rouge">VSZ</code>, <code class="language-plaintext highlighter-rouge">RSS</code> — better for resource analysis. <code class="language-plaintext highlighter-rouge">-ef</code> shows <code class="language-plaintext highlighter-rouge">PPID</code> natively — better for tracing the process tree. Combine them: <code class="language-plaintext highlighter-rouge">ps auxf</code> adds an ASCII tree visualization.</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre><td class="rouge-code"><pre><span class="c"># Show process tree using ps</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Show process tree using ps</span>
 ps auxf
 
 <span class="c"># Find parent-child chain for a specific PID</span>
 ps <span class="nt">-ef</span> | <span class="nb">grep</span> &lt;PID&gt;
-</pre></table></code></div></div><hr /><h3 id="-top--real-time-interactive-process-monitor"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">top</code> — Real-Time Interactive Process Monitor</span><a href="#-top--real-time-interactive-process-monitor" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><code class="language-plaintext highlighter-rouge">top</code> is a live, continuously refreshing view of system resource usage and process activity. It updates every 3 seconds by default.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>top
-</pre></table></code></div></div><p><strong>Real output example:</strong></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<hr />
+
+<h3 id="-top--real-time-interactive-process-monitor"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">top</code> — Real-Time Interactive Process Monitor</span><a href="#-top--real-time-interactive-process-monitor" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p><code class="language-plaintext highlighter-rouge">top</code> is a live, continuously refreshing view of system resource usage and process activity. It updates every 3 seconds by default.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>top
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Real output example:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre><td class="rouge-code"><pre>top - 18:16:43 up  4:20,  1 user,  load average: 0.42, 0.53, 0.61
+</pre></td><td class="rouge-code"><pre>top - 18:16:43 up  4:20,  1 user,  load average: 0.42, 0.53, 0.61
 Tasks: 341 total,   1 running, 340 sleeping,   0 stopped,   0 zombie
 %Cpu(s):  4.4 us,  1.6 sy,  0.3 ni, 92.5 id,  1.1 wa,  0.0 hi,  0.0 si,  0.0 st
 MiB Mem :   7722.0 total,    826.3 free,   4203.1 used,   2692.6 buff/cache
 MiB Swap:  11817.5 total,  10912.4 free,    905.1 used.   2239.7 avail Mem
-</pre></table></code></div></div><hr /><h4 id="line-1--system-summary"><span class="me-2">Line 1 — System Summary</span><a href="#line-1--system-summary" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>top - 18:16:43 up 4:20, 1 user, load average: 0.42, 0.53, 0.61
-</pre></table></code></div></div><div class="table-wrapper"><table><thead><tr><th>Field<th>Value<th>Meaning<tbody><tr><td>Current time<td><code class="language-plaintext highlighter-rouge">18:16:43</code><td>Wall clock time when this snapshot was taken<tr><td>Uptime<td><code class="language-plaintext highlighter-rouge">up 4:20</code><td>System has been running for 4 hours 20 minutes<tr><td>Users<td><code class="language-plaintext highlighter-rouge">1 user</code><td>One user session currently logged in<tr><td>Load avg (1m)<td><code class="language-plaintext highlighter-rouge">0.42</code><td>Average number of runnable/waiting processes over last 1 minute<tr><td>Load avg (5m)<td><code class="language-plaintext highlighter-rouge">0.53</code><td>Same, over last 5 minutes<tr><td>Load avg (15m)<td><code class="language-plaintext highlighter-rouge">0.61</code><td>Same, over last 15 minutes</table></div><blockquote><p><strong>Reading load averages:</strong> Load average represents the average number of processes that are either running or waiting for CPU time. On a <strong>single-core</strong> machine, a load of <code class="language-plaintext highlighter-rouge">1.0</code> means 100% busy. On a <strong>4-core</strong> machine, a load of <code class="language-plaintext highlighter-rouge">4.0</code> means 100% busy. This system has 1 user and a load of <code class="language-plaintext highlighter-rouge">0.42</code> — the CPU is largely idle and healthy. A load average <strong>trending upward</strong> (0.42 → 0.53 → 0.61 reading right to left = rising load) can be a warning sign of increasing pressure.</p></blockquote><hr /><h4 id="line-2--task-process-summary"><span class="me-2">Line 2 — Task (Process) Summary</span><a href="#line-2--task-process-summary" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>Tasks: 341 total, 1 running, 340 sleeping, 0 stopped, 0 zombie
-</pre></table></code></div></div><div class="table-wrapper"><table><thead><tr><th>Field<th>Value<th>Meaning<tbody><tr><td>Total<td><code class="language-plaintext highlighter-rouge">341</code><td>Total number of processes currently known to the kernel<tr><td>Running<td><code class="language-plaintext highlighter-rouge">1</code><td>Processes actively on a CPU core right now<tr><td>Sleeping<td><code class="language-plaintext highlighter-rouge">340</code><td>Processes waiting on I/O, timers, or events (normal)<tr><td>Stopped<td><code class="language-plaintext highlighter-rouge">0</code><td>Processes paused via <code class="language-plaintext highlighter-rouge">SIGSTOP</code> or <code class="language-plaintext highlighter-rouge">Ctrl+Z</code><tr><td>Zombie<td><code class="language-plaintext highlighter-rouge">0</code><td>Dead processes not yet reaped by their parent</table></div><blockquote><p><strong>What’s normal:</strong> Having nearly all processes sleeping is completely healthy — it means they’re idle and waiting for work. <code class="language-plaintext highlighter-rouge">0 zombie</code> is the ideal state. If zombie count climbs steadily, a parent process has a bug and isn’t calling <code class="language-plaintext highlighter-rouge">wait()</code>.</p></blockquote><hr /><h4 id="line-3--cpu-usage-breakdown"><span class="me-2">Line 3 — CPU Usage Breakdown</span><a href="#line-3--cpu-usage-breakdown" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>%Cpu(s):  4.4 us,  1.6 sy,  0.3 ni, 92.5 id,  1.1 wa,  0.0 hi,  0.0 si,  0.0 st
-</pre></table></code></div></div><div class="table-wrapper"><table><thead><tr><th>Field<th>Value<th>Meaning<tbody><tr><td><code class="language-plaintext highlighter-rouge">us</code><td><code class="language-plaintext highlighter-rouge">4.4%</code><td><strong>User space</strong> — CPU time spent running your applications<tr><td><code class="language-plaintext highlighter-rouge">sy</code><td><code class="language-plaintext highlighter-rouge">1.6%</code><td><strong>System/kernel</strong> — CPU time spent on kernel operations (syscalls, drivers)<tr><td><code class="language-plaintext highlighter-rouge">ni</code><td><code class="language-plaintext highlighter-rouge">0.3%</code><td><strong>Nice</strong> — CPU time for user processes with adjusted (lowered) priority<tr><td><code class="language-plaintext highlighter-rouge">id</code><td><code class="language-plaintext highlighter-rouge">92.5%</code><td><strong>Idle</strong> — CPU doing nothing; available capacity<tr><td><code class="language-plaintext highlighter-rouge">wa</code><td><code class="language-plaintext highlighter-rouge">1.1%</code><td><strong>I/O wait</strong> — CPU idle but waiting for disk/network I/O to complete<tr><td><code class="language-plaintext highlighter-rouge">hi</code><td><code class="language-plaintext highlighter-rouge">0.0%</code><td><strong>Hardware interrupts</strong> — time handling hardware signals (keyboard, NIC)<tr><td><code class="language-plaintext highlighter-rouge">si</code><td><code class="language-plaintext highlighter-rouge">0.0%</code><td><strong>Software interrupts</strong> — time handling kernel software interrupt processing<tr><td><code class="language-plaintext highlighter-rouge">st</code><td><code class="language-plaintext highlighter-rouge">0.0%</code><td><strong>Steal time</strong> — CPU cycles taken by the hypervisor (only non-zero in VMs)</table></div><blockquote><p><strong>Reading this snapshot:</strong> <code class="language-plaintext highlighter-rouge">92.5% idle</code> means the system is under very light load. <code class="language-plaintext highlighter-rouge">1.1% wa</code> (I/O wait) is low and normal. If <code class="language-plaintext highlighter-rouge">wa</code> climbs above 10–20%, you likely have a disk bottleneck. If <code class="language-plaintext highlighter-rouge">sy</code> is consistently high, kernel-level activity (syscalls, context switches) may be a concern. <code class="language-plaintext highlighter-rouge">st &gt; 0</code> on a VM signals the host hypervisor is overcommitted.</p></blockquote><hr /><h4 id="line-4--physical-memory-ram"><span class="me-2">Line 4 — Physical Memory (RAM)</span><a href="#line-4--physical-memory-ram" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>MiB Mem : 7722.0 total, 826.3 free, 4203.1 used, 2692.6 buff/cache
-</pre></table></code></div></div><div class="table-wrapper"><table><thead><tr><th>Field<th>Value<th>Meaning<tbody><tr><td><code class="language-plaintext highlighter-rouge">total</code><td><code class="language-plaintext highlighter-rouge">7722.0 MiB</code><td>Total installed physical RAM (~7.5 GB)<tr><td><code class="language-plaintext highlighter-rouge">free</code><td><code class="language-plaintext highlighter-rouge">826.3 MiB</code><td>Completely unused RAM<tr><td><code class="language-plaintext highlighter-rouge">used</code><td><code class="language-plaintext highlighter-rouge">4203.1 MiB</code><td>RAM actively used by processes<tr><td><code class="language-plaintext highlighter-rouge">buff/cache</code><td><code class="language-plaintext highlighter-rouge">2692.6 MiB</code><td>RAM used by kernel for disk buffers and file cache</table></div><blockquote><p><strong>Don’t panic about low “free” memory.</strong> Linux aggressively uses spare RAM as disk cache (<code class="language-plaintext highlighter-rouge">buff/cache</code>) to speed up file access. This memory is <em>immediately</em> reclaimable when a process needs it. The real available memory is shown on the <strong>Swap line</strong> as <code class="language-plaintext highlighter-rouge">avail Mem</code> — here <code class="language-plaintext highlighter-rouge">2239.7 MiB</code> is truly available for new allocations.</p></blockquote><hr /><h4 id="line-5--swap-space"><span class="me-2">Line 5 — Swap Space</span><a href="#line-5--swap-space" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>MiB Swap: 11817.5 total, 10912.4 free, 905.1 used. 2239.7 avail Mem
-</pre></table></code></div></div><div class="table-wrapper"><table><thead><tr><th>Field<th>Value<th>Meaning<tbody><tr><td><code class="language-plaintext highlighter-rouge">total</code><td><code class="language-plaintext highlighter-rouge">11817.5 MiB</code><td>Total swap space (~11.5 GB, on disk)<tr><td><code class="language-plaintext highlighter-rouge">free</code><td><code class="language-plaintext highlighter-rouge">10912.4 MiB</code><td>Unused swap<tr><td><code class="language-plaintext highlighter-rouge">used</code><td><code class="language-plaintext highlighter-rouge">905.1 MiB</code><td>Data currently swapped out to disk<tr><td><code class="language-plaintext highlighter-rouge">avail Mem</code><td><code class="language-plaintext highlighter-rouge">2239.7 MiB</code><td><strong>Estimated RAM available</strong> for new processes without swapping</table></div><blockquote><p><strong>Swap in use (<code class="language-plaintext highlighter-rouge">905.1 MiB</code>)</strong> means some memory pages were moved to disk — likely from long-idle processes. Moderate swap use is fine. Heavy swap use (swap <code class="language-plaintext highlighter-rouge">used</code> near <code class="language-plaintext highlighter-rouge">total</code>) combined with high <code class="language-plaintext highlighter-rouge">wa</code> CPU time is a classic sign of <strong>memory pressure</strong> — the system is constantly swapping pages in and out, causing slowdowns.</p></blockquote><hr /><p><strong>Interactive keyboard shortcuts inside <code class="language-plaintext highlighter-rouge">top</code>:</strong></p><div class="table-wrapper"><table><thead><tr><th>Key<th>Action<tbody><tr><td><code class="language-plaintext highlighter-rouge">P</code><td>Sort by CPU usage<tr><td><code class="language-plaintext highlighter-rouge">M</code><td>Sort by memory usage<tr><td><code class="language-plaintext highlighter-rouge">k</code><td>Kill a process (prompts for PID and signal)<tr><td><code class="language-plaintext highlighter-rouge">r</code><td>Renice a process (change priority)<tr><td><code class="language-plaintext highlighter-rouge">u</code><td>Filter by a specific user<tr><td><code class="language-plaintext highlighter-rouge">1</code><td>Toggle per-CPU-core breakdown<tr><td><code class="language-plaintext highlighter-rouge">h</code><td>Help screen<tr><td><code class="language-plaintext highlighter-rouge">q</code><td>Quit</table></div><hr /><h3 id="-htop--enhanced-interactive-process-viewer"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">htop</code> — Enhanced Interactive Process Viewer</span><a href="#-htop--enhanced-interactive-process-viewer" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><code class="language-plaintext highlighter-rouge">htop</code> is a modern, color-coded, mouse-enabled alternative to <code class="language-plaintext highlighter-rouge">top</code>. It is not installed by default on all systems.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<hr />
+
+<h4 id="line-1--system-summary"><span class="me-2">Line 1 — System Summary</span><a href="#line-1--system-summary" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>top - 18:16:43 up 4:20, 1 user, load average: 0.42, 0.53, 0.61
+</pre></td></tr></tbody></table></code></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Current time</td>
+      <td><code class="language-plaintext highlighter-rouge">18:16:43</code></td>
+      <td>Wall clock time when this snapshot was taken</td>
+    </tr>
+    <tr>
+      <td>Uptime</td>
+      <td><code class="language-plaintext highlighter-rouge">up 4:20</code></td>
+      <td>System has been running for 4 hours 20 minutes</td>
+    </tr>
+    <tr>
+      <td>Users</td>
+      <td><code class="language-plaintext highlighter-rouge">1 user</code></td>
+      <td>One user session currently logged in</td>
+    </tr>
+    <tr>
+      <td>Load avg (1m)</td>
+      <td><code class="language-plaintext highlighter-rouge">0.42</code></td>
+      <td>Average number of runnable/waiting processes over last 1 minute</td>
+    </tr>
+    <tr>
+      <td>Load avg (5m)</td>
+      <td><code class="language-plaintext highlighter-rouge">0.53</code></td>
+      <td>Same, over last 5 minutes</td>
+    </tr>
+    <tr>
+      <td>Load avg (15m)</td>
+      <td><code class="language-plaintext highlighter-rouge">0.61</code></td>
+      <td>Same, over last 15 minutes</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p><strong>Reading load averages:</strong> Load average represents the average number of processes that are either running or waiting for CPU time. On a <strong>single-core</strong> machine, a load of <code class="language-plaintext highlighter-rouge">1.0</code> means 100% busy. On a <strong>4-core</strong> machine, a load of <code class="language-plaintext highlighter-rouge">4.0</code> means 100% busy. This system has 1 user and a load of <code class="language-plaintext highlighter-rouge">0.42</code> — the CPU is largely idle and healthy. A load average <strong>trending upward</strong> (0.42 → 0.53 → 0.61 reading right to left = rising load) can be a warning sign of increasing pressure.</p>
+</blockquote>
+
+<hr />
+
+<h4 id="line-2--task-process-summary"><span class="me-2">Line 2 — Task (Process) Summary</span><a href="#line-2--task-process-summary" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Tasks: 341 total, 1 running, 340 sleeping, 0 stopped, 0 zombie
+</pre></td></tr></tbody></table></code></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Total</td>
+      <td><code class="language-plaintext highlighter-rouge">341</code></td>
+      <td>Total number of processes currently known to the kernel</td>
+    </tr>
+    <tr>
+      <td>Running</td>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>Processes actively on a CPU core right now</td>
+    </tr>
+    <tr>
+      <td>Sleeping</td>
+      <td><code class="language-plaintext highlighter-rouge">340</code></td>
+      <td>Processes waiting on I/O, timers, or events (normal)</td>
+    </tr>
+    <tr>
+      <td>Stopped</td>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>Processes paused via <code class="language-plaintext highlighter-rouge">SIGSTOP</code> or <code class="language-plaintext highlighter-rouge">Ctrl+Z</code></td>
+    </tr>
+    <tr>
+      <td>Zombie</td>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>Dead processes not yet reaped by their parent</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p><strong>What’s normal:</strong> Having nearly all processes sleeping is completely healthy — it means they’re idle and waiting for work. <code class="language-plaintext highlighter-rouge">0 zombie</code> is the ideal state. If zombie count climbs steadily, a parent process has a bug and isn’t calling <code class="language-plaintext highlighter-rouge">wait()</code>.</p>
+</blockquote>
+
+<hr />
+
+<h4 id="line-3--cpu-usage-breakdown"><span class="me-2">Line 3 — CPU Usage Breakdown</span><a href="#line-3--cpu-usage-breakdown" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>%Cpu(s):  4.4 us,  1.6 sy,  0.3 ni, 92.5 id,  1.1 wa,  0.0 hi,  0.0 si,  0.0 st
+</pre></td></tr></tbody></table></code></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">us</code></td>
+      <td><code class="language-plaintext highlighter-rouge">4.4%</code></td>
+      <td><strong>User space</strong> — CPU time spent running your applications</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sy</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1.6%</code></td>
+      <td><strong>System/kernel</strong> — CPU time spent on kernel operations (syscalls, drivers)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ni</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0.3%</code></td>
+      <td><strong>Nice</strong> — CPU time for user processes with adjusted (lowered) priority</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">92.5%</code></td>
+      <td><strong>Idle</strong> — CPU doing nothing; available capacity</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">wa</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1.1%</code></td>
+      <td><strong>I/O wait</strong> — CPU idle but waiting for disk/network I/O to complete</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">hi</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0.0%</code></td>
+      <td><strong>Hardware interrupts</strong> — time handling hardware signals (keyboard, NIC)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">si</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0.0%</code></td>
+      <td><strong>Software interrupts</strong> — time handling kernel software interrupt processing</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">st</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0.0%</code></td>
+      <td><strong>Steal time</strong> — CPU cycles taken by the hypervisor (only non-zero in VMs)</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p><strong>Reading this snapshot:</strong> <code class="language-plaintext highlighter-rouge">92.5% idle</code> means the system is under very light load. <code class="language-plaintext highlighter-rouge">1.1% wa</code> (I/O wait) is low and normal. If <code class="language-plaintext highlighter-rouge">wa</code> climbs above 10–20%, you likely have a disk bottleneck. If <code class="language-plaintext highlighter-rouge">sy</code> is consistently high, kernel-level activity (syscalls, context switches) may be a concern. <code class="language-plaintext highlighter-rouge">st &gt; 0</code> on a VM signals the host hypervisor is overcommitted.</p>
+</blockquote>
+
+<hr />
+
+<h4 id="line-4--physical-memory-ram"><span class="me-2">Line 4 — Physical Memory (RAM)</span><a href="#line-4--physical-memory-ram" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>MiB Mem : 7722.0 total, 826.3 free, 4203.1 used, 2692.6 buff/cache
+</pre></td></tr></tbody></table></code></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">total</code></td>
+      <td><code class="language-plaintext highlighter-rouge">7722.0 MiB</code></td>
+      <td>Total installed physical RAM (~7.5 GB)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">free</code></td>
+      <td><code class="language-plaintext highlighter-rouge">826.3 MiB</code></td>
+      <td>Completely unused RAM</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">used</code></td>
+      <td><code class="language-plaintext highlighter-rouge">4203.1 MiB</code></td>
+      <td>RAM actively used by processes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">buff/cache</code></td>
+      <td><code class="language-plaintext highlighter-rouge">2692.6 MiB</code></td>
+      <td>RAM used by kernel for disk buffers and file cache</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p><strong>Don’t panic about low “free” memory.</strong> Linux aggressively uses spare RAM as disk cache (<code class="language-plaintext highlighter-rouge">buff/cache</code>) to speed up file access. This memory is <em>immediately</em> reclaimable when a process needs it. The real available memory is shown on the <strong>Swap line</strong> as <code class="language-plaintext highlighter-rouge">avail Mem</code> — here <code class="language-plaintext highlighter-rouge">2239.7 MiB</code> is truly available for new allocations.</p>
+</blockquote>
+
+<hr />
+
+<h4 id="line-5--swap-space"><span class="me-2">Line 5 — Swap Space</span><a href="#line-5--swap-space" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>MiB Swap: 11817.5 total, 10912.4 free, 905.1 used. 2239.7 avail Mem
+</pre></td></tr></tbody></table></code></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">total</code></td>
+      <td><code class="language-plaintext highlighter-rouge">11817.5 MiB</code></td>
+      <td>Total swap space (~11.5 GB, on disk)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">free</code></td>
+      <td><code class="language-plaintext highlighter-rouge">10912.4 MiB</code></td>
+      <td>Unused swap</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">used</code></td>
+      <td><code class="language-plaintext highlighter-rouge">905.1 MiB</code></td>
+      <td>Data currently swapped out to disk</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">avail Mem</code></td>
+      <td><code class="language-plaintext highlighter-rouge">2239.7 MiB</code></td>
+      <td><strong>Estimated RAM available</strong> for new processes without swapping</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p><strong>Swap in use (<code class="language-plaintext highlighter-rouge">905.1 MiB</code>)</strong> means some memory pages were moved to disk — likely from long-idle processes. Moderate swap use is fine. Heavy swap use (swap <code class="language-plaintext highlighter-rouge">used</code> near <code class="language-plaintext highlighter-rouge">total</code>) combined with high <code class="language-plaintext highlighter-rouge">wa</code> CPU time is a classic sign of <strong>memory pressure</strong> — the system is constantly swapping pages in and out, causing slowdowns.</p>
+</blockquote>
+
+<hr />
+
+<p><strong>Interactive keyboard shortcuts inside <code class="language-plaintext highlighter-rouge">top</code>:</strong></p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P</code></td>
+      <td>Sort by CPU usage</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">M</code></td>
+      <td>Sort by memory usage</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">k</code></td>
+      <td>Kill a process (prompts for PID and signal)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">r</code></td>
+      <td>Renice a process (change priority)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">u</code></td>
+      <td>Filter by a specific user</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>Toggle per-CPU-core breakdown</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">h</code></td>
+      <td>Help screen</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">q</code></td>
+      <td>Quit</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<hr />
+
+<h3 id="-htop--enhanced-interactive-process-viewer"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">htop</code> — Enhanced Interactive Process Viewer</span><a href="#-htop--enhanced-interactive-process-viewer" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p><code class="language-plaintext highlighter-rouge">htop</code> is a modern, color-coded, mouse-enabled alternative to <code class="language-plaintext highlighter-rouge">top</code>. It is not installed by default on all systems.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre><td class="rouge-code"><pre><span class="c"># Install if not present</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Install if not present</span>
 <span class="nb">sudo </span>apt <span class="nb">install </span>htop      <span class="c"># Debian/Ubuntu</span>
 <span class="nb">sudo </span>dnf <span class="nb">install </span>htop      <span class="c"># Fedora/RHEL</span>
 
 htop
-</pre></table></code></div></div><p><strong>Advantages over <code class="language-plaintext highlighter-rouge">top</code>:</strong></p><ul><li>Visual CPU/memory bars per core<li>Mouse-clickable interface<li>Scroll horizontally to see full command lines<li>Multi-select and bulk-kill processes (<code class="language-plaintext highlighter-rouge">Space</code> to select, <code class="language-plaintext highlighter-rouge">F9</code> to kill)<li>Tree view built in (<code class="language-plaintext highlighter-rouge">F5</code>)</ul><p><strong>Key shortcuts:</strong></p><div class="table-wrapper"><table><thead><tr><th>Key<th>Action<tbody><tr><td><code class="language-plaintext highlighter-rouge">F2</code><td>Setup / configuration<tr><td><code class="language-plaintext highlighter-rouge">F3</code><td>Search for a process by name<tr><td><code class="language-plaintext highlighter-rouge">F4</code><td>Filter processes<tr><td><code class="language-plaintext highlighter-rouge">F5</code><td>Tree view (shows parent-child hierarchy)<tr><td><code class="language-plaintext highlighter-rouge">F6</code><td>Sort by column<tr><td><code class="language-plaintext highlighter-rouge">F9</code><td>Kill selected process (choose signal)<tr><td><code class="language-plaintext highlighter-rouge">F10</code><td>Quit</table></div><hr /><h3 id="-kill--send-signals-to-a-process-by-pid"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">kill</code> — Send Signals to a Process by PID</span><a href="#-kill--send-signals-to-a-process-by-pid" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><code class="language-plaintext highlighter-rouge">kill</code> does not only terminate processes — it <strong>sends signals</strong> to them. Termination is just the most common use.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Advantages over <code class="language-plaintext highlighter-rouge">top</code>:</strong></p>
+<ul>
+  <li>Visual CPU/memory bars per core</li>
+  <li>Mouse-clickable interface</li>
+  <li>Scroll horizontally to see full command lines</li>
+  <li>Multi-select and bulk-kill processes (<code class="language-plaintext highlighter-rouge">Space</code> to select, <code class="language-plaintext highlighter-rouge">F9</code> to kill)</li>
+  <li>Tree view built in (<code class="language-plaintext highlighter-rouge">F5</code>)</li>
+</ul>
+
+<p><strong>Key shortcuts:</strong></p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F2</code></td>
+      <td>Setup / configuration</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F3</code></td>
+      <td>Search for a process by name</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F4</code></td>
+      <td>Filter processes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F5</code></td>
+      <td>Tree view (shows parent-child hierarchy)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F6</code></td>
+      <td>Sort by column</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F9</code></td>
+      <td>Kill selected process (choose signal)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F10</code></td>
+      <td>Quit</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<hr />
+
+<h3 id="-kill--send-signals-to-a-process-by-pid"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">kill</code> — Send Signals to a Process by PID</span><a href="#-kill--send-signals-to-a-process-by-pid" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p><code class="language-plaintext highlighter-rouge">kill</code> does not only terminate processes — it <strong>sends signals</strong> to them. Termination is just the most common use.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -71,7 +1594,7 @@ htop
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Syntax</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Syntax</span>
 <span class="nb">kill</span> <span class="o">[</span>signal] &lt;PID&gt;
 
 <span class="c"># Default signal is SIGTERM (15) — polite termination request</span>
@@ -82,7 +1605,65 @@ htop
 
 <span class="c"># List all available signals</span>
 <span class="nb">kill</span> <span class="nt">-l</span>
-</pre></table></code></div></div><p><strong>Essential signals:</strong></p><div class="table-wrapper"><table><thead><tr><th>Signal<th>Number<th>Meaning<tbody><tr><td><code class="language-plaintext highlighter-rouge">SIGTERM</code><td><code class="language-plaintext highlighter-rouge">15</code><td>Graceful termination request — process can clean up<tr><td><code class="language-plaintext highlighter-rouge">SIGKILL</code><td><code class="language-plaintext highlighter-rouge">9</code><td>Immediate, unconditional kill — cannot be caught<tr><td><code class="language-plaintext highlighter-rouge">SIGHUP</code><td><code class="language-plaintext highlighter-rouge">1</code><td>Hangup — often used to reload config (e.g., nginx, sshd)<tr><td><code class="language-plaintext highlighter-rouge">SIGSTOP</code><td><code class="language-plaintext highlighter-rouge">19</code><td>Pause/suspend a process (cannot be caught)<tr><td><code class="language-plaintext highlighter-rouge">SIGCONT</code><td><code class="language-plaintext highlighter-rouge">18</code><td>Resume a stopped process<tr><td><code class="language-plaintext highlighter-rouge">SIGINT</code><td><code class="language-plaintext highlighter-rouge">2</code><td>Interrupt (same as pressing <code class="language-plaintext highlighter-rouge">Ctrl+C</code>)</table></div><blockquote><p><strong>Best practice:</strong> Always try <code class="language-plaintext highlighter-rouge">SIGTERM</code> (15) first — it allows the process to save state and exit cleanly. Only escalate to <code class="language-plaintext highlighter-rouge">SIGKILL</code> (9) if the process doesn’t respond after a few seconds. <code class="language-plaintext highlighter-rouge">SIGKILL</code> cannot be intercepted; it is handled entirely by the kernel.</p></blockquote><hr /><h3 id="-killall--send-signals-to-processes-by-name"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">killall</code> — Send Signals to Processes by Name</span><a href="#-killall--send-signals-to-processes-by-name" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><code class="language-plaintext highlighter-rouge">killall</code> targets processes by <strong>name</strong> rather than PID — useful when you don’t know or want to look up the PID.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Essential signals:</strong></p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Signal</th>
+      <th>Number</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGTERM</code></td>
+      <td><code class="language-plaintext highlighter-rouge">15</code></td>
+      <td>Graceful termination request — process can clean up</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGKILL</code></td>
+      <td><code class="language-plaintext highlighter-rouge">9</code></td>
+      <td>Immediate, unconditional kill — cannot be caught</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGHUP</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>Hangup — often used to reload config (e.g., nginx, sshd)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGSTOP</code></td>
+      <td><code class="language-plaintext highlighter-rouge">19</code></td>
+      <td>Pause/suspend a process (cannot be caught)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGCONT</code></td>
+      <td><code class="language-plaintext highlighter-rouge">18</code></td>
+      <td>Resume a stopped process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGINT</code></td>
+      <td><code class="language-plaintext highlighter-rouge">2</code></td>
+      <td>Interrupt (same as pressing <code class="language-plaintext highlighter-rouge">Ctrl+C</code>)</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p><strong>Best practice:</strong> Always try <code class="language-plaintext highlighter-rouge">SIGTERM</code> (15) first — it allows the process to save state and exit cleanly. Only escalate to <code class="language-plaintext highlighter-rouge">SIGKILL</code> (9) if the process doesn’t respond after a few seconds. <code class="language-plaintext highlighter-rouge">SIGKILL</code> cannot be intercepted; it is handled entirely by the kernel.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="-killall--send-signals-to-processes-by-name"><span class="me-2">🔹 <code class="language-plaintext highlighter-rouge">killall</code> — Send Signals to Processes by Name</span><a href="#-killall--send-signals-to-processes-by-name" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p><code class="language-plaintext highlighter-rouge">killall</code> targets processes by <strong>name</strong> rather than PID — useful when you don’t know or want to look up the PID.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -93,7 +1674,7 @@ htop
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Gracefully terminate all processes named "nginx"</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Gracefully terminate all processes named "nginx"</span>
 killall nginx
 
 <span class="c"># Force kill all instances</span>
@@ -104,7 +1685,57 @@ killall <span class="nt">-u</span> www-data nginx
 
 <span class="c"># Interactively confirm before killing each match</span>
 killall <span class="nt">-i</span> python3
-</pre></table></code></div></div><blockquote><p><strong>Warning:</strong> <code class="language-plaintext highlighter-rouge">killall</code> on Linux kills by name; on some Unix systems (e.g., Solaris), <code class="language-plaintext highlighter-rouge">killall</code> kills <em>every single process</em> on the system. Always verify which OS you’re on before using it in scripts.</p></blockquote><hr /><h3 id="-pid-and-ppid--the-process-identity-system"><span class="me-2">🔹 PID and PPID — The Process Identity System</span><a href="#-pid-and-ppid--the-process-identity-system" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><strong>PID (Process ID):</strong> A unique integer assigned by the kernel to every process at creation. PIDs are assigned sequentially and wrap around after reaching the system maximum (typically 32768 by default, configurable via <code class="language-plaintext highlighter-rouge">/proc/sys/kernel/pid_max</code>).</p><p><strong>PPID (Parent Process ID):</strong> The PID of the process that created (forked) this process. Every process except PID 1 has a parent.</p><p><strong>Special PIDs:</strong></p><div class="table-wrapper"><table><thead><tr><th>PID<th>Process<th>Role<tbody><tr><td><code class="language-plaintext highlighter-rouge">0</code><td>Swapper/idle<td>Kernel internal — not a real user process<tr><td><code class="language-plaintext highlighter-rouge">1</code><td><code class="language-plaintext highlighter-rouge">init</code> / <code class="language-plaintext highlighter-rouge">systemd</code><td>The first userspace process; parent of all orphaned processes<tr><td><code class="language-plaintext highlighter-rouge">2</code><td><code class="language-plaintext highlighter-rouge">kthreadd</code><td>Parent of all kernel threads</table></div><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Warning:</strong> <code class="language-plaintext highlighter-rouge">killall</code> on Linux kills by name; on some Unix systems (e.g., Solaris), <code class="language-plaintext highlighter-rouge">killall</code> kills <em>every single process</em> on the system. Always verify which OS you’re on before using it in scripts.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="-pid-and-ppid--the-process-identity-system"><span class="me-2">🔹 PID and PPID — The Process Identity System</span><a href="#-pid-and-ppid--the-process-identity-system" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<blockquote>
+  <p>[!NOTE]
+For a technical deep dive into how the kernel manages these IDs, see <a href="file:///media/marz/New%20Volume/Work-Related/Own-projects/public-facing/blog.sreesreejuks.github.io/_posts/2026-02-07-linux-system-internals.md">Linux System Internals</a>.</p>
+</blockquote>
+
+<p><strong>PID (Process ID):</strong> A unique integer assigned by the kernel to every process at creation. PIDs are assigned sequentially and wrap around after reaching the system maximum (typically 32768 by default, configurable via <code class="language-plaintext highlighter-rouge">/proc/sys/kernel/pid_max</code>).</p>
+
+<p><strong>PPID (Parent Process ID):</strong> The PID of the process that created (forked) this process. Every process except PID 1 has a parent.</p>
+
+<p><strong>Special PIDs:</strong></p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>PID</th>
+      <th>Process</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>Swapper/idle</td>
+      <td>Kernel internal — not a real user process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td><code class="language-plaintext highlighter-rouge">init</code> / <code class="language-plaintext highlighter-rouge">systemd</code></td>
+      <td>The first userspace process; parent of all orphaned processes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">2</code></td>
+      <td><code class="language-plaintext highlighter-rouge">kthreadd</code></td>
+      <td>Parent of all kernel threads</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -112,7 +1743,7 @@ killall <span class="nt">-i</span> python3
 6
 7
 8
-</pre><td class="rouge-code"><pre><span class="c"># Find PID of a running process by name</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Find PID of a running process by name</span>
 pgrep nginx
 
 <span class="c"># Find PID and PPID together</span>
@@ -120,20 +1751,4350 @@ ps <span class="nt">-o</span> pid,ppid,comm <span class="nt">-p</span> <span cla
 
 <span class="c"># Read a process's own PID/PPID from /proc</span>
 <span class="nb">cat</span> /proc/<span class="nv">$$</span>/status | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^(Pid|PPid)"</span>
-</pre></table></code></div></div><hr /><h3 id="-zombie-processes--the-living-dead"><span class="me-2">🔹 Zombie Processes — The Living Dead</span><a href="#-zombie-processes--the-living-dead" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>A <strong>zombie process</strong> (state <code class="language-plaintext highlighter-rouge">Z</code> in <code class="language-plaintext highlighter-rouge">ps</code>) is a process that has <strong>finished executing</strong> but whose exit status has not yet been collected by its parent.</p><p><strong>How a zombie forms:</strong></p><ol><li>Child process calls <code class="language-plaintext highlighter-rouge">exit()</code> — it terminates and releases its memory and resources.<li>The kernel keeps a small entry in the process table to store the exit code.<li>The parent is expected to call <code class="language-plaintext highlighter-rouge">wait()</code> or <code class="language-plaintext highlighter-rouge">waitpid()</code> to collect that exit code.<li>If the parent <strong>never calls <code class="language-plaintext highlighter-rouge">wait()</code></strong>, the child entry stays in the process table forever — it becomes a zombie.</ol><p><strong>Key facts about zombies:</strong></p><ul><li>A zombie holds <strong>no memory, no CPU</strong> — it’s just a process table entry<li>You <strong>cannot kill a zombie with <code class="language-plaintext highlighter-rouge">kill -9</code></strong> — it’s already dead<li>To eliminate a zombie, you must fix or kill its <strong>parent</strong><li>If the parent dies, <code class="language-plaintext highlighter-rouge">systemd</code>/<code class="language-plaintext highlighter-rouge">init</code> (PID 1) adopts the zombie and reaps it automatically</ul><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<hr />
+
+<h3 id="-zombie-processes--the-living-dead"><span class="me-2">🔹 Zombie Processes — The Living Dead</span><a href="#-zombie-processes--the-living-dead" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>A <strong>zombie process</strong> (state <code class="language-plaintext highlighter-rouge">Z</code> in <code class="language-plaintext highlighter-rouge">ps</code>) is a process that has <strong>finished executing</strong> but whose exit status has not yet been collected by its parent.</p>
+
+<p><strong>How a zombie forms:</strong></p>
+<ol>
+  <li>Child process calls <code class="language-plaintext highlighter-rouge">exit()</code> — it terminates and releases its memory and resources.</li>
+  <li>The kernel keeps a small entry in the process table to store the exit code.</li>
+  <li>The parent is expected to call <code class="language-plaintext highlighter-rouge">wait()</code> or <code class="language-plaintext highlighter-rouge">waitpid()</code> to collect that exit code.</li>
+  <li>If the parent <strong>never calls <code class="language-plaintext highlighter-rouge">wait()</code></strong>, the child entry stays in the process table forever — it becomes a zombie.</li>
+</ol>
+
+<p><strong>Key facts about zombies:</strong></p>
+<ul>
+  <li>A zombie holds <strong>no memory, no CPU</strong> — it’s just a process table entry</li>
+  <li>You <strong>cannot kill a zombie with <code class="language-plaintext highlighter-rouge">kill -9</code></strong> — it’s already dead</li>
+  <li>To eliminate a zombie, you must fix or kill its <strong>parent</strong></li>
+  <li>If the parent dies, <code class="language-plaintext highlighter-rouge">systemd</code>/<code class="language-plaintext highlighter-rouge">init</code> (PID 1) adopts the zombie and reaps it automatically</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
 7
-</pre><td class="rouge-code"><pre><span class="c"># Find zombie processes</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Find zombie processes</span>
 ps aux | <span class="nb">grep</span> <span class="s1">'Z'</span>
 ps <span class="nt">-el</span> | <span class="nb">grep </span>Z
 
 <span class="c"># Find the parent of a zombie (to kill it)</span>
 ps <span class="nt">-o</span> <span class="nv">ppid</span><span class="o">=</span> <span class="nt">-p</span> &lt;zombie_PID&gt;
 <span class="nb">kill</span> <span class="nt">-9</span> &lt;parent_PID&gt;   <span class="c"># killing the parent forces PID 1 to adopt and reap the zombie</span>
-</pre></table></code></div></div><blockquote><p><strong>Zombie vs Orphan:</strong> A <em>zombie</em> is a dead child whose parent hasn’t called <code class="language-plaintext highlighter-rouge">wait()</code>. An <em>orphan</em> is a living child whose parent has already died — orphans are immediately re-parented to PID 1 (<code class="language-plaintext highlighter-rouge">systemd</code>), which will properly reap them when they finish.</p></blockquote><hr /><h2 id="-commands--quick-reference"><span class="me-2">🔧 Commands &amp; Quick Reference</span><a href="#-commands--quick-reference" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="table-wrapper"><table><thead><tr><th>Command<th>Purpose<th>Example<tbody><tr><td><code class="language-plaintext highlighter-rouge">ps aux</code><td>Snapshot of all processes (BSD format)<td><code class="language-plaintext highlighter-rouge">ps aux \| grep nginx</code><tr><td><code class="language-plaintext highlighter-rouge">ps -ef</code><td>Snapshot with PPID visible (POSIX format)<td><code class="language-plaintext highlighter-rouge">ps -ef \| grep python</code><tr><td><code class="language-plaintext highlighter-rouge">ps auxf</code><td>Process tree in ASCII art<td><code class="language-plaintext highlighter-rouge">ps auxf \| less</code><tr><td><code class="language-plaintext highlighter-rouge">top</code><td>Real-time process monitor<td><code class="language-plaintext highlighter-rouge">top</code> then press <code class="language-plaintext highlighter-rouge">P</code><tr><td><code class="language-plaintext highlighter-rouge">htop</code><td>Enhanced real-time monitor<td><code class="language-plaintext highlighter-rouge">htop</code> then <code class="language-plaintext highlighter-rouge">F5</code> for tree<tr><td><code class="language-plaintext highlighter-rouge">kill &lt;PID&gt;</code><td>Send SIGTERM to a process<td><code class="language-plaintext highlighter-rouge">kill 4321</code><tr><td><code class="language-plaintext highlighter-rouge">kill -9 &lt;PID&gt;</code><td>Force kill (SIGKILL)<td><code class="language-plaintext highlighter-rouge">kill -9 4321</code><tr><td><code class="language-plaintext highlighter-rouge">kill -1 &lt;PID&gt;</code><td>Reload config (SIGHUP)<td><code class="language-plaintext highlighter-rouge">kill -1 $(pgrep nginx)</code><tr><td><code class="language-plaintext highlighter-rouge">killall &lt;name&gt;</code><td>Kill all processes by name<td><code class="language-plaintext highlighter-rouge">killall -9 firefox</code><tr><td><code class="language-plaintext highlighter-rouge">pgrep &lt;name&gt;</code><td>Find PID by process name<td><code class="language-plaintext highlighter-rouge">pgrep sshd</code><tr><td><code class="language-plaintext highlighter-rouge">pkill &lt;name&gt;</code><td>Kill by name (like killall)<td><code class="language-plaintext highlighter-rouge">pkill -9 zombie_app</code></table></div><hr /><h2 id="-references--learning-resources"><span class="me-2">💡 References &amp; Learning Resources</span><a href="#-references--learning-resources" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><strong><code class="language-plaintext highlighter-rouge">man ps</code></strong>, <strong><code class="language-plaintext highlighter-rouge">man top</code></strong>, <strong><code class="language-plaintext highlighter-rouge">man kill</code></strong> — the primary source of truth <em>(Beginner-friendly)</em><li><strong>“The Linux Programming Interface”</strong> by Michael Kerrisk, Ch. 26 (Monitoring Child Processes) <em>(Advanced/Deep dive)</em><li><strong>“Linux Command Line and Shell Scripting Bible”</strong> by Richard Blum <em>(Beginner-friendly)</em><li><strong><code class="language-plaintext highlighter-rouge">strace -e trace=process ls</code></strong> — trace only process-related syscalls live <em>(Intermediate)</em><li>Linux <code class="language-plaintext highlighter-rouge">proc(5)</code> man page: <code class="language-plaintext highlighter-rouge">man 5 proc</code> — full reference for <code class="language-plaintext highlighter-rouge">/proc/&lt;PID&gt;/status</code> fields <em>(Intermediate)</em></ul><hr /><h2 id="-quick-recap"><span class="me-2">📊 Quick Recap</span><a href="#-quick-recap" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><code class="language-plaintext highlighter-rouge">ps aux</code> is your go-to snapshot tool; <code class="language-plaintext highlighter-rouge">%CPU</code>, <code class="language-plaintext highlighter-rouge">%MEM</code>, <code class="language-plaintext highlighter-rouge">RSS</code>, and the <code class="language-plaintext highlighter-rouge">STAT</code> column reveal process health at a glance.<li><code class="language-plaintext highlighter-rouge">ps -ef</code> uniquely shows <code class="language-plaintext highlighter-rouge">PPID</code>, making it ideal for tracing parent-child relationships.<li><code class="language-plaintext highlighter-rouge">top</code> gives real-time CPU/memory stats; <code class="language-plaintext highlighter-rouge">htop</code> adds color, mouse support, and a tree view — prefer <code class="language-plaintext highlighter-rouge">htop</code> for interactive use.<li>Always attempt <code class="language-plaintext highlighter-rouge">SIGTERM (15)</code> before <code class="language-plaintext highlighter-rouge">SIGKILL (9)</code> — give processes the chance to clean up gracefully.<li><code class="language-plaintext highlighter-rouge">killall</code> targets by name; <code class="language-plaintext highlighter-rouge">kill</code> targets by PID — use <code class="language-plaintext highlighter-rouge">pgrep</code> to bridge them: <code class="language-plaintext highlighter-rouge">kill $(pgrep nginx)</code>.<li><strong>PID</strong> identifies a process uniquely; <strong>PPID</strong> reveals who spawned it, forming the process family tree rooted at PID 1 (<code class="language-plaintext highlighter-rouge">systemd</code>).<li>A <strong>zombie</strong> is a finished process whose exit status was never collected by its parent — it holds no resources but cannot be removed until the parent calls <code class="language-plaintext highlighter-rouge">wait()</code> or dies itself.</ul><hr /><h2 id="️-tags"><span class="me-2">🏷️ Tags</span><a href="#️-tags" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>#Linux #ProcessManagement #ps #top #htop #kill #killall #PID #PPID #ZombieProcess #Signals #SIGTERM #SIGKILL #SystemMonitoring #CLI #Intermediate #SysAdmin #UnixInternals
-</pre></table></code></div></div></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/process/">process</a>, <a href="/categories/system-administration/">system-administration</a>, <a href="/categories/ubuntu/">ubuntu</a>, <a href="/categories/monitoring/">monitoring</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw me-1"></i> <a href="/tags/top/" class="post-tag no-text-decoration" >top</a> <a href="/tags/pid/" class="post-tag no-text-decoration" >pid</a> <a href="/tags/ps/" class="post-tag no-text-decoration" >ps</a> <a href="/tags/htop/" class="post-tag no-text-decoration" >htop</a> <a href="/tags/tutorial/" class="post-tag no-text-decoration" >tutorial</a></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">Share</span> <span class="share-icons"> <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fblog.sreesreejuks.com%2Flinux-process-management%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin"> <i class="fa-fw fab fa-linkedin"></i> </a> <a href="https://twitter.com/intent/tweet?text=Linux%20Process%20Management%20%E2%80%94%20Mastering%20ps,%20top,%20kill%20&%20Process%20Lifecycle%20-%20Sreeju%20KS&url=https%3A%2F%2Fblog.sreesreejuks.com%2Flinux-process-management%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Linux%20Process%20Management%20%E2%80%94%20Mastering%20ps,%20top,%20kill%20&%20Process%20Lifecycle%20-%20Sreeju%20KS&u=https%3A%2F%2Fblog.sreesreejuks.com%2Flinux-process-management%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fblog.sreesreejuks.com%2Flinux-process-management%2F&text=Linux%20Process%20Management%20%E2%80%94%20Mastering%20ps,%20top,%20kill%20&%20Process%20Lifecycle%20-%20Sreeju%20KS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy link" data-title-succeed="Link copied successfully!" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">Recently Updated</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/linux-process-management/">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</a><li class="text-truncate lh-lg"> <a href="/linux-system-internals/">Linux System Internals</a><li class="text-truncate lh-lg"> <a href="/disk-monitoring-approach/">Interview Question: Disk Space Monitoring Approach</a><li class="text-truncate lh-lg"> <a href="/Proxmox-Virtual-Environment/">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</a><li class="text-truncate lh-lg"> <a href="/text-processing-with-sed-and-awk/">Text Processing with sed and awk - The Professional's Guide</a></ul></section><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a> <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a> <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a> <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a> <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a> <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a> <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a></div></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">Further Reading</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="/Proxmox-Virtual-Environment/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1745260080" data-df="ll" > Apr 21, 2025 </time><h4 class="pt-0 my-2">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</h4><div class="text-muted"><p>Table of Contents Introduction Prerequisites Setting up Virtual Machines in Proxmox Preliminary Tweaks Installing Kubernetes Creating a Node Template Initializing the Cluster Joini...</p></div></div></a></article><article class="col"> <a href="/text-processing-with-sed-and-awk/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1744870500" data-df="ll" > Apr 17, 2025 </time><h4 class="pt-0 my-2">Text Processing with sed and awk - The Professional's Guide</h4><div class="text-muted"><p>A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently.</p></div></div></a></article><article class="col"> <a href="/regular-expressions-guide/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1744857180" data-df="ll" > Apr 17, 2025 </time><h4 class="pt-0 my-2">Regular Expressions Guide - Mastering Pattern Matching in Linux</h4><div class="text-muted"><p>A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration.</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/linux-system-internals/" class="btn btn-outline-primary" aria-label="Older" ><p>Linux System Internals</p></a><div class="btn btn-outline-primary disabled" aria-label="Newer"><p>-</p></div></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author." >Some rights reserved.</span></p><p>Using the <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.2.4" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>.</p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a> <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a> <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a> <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a> <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a> <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a> <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a></div></section></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="toast-header"> <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" ></button></div><div class="toast-body text-center pt-0"><p class="px-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Zombie vs Orphan:</strong> A <em>zombie</em> is a dead child whose parent hasn’t called <code class="language-plaintext highlighter-rouge">wait()</code>. An <em>orphan</em> is a living child whose parent has already died — orphans are immediately re-parented to PID 1 (<code class="language-plaintext highlighter-rouge">systemd</code>), which will properly reap them when they finish.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="-commands--quick-reference"><span class="me-2">🔧 Commands &amp; Quick Reference</span><a href="#-commands--quick-reference" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Purpose</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ps aux</code></td>
+      <td>Snapshot of all processes (BSD format)</td>
+      <td><code class="language-plaintext highlighter-rouge">ps aux \| grep nginx</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ps -ef</code></td>
+      <td>Snapshot with PPID visible (POSIX format)</td>
+      <td><code class="language-plaintext highlighter-rouge">ps -ef \| grep python</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ps auxf</code></td>
+      <td>Process tree in ASCII art</td>
+      <td><code class="language-plaintext highlighter-rouge">ps auxf \| less</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">top</code></td>
+      <td>Real-time process monitor</td>
+      <td><code class="language-plaintext highlighter-rouge">top</code> then press <code class="language-plaintext highlighter-rouge">P</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">htop</code></td>
+      <td>Enhanced real-time monitor</td>
+      <td><code class="language-plaintext highlighter-rouge">htop</code> then <code class="language-plaintext highlighter-rouge">F5</code> for tree</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">kill &lt;PID&gt;</code></td>
+      <td>Send SIGTERM to a process</td>
+      <td><code class="language-plaintext highlighter-rouge">kill 4321</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">kill -9 &lt;PID&gt;</code></td>
+      <td>Force kill (SIGKILL)</td>
+      <td><code class="language-plaintext highlighter-rouge">kill -9 4321</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">kill -1 &lt;PID&gt;</code></td>
+      <td>Reload config (SIGHUP)</td>
+      <td><code class="language-plaintext highlighter-rouge">kill -1 $(pgrep nginx)</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">killall &lt;name&gt;</code></td>
+      <td>Kill all processes by name</td>
+      <td><code class="language-plaintext highlighter-rouge">killall -9 firefox</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">pgrep &lt;name&gt;</code></td>
+      <td>Find PID by process name</td>
+      <td><code class="language-plaintext highlighter-rouge">pgrep sshd</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">pkill &lt;name&gt;</code></td>
+      <td>Kill by name (like killall)</td>
+      <td><code class="language-plaintext highlighter-rouge">pkill -9 zombie_app</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<hr />
+
+<h2 id="-references--learning-resources"><span class="me-2">💡 References &amp; Learning Resources</span><a href="#-references--learning-resources" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">man ps</code></strong>, <strong><code class="language-plaintext highlighter-rouge">man top</code></strong>, <strong><code class="language-plaintext highlighter-rouge">man kill</code></strong> — the primary source of truth <em>(Beginner-friendly)</em></li>
+  <li><strong>“The Linux Programming Interface”</strong> by Michael Kerrisk, Ch. 26 (Monitoring Child Processes) <em>(Advanced/Deep dive)</em></li>
+  <li><strong>“Linux Command Line and Shell Scripting Bible”</strong> by Richard Blum <em>(Beginner-friendly)</em></li>
+  <li><strong><code class="language-plaintext highlighter-rouge">strace -e trace=process ls</code></strong> — trace only process-related syscalls live <em>(Intermediate)</em></li>
+  <li>Linux <code class="language-plaintext highlighter-rouge">proc(5)</code> man page: <code class="language-plaintext highlighter-rouge">man 5 proc</code> — full reference for <code class="language-plaintext highlighter-rouge">/proc/&lt;PID&gt;/status</code> fields <em>(Intermediate)</em></li>
+</ul>
+
+<hr />
+
+<h2 id="-quick-recap"><span class="me-2">📊 Quick Recap</span><a href="#-quick-recap" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ps aux</code> is your go-to snapshot tool; <code class="language-plaintext highlighter-rouge">%CPU</code>, <code class="language-plaintext highlighter-rouge">%MEM</code>, <code class="language-plaintext highlighter-rouge">RSS</code>, and the <code class="language-plaintext highlighter-rouge">STAT</code> column reveal process health at a glance.</li>
+  <li><code class="language-plaintext highlighter-rouge">ps -ef</code> uniquely shows <code class="language-plaintext highlighter-rouge">PPID</code>, making it ideal for tracing parent-child relationships.</li>
+  <li><code class="language-plaintext highlighter-rouge">top</code> gives real-time CPU/memory stats; <code class="language-plaintext highlighter-rouge">htop</code> adds color, mouse support, and a tree view — prefer <code class="language-plaintext highlighter-rouge">htop</code> for interactive use.</li>
+  <li>Always attempt <code class="language-plaintext highlighter-rouge">SIGTERM (15)</code> before <code class="language-plaintext highlighter-rouge">SIGKILL (9)</code> — give processes the chance to clean up gracefully.</li>
+  <li><code class="language-plaintext highlighter-rouge">killall</code> targets by name; <code class="language-plaintext highlighter-rouge">kill</code> targets by PID — use <code class="language-plaintext highlighter-rouge">pgrep</code> to bridge them: <code class="language-plaintext highlighter-rouge">kill $(pgrep nginx)</code>.</li>
+  <li><strong>PID</strong> identifies a process uniquely; <strong>PPID</strong> reveals who spawned it, forming the process family tree rooted at PID 1 (<code class="language-plaintext highlighter-rouge">systemd</code>).</li>
+  <li>A <strong>zombie</strong> is a finished process whose exit status was never collected by its parent — it holds no resources but cannot be removed until the parent calls <code class="language-plaintext highlighter-rouge">wait()</code> or dies itself.</li>
+</ul>
+
+<hr />
+
+<h2 id="-deep-dive-how-the-engine-works"><span class="me-2">� Deep Dive: How the Engine Works</span><a href="#-deep-dive-how-the-engine-works" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Want to understand what happens under the hood when a process is created? Check out our guide on <a href="https:blog.sreesreejuks.com/linux-system-internals">Linux System Internals</a> to learn about the Fork-Exec pattern and System Calls.</p>
+
+<hr />
+
+<h2 id="️-tags"><span class="me-2">🏷️ Tags</span><a href="#️-tags" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>#Linux #ProcessManagement #ps #top #htop #kill #killall #PID #PPID #ZombieProcess #Signals #SIGTERM #SIGKILL #SystemMonitoring #CLI #Intermediate #SysAdmin #UnixInternals
+</pre></td></tr></tbody></table></code></div></div>
+
+  </div>
+
+  <div class="post-tail-wrapper text-muted">
+    <!-- categories -->
+    
+      <div class="post-meta mb-3">
+        <i class="far fa-folder-open fa-fw me-1"></i>
+        
+          <a href="/categories/process/">process</a>,
+          <a href="/categories/system-administration/">system-administration</a>,
+          <a href="/categories/ubuntu/">ubuntu</a>,
+          <a href="/categories/monitoring/">monitoring</a>
+      </div>
+    
+
+    <!-- tags -->
+    
+      <div class="post-tags">
+        <i class="fa fa-tags fa-fw me-1"></i>
+        
+          <a
+            href="/tags/top/"
+            class="post-tag no-text-decoration"
+          >top</a>
+        
+          <a
+            href="/tags/pid/"
+            class="post-tag no-text-decoration"
+          >pid</a>
+        
+          <a
+            href="/tags/ps/"
+            class="post-tag no-text-decoration"
+          >ps</a>
+        
+          <a
+            href="/tags/htop/"
+            class="post-tag no-text-decoration"
+          >htop</a>
+        
+          <a
+            href="/tags/tutorial/"
+            class="post-tag no-text-decoration"
+          >tutorial</a>
+        
+      </div>
+    
+
+    <div
+      class="
+        post-tail-bottom
+        d-flex justify-content-between align-items-center mt-5 pb-2
+      "
+    >
+      <div class="license-wrapper">
+        
+          
+
+          This post is licensed under 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         by the author.
+        
+      </div>
+
+      <!-- Post sharing snippet -->
+
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted">Share</span>
+  <span class="share-icons">
+    
+    
+    
+
+    
+
+      
+
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Flocalhost%3A4000%2Flinux-process-management%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin">
+        <i class="fa-fw fab fa-linkedin"></i>
+      </a>
+    
+
+      
+
+      <a href="https://twitter.com/intent/tweet?text=Linux%20Process%20Management%20%E2%80%94%20Mastering%20ps,%20top,%20kill%20&%20Process%20Lifecycle%20-%20Sreeju%20KS&url=http%3A%2F%2Flocalhost%3A4000%2Flinux-process-management%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter">
+        <i class="fa-fw fa-brands fa-square-x-twitter"></i>
+      </a>
+    
+
+      
+
+      <a href="https://www.facebook.com/sharer/sharer.php?title=Linux%20Process%20Management%20%E2%80%94%20Mastering%20ps,%20top,%20kill%20&%20Process%20Lifecycle%20-%20Sreeju%20KS&u=http%3A%2F%2Flocalhost%3A4000%2Flinux-process-management%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook">
+        <i class="fa-fw fab fa-facebook-square"></i>
+      </a>
+    
+
+      
+
+      <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Flinux-process-management%2F&text=Linux%20Process%20Management%20%E2%80%94%20Mastering%20ps,%20top,%20kill%20&%20Process%20Lifecycle%20-%20Sreeju%20KS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram">
+        <i class="fa-fw fab fa-telegram"></i>
+      </a>
+    
+
+    <button
+      id="copy-link"
+      aria-label="Copy link"
+      class="btn small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="Copy link"
+      data-title-succeed="Link copied successfully!"
+    >
+      <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
+  </span>
+</div>
+
+    </div>
+    <!-- .post-tail-bottom -->
+  </div>
+  <!-- div.post-tail-wrapper -->
+</article>
+
+
+            
+          </main>
+
+          <!-- panel -->
+          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
+            <div class="access">
+              <!-- Get 5 last posted/updated posts -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section id="access-lastmod">
+    <h2 class="panel-heading">Recently Updated</h2>
+    <ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2">
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/linux-process-management/">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/linux-system-internals/">Linux System Internals — Understanding the Engine Under the Hood</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/disk-monitoring-approach/">Interview Question: Disk Space Monitoring Approach</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/Proxmox-Virtual-Environment/">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/text-processing-with-sed-and-awk/">Text Processing with sed and awk - The Professional's Guide</a>
+        </li>
+      
+    </ul>
+  </section>
+  <!-- #access-lastmod -->
+
+
+              <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a>
+      
+    </div>
+  </section>
+
+
+            </div>
+
+            
+              
+              
+
+
+
+
+
+
+  <div class="toc-border-cover z-3"></div>
+  <section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4">
+    <h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2>
+    <nav id="toc"></nav>
+  </section>
+
+
+            
+          </aside>
+        </div>
+
+        <div class="row">
+          <!-- tail -->
+          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              
+              <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
+
+<!-- The total size of related posts -->
+
+
+<!-- An random integer that bigger than 0 -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+
+
+
+
+
+
+
+
+
+
+  <aside id="related-posts" aria-labelledby="related-label">
+    <h3 class="mb-4" id="related-label">Further Reading</h3>
+    <nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+      
+        <article class="col">
+          <a href="/Proxmox-Virtual-Environment/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1745260080"
+  data-df="ll"
+  
+>
+  Apr 21, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</h4>
+              <div class="text-muted">
+                <p>Table of Contents    Introduction   Prerequisites   Setting up Virtual Machines in Proxmox   Preliminary Tweaks   Installing Kubernetes   Creating a Node Template   Initializing the Cluster   Joini...</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/text-processing-with-sed-and-awk/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744870500"
+  data-df="ll"
+  
+>
+  Apr 17, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Text Processing with sed and awk - The Professional's Guide</h4>
+              <div class="text-muted">
+                <p>A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently.</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/regular-expressions-guide/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744857180"
+  data-df="ll"
+  
+>
+  Apr 17, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Regular Expressions Guide - Mastering Pattern Matching in Linux</h4>
+              <div class="text-muted">
+                <p>A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration.</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+    </nav>
+  </aside>
+  <!-- #related-posts -->
+
+
+            
+              
+              <!-- Navigation buttons at the bottom of the post. -->
+
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  
+  
+
+  
+    <a
+      href="/linux-system-internals/"
+      class="btn btn-outline-primary"
+      aria-label="Older"
+    >
+      <p>Linux System Internals — Understanding the Engine Under the Hood</p>
+    </a>
+  
+
+  
+    <div class="btn btn-outline-primary disabled" aria-label="Newer">
+      <p>-</p>
+    </div>
+  
+</nav>
+
+            
+
+            <!-- The Footer -->
+
+<footer
+  aria-label="Site Info"
+  class="
+    d-flex flex-column justify-content-center text-muted
+    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
+  "
+>
+  <p>©
+    <time>2026</time>
+
+    
+      <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a>.
+    
+
+    
+      <span
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author."
+      >Some rights reserved.</span>
+    
+  </p>
+
+  <p>Using the <a
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="v7.2.4"
+        href="https://github.com/cotes2020/jekyll-theme-chirpy"
+        target="_blank"
+        rel="noopener"
+      >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>.
+  </p>
+</footer>
+
+          </div>
+        </div>
+
+        <!-- The Search results -->
+
+<div id="search-result-wrapper" class="d-flex justify-content-center d-none">
+  <div class="col-11 content">
+    <div id="search-hints">
+      <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a>
+      
+    </div>
+  </section>
+
+
+    </div>
+    <div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div>
+  </div>
+</div>
+
+      </div>
+
+      <aside aria-label="Scroll to Top">
+        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
+          <i class="fas fa-angle-up"></i>
+        </button>
+      </aside>
+    </div>
+
+    <div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div>
+
+    
+      <aside
+  id="notification"
+  class="toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-bs-animation="true"
+  data-bs-autohide="false"
+>
+  <div class="toast-header">
+    <button
+      type="button"
+      class="btn-close ms-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="toast-body text-center pt-0">
+    <p class="px-2 mb-3">A new version of content is available.</p>
+    <button type="button" class="btn btn-primary" aria-label="Update">
+      Update
+    </button>
+  </div>
+</aside>
+
+    
+
+    <!-- Embedded scripts -->
+
+    
+      
+      <!-- The comments switcher -->
+
+
+    
+
+    <!--
+  Jekyll Simple Search loader
+  See: <https://github.com/christian-fei/Simple-Jekyll-Search>
+-->
+
+
+
+
+
+<script>
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    SimpleJekyllSearch({
+      searchInput: document.getElementById('search-input'),
+      resultsContainer: document.getElementById('search-results'),
+      json: '/assets/js/data/search.json',
+      searchResultTemplate: '  <article class="px-1 px-sm-2 px-lg-4 px-xl-0">    <header>      <h2><a href="{url}">{title}</a></h2>      <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">        {categories}        {tags}      </div>    </header>    <p>{content}</p>  </article>',
+      noResultsText: '<p class="mt-5">Oops! No results found.</p>',
+      templateMiddleware: function(prop, value, template) {
+        if (prop === 'categories') {
+          if (value === '') {
+            return `${value}`;
+          } else {
+            return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`;
+          }
+        }
+
+        if (prop === 'tags') {
+          if (value === '') {
+            return `${value}`;
+          } else {
+            return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`;
+          }
+        }
+      }
+    });
+  });
+</script>
+
+  </body>
+</html>
+

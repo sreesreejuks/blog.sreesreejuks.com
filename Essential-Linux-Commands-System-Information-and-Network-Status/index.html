@@ -1,22 +1,1106 @@
-<!doctype html><html lang="en" data-mode="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="Essential Linux Commands for System Information" /><meta name="author" content="Sreeju KS" /><meta property="og:locale" content="en" /><meta name="description" content="Table of Contents Introduction Identifying the System id command hostname command uname command Network Information ifconfig command ip command netstat command ss command Process Information ps command User Information who command Environment Variables env command Block Devices lsblk command USB Devices lsusb command Open Files lsof command Conclusion" /><meta property="og:description" content="Table of Contents Introduction Identifying the System id command hostname command uname command Network Information ifconfig command ip command netstat command ss command Process Information ps command User Information who command Environment Variables env command Block Devices lsblk command USB Devices lsusb command Open Files lsof command Conclusion" /><link rel="canonical" href="https://blog.sreesreejuks.com/Essential-Linux-Commands-System-Information-and-Network-Status/" /><meta property="og:url" content="https://blog.sreesreejuks.com/Essential-Linux-Commands-System-Information-and-Network-Status/" /><meta property="og:site_name" content="Sreeju KS" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2025-04-11T23:00:00+05:30" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="Essential Linux Commands for System Information" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sreeju KS","url":"https://github.com/sreesreejuks/"},"dateModified":"2025-04-11T23:00:00+05:30","datePublished":"2025-04-11T23:00:00+05:30","description":"Table of Contents Introduction Identifying the System id command hostname command uname command Network Information ifconfig command ip command netstat command ss command Process Information ps command User Information who command Environment Variables env command Block Devices lsblk command USB Devices lsusb command Open Files lsof command Conclusion","headline":"Essential Linux Commands for System Information","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.sreesreejuks.com/Essential-Linux-Commands-System-Information-and-Network-Status/"},"url":"https://blog.sreesreejuks.com/Essential-Linux-Commands-System-Information-and-Network-Status/"}</script><title>Essential Linux Commands for System Information | Sreeju KS</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Sreeju KS"><meta name="application-name" content="Sreeju KS"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-E66HPNGEJR"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-E66HPNGEJR'); </script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://gravatar.com/avatar/ed8980df17ba2ea58cd48fe0c6964ca3?size=256" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">Sreeju KS</a><p class="site-subtitle fst-italic mb-0">Documenting the journey of DevOps, cloud computing, and deployment</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>ABOUT</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"> <a href="https://github.com/sreesreejuks" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="https://www.linkedin.com/in/sreesreejuks" aria-label="linkedin" target="_blank" rel="noopener noreferrer" > <i class="fab fa-linkedin"></i> </a> <a href="https://www.instagram.com/sreesreejuks" aria-label="instagram" target="_blank" rel="noopener noreferrer" > <i class="fab fa-instagram"></i> </a> <a href="javascript:location.href = 'mailto:' + ['mail','sreesreejuks.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">Home</a> </span> <span>Essential Linux Commands for System Information</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> Post</div><button type="button" id="search-trigger" class="btn btn-link"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>Essential Linux Commands for System Information</h1><div class="post-meta text-muted"> <span> Posted <time data-ts="1744392600" data-df="ll" data-bs-toggle="tooltip" data-bs-placement="bottom" > Apr 11, 2025 </time> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/sreesreejuks/">Sreeju KS</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="1088 words" > <em>6 min</em> read</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">Essential Linux Commands for System Information</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">Contents</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">Essential Linux Commands for System Information</div><button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75"> <i class="fas fa-close"></i> </button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><h2 id="table-of-contents"><span class="me-2">Table of Contents</span><a href="#table-of-contents" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><a href="#introduction">Introduction</a><li><a href="#identifying-the-system">Identifying the System</a><ul><li><a href="#id-command"><code class="language-plaintext highlighter-rouge">id</code> command</a><li><a href="#hostname-command"><code class="language-plaintext highlighter-rouge">hostname</code> command</a><li><a href="#uname-command"><code class="language-plaintext highlighter-rouge">uname</code> command</a></ul><li><a href="#network-information">Network Information</a><ul><li><a href="#ifconfig-command"><code class="language-plaintext highlighter-rouge">ifconfig</code> command</a><li><a href="#ip-command"><code class="language-plaintext highlighter-rouge">ip</code> command</a><li><a href="#netstat-command"><code class="language-plaintext highlighter-rouge">netstat</code> command</a><li><a href="#ss-command"><code class="language-plaintext highlighter-rouge">ss</code> command</a></ul><li><a href="#process-information">Process Information</a><ul><li><a href="#ps-command"><code class="language-plaintext highlighter-rouge">ps</code> command</a></ul><li><a href="#user-information">User Information</a><ul><li><a href="#who-command"><code class="language-plaintext highlighter-rouge">who</code> command</a></ul><li><a href="#environment-variables">Environment Variables</a><ul><li><a href="#env-command"><code class="language-plaintext highlighter-rouge">env</code> command</a></ul><li><a href="#block-devices">Block Devices</a><ul><li><a href="#lsblk-command"><code class="language-plaintext highlighter-rouge">lsblk</code> command</a></ul><li><a href="#usb-devices">USB Devices</a><ul><li><a href="#lsusb-command"><code class="language-plaintext highlighter-rouge">lsusb</code> command</a></ul><li><a href="#open-files">Open Files</a><ul><li><a href="#lsof-command"><code class="language-plaintext highlighter-rouge">lsof</code> command</a></ul><li><a href="#conclusion">Conclusion</a></ul><h2 id="introduction"><span class="me-2">Introduction</span><a href="#introduction" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>This document provides a concise overview of essential Linux commands used to gather system information, focusing on identifying the system, network status, processes, users, and connected devices. Each command is illustrated with a simple example and a brief description of its output. Note that the exact output may vary depending on your system configuration.</p><h2 id="identifying-the-system"><span class="me-2">Identifying the System</span><a href="#identifying-the-system" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>This section covers commands that provide basic system identification information.</p><h3 id="id-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">id</code> command</span><a href="#id-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">id</code> command displays the user and group IDs of the currently logged-in user.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre><span class="nb">id</span>
-</pre></table></code></div></div><p><strong>Sample Output:</strong></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>uid=1000(sreeju) gid=1000(sreeju) groups=1000(sreeju),4(adm),20(dialout),27(sudo),29(audio),30(dip),46(plugdev),113(lpadmin),128(sambashare)
-</pre></table></code></div></div><p>This shows the user ID (uid), group ID (gid), and other groups the user belongs to.</p><h3 id="hostname-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">hostname</code> command</span><a href="#hostname-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">hostname</code> command displays the system’s hostname.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre><span class="nb">hostname</span>
-</pre></table></code></div></div><p><strong>Sample Output:</strong></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>mylinuxbox
-</pre></table></code></div></div><p>This shows the name assigned to the system on the network.</p><h3 id="uname-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">uname</code> command</span><a href="#uname-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">uname</code> command provides system information, including the kernel name, node name, kernel release, kernel version, machine hardware name, and processor type. <code class="language-plaintext highlighter-rouge">uname -r</code> shows only the kernel release, and <code class="language-plaintext highlighter-rouge">uname -a</code> shows all information.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- `site.alt_lang` can specify a language different from the UI -->
+<html lang="en" data-mode="light">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+  ><!-- Setup Open Graph image -->
+
+  
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Essential Linux Commands for System Information" />
+<meta name="author" content="Sreeju KS" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="Table of Contents Introduction Identifying the System id command hostname command uname command Network Information ifconfig command ip command netstat command ss command Process Information ps command User Information who command Environment Variables env command Block Devices lsblk command USB Devices lsusb command Open Files lsof command Conclusion" />
+<meta property="og:description" content="Table of Contents Introduction Identifying the System id command hostname command uname command Network Information ifconfig command ip command netstat command ss command Process Information ps command User Information who command Environment Variables env command Block Devices lsblk command USB Devices lsusb command Open Files lsof command Conclusion" />
+<link rel="canonical" href="http://localhost:4000/Essential-Linux-Commands-System-Information-and-Network-Status/" />
+<meta property="og:url" content="http://localhost:4000/Essential-Linux-Commands-System-Information-and-Network-Status/" />
+<meta property="og:site_name" content="Sreeju KS" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-04-11T23:00:00+05:30" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Essential Linux Commands for System Information" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sreeju KS","url":"https://github.com/sreesreejuks/"},"dateModified":"2025-04-11T23:00:00+05:30","datePublished":"2025-04-11T23:00:00+05:30","description":"Table of Contents Introduction Identifying the System id command hostname command uname command Network Information ifconfig command ip command netstat command ss command Process Information ps command User Information who command Environment Variables env command Block Devices lsblk command USB Devices lsusb command Open Files lsof command Conclusion","headline":"Essential Linux Commands for System Information","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/Essential-Linux-Commands-System-Information-and-Network-Status/"},"url":"http://localhost:4000/Essential-Linux-Commands-System-Information-and-Network-Status/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <title>Essential Linux Commands for System Information | Sreeju KS
+  </title>
+
+  <!--
+  The Favicons for Web, Android, Microsoft, and iOS (iPhone and iPad) Apps
+  Generated by: https://realfavicongenerator.net/
+-->
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+
+<link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="Sreeju KS">
+<meta name="application-name" content="Sreeju KS">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+
+  <!-- Resource Hints -->
+  
+    
+      
+        <link rel="preconnect" href="https://fonts.googleapis.com" >
+      
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" >
+      
+    
+      
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" >
+      
+    
+      
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" >
+      
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" >
+      
+    
+  
+
+  <!-- Bootstrap -->
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css">
+
+  <!-- Web Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css">
+
+  <!-- 3rd-party Dependencies -->
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
+  
+
+  
+    <!-- Image Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
+  
+
+  <!-- Scripts -->
+
+  <script src="/assets/js/dist/theme.min.js"></script>
+
+  <!-- JS selector for site. -->
+
+<!-- commons -->
+
+
+
+<!-- layout specified -->
+
+
+  
+
+  
+    <!-- image lazy-loading & popup & clipboard -->
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script>
+
+
+
+
+
+
+
+<script defer src="/assets/js/dist/post.min.js"></script>
+
+
+
+<!-- Pageviews -->
+
+  
+
+  
+
+
+
+  
+
+  <!-- A placeholder to allow defining custom metadata -->
+
+</head>
+
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E66HPNGEJR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E66HPNGEJR');
+  </script>
+
+  <body>
+    <!-- The Side Bar -->
+
+<aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
+  <header class="profile-wrapper">
+    <a href="/" id="avatar" class="rounded-circle"><img src="https://gravatar.com/avatar/ed8980df17ba2ea58cd48fe0c6964ca3?size=256" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a>
+
+    <a class="site-title d-block" href="/">Sreeju KS</a>
+    <p class="site-subtitle fst-italic mb-0">Documenting the journey of DevOps, cloud computing, and deployment</p>
+  </header>
+  <!-- .profile-wrapper -->
+
+  <nav class="flex-column flex-grow-1 w-100 ps-0">
+    <ul class="nav">
+      <!-- home -->
+      <li class="nav-item">
+        <a href="/" class="nav-link">
+          <i class="fa-fw fas fa-home"></i>
+          <span>HOME</span>
+        </a>
+      </li>
+      <!-- the real tabs -->
+      
+        <li class="nav-item">
+          <a href="/categories/" class="nav-link">
+            <i class="fa-fw fas fa-stream"></i>
+            
+
+            <span>CATEGORIES</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/tags/" class="nav-link">
+            <i class="fa-fw fas fa-tags"></i>
+            
+
+            <span>TAGS</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/archives/" class="nav-link">
+            <i class="fa-fw fas fa-archive"></i>
+            
+
+            <span>ARCHIVES</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/about/" class="nav-link">
+            <i class="fa-fw fas fa-info-circle"></i>
+            
+
+            <span>ABOUT</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+    </ul>
+  </nav>
+
+  <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
+    
+
+    
+      
+
+      
+        <a
+          href="https://github.com/sreesreejuks"
+          aria-label="github"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://www.linkedin.com/in/sreesreejuks"
+          aria-label="linkedin"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://www.instagram.com/sreesreejuks"
+          aria-label="instagram"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="javascript:location.href = 'mailto:' + ['mail','sreesreejuks.com'].join('@')"
+          aria-label="email"
+          
+
+          
+
+          
+
+          
+        >
+          <i class="fas fa-envelope"></i>
+        </a>
+      
+    
+  </div>
+  <!-- .sidebar-bottom -->
+</aside>
+<!-- #sidebar -->
+
+
+    <div id="main-wrapper" class="d-flex justify-content-center">
+      <div class="container d-flex flex-column px-xxl-5">
+        <!-- The Top Bar -->
+
+<header id="topbar-wrapper" aria-label="Top Bar">
+  <div
+    id="topbar"
+    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
+  >
+    <nav id="breadcrumb" aria-label="Breadcrumb">
+      
+
+      
+        
+          
+            <span>
+              <a href="/">Home</a>
+            </span>
+
+          
+        
+          
+            
+              <span>Essential Linux Commands for System Information</span>
+            
+
+          
+        
+      
+    </nav>
+    <!-- endof #breadcrumb -->
+
+    <button type="button" id="sidebar-trigger" class="btn btn-link">
+      <i class="fas fa-bars fa-fw"></i>
+    </button>
+
+    <div id="topbar-title">
+      Post
+    </div>
+
+    <button type="button" id="search-trigger" class="btn btn-link">
+      <i class="fas fa-search fa-fw"></i>
+    </button>
+
+    <search id="search" class="align-items-center ms-3 ms-lg-0">
+      <i class="fas fa-search fa-fw"></i>
+      <input
+        class="form-control"
+        id="search-input"
+        type="search"
+        aria-label="search"
+        autocomplete="off"
+        placeholder="Search..."
+      >
+    </search>
+    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button>
+  </div>
+</header>
+
+
+        <div class="row flex-grow-1">
+          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              <!-- Refactor the HTML structure -->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Change the icon of checkbox -->
+
+
+
+<!-- Handle images -->
+
+
+
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- return -->
+
+
+
+
+
+
+
+
+
+
+<article class="px-1" data-toc="true">
+  <header>
+    <h1 data-toc-skip>Essential Linux Commands for System Information</h1>
+    
+
+    <div class="post-meta text-muted">
+      <!-- published date -->
+      <span>
+        Posted
+        <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744392600"
+  data-df="ll"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  Apr 11, 2025
+</time>
+
+      </span>
+
+      <!-- lastmod date -->
+      
+
+      
+
+      <div class="d-flex justify-content-between">
+        <!-- author(s) -->
+        <span>
+          
+
+          By
+
+          <em>
+            
+              
+                <a href="https://github.com/sreesreejuks/">Sreeju KS</a>
+                
+              
+            
+          </em>
+        </span>
+
+        <div>
+          <!-- pageviews -->
+          
+
+          <!-- read time -->
+          <!-- Calculate the post's reading time, and display the word count in tooltip -->
+
+
+
+<!-- words per minute -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span
+  class="readtime"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="1088 words"
+>
+  <em>6 min</em> read</span>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  
+    <div id="toc-bar" class="d-flex align-items-center justify-content-between invisible">
+      <span class="label text-truncate">Essential Linux Commands for System Information</span>
+      <button type="button" class="toc-trigger btn me-1">
+        <i class="fa-solid fa-list-ul fa-fw"></i>
+      </button>
+    </div>
+
+    <button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm">
+      <span class="label ps-2 pe-1">Contents</span>
+      <i class="fa-solid fa-angle-right fa-fw"></i>
+    </button>
+
+    <dialog id="toc-popup" class="p-0">
+      <div class="header d-flex flex-row align-items-center justify-content-between">
+        <div class="label text-truncate py-2 ms-4">Essential Linux Commands for System Information</div>
+        <button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75">
+          <i class="fas fa-close"></i>
+        </button>
+      </div>
+      <div id="toc-popup-content" class="px-4 py-3 pb-4"></div>
+    </dialog>
+  
+
+  <div class="content">
+    <h2 id="table-of-contents"><span class="me-2">Table of Contents</span><a href="#table-of-contents" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#identifying-the-system">Identifying the System</a>
+    <ul>
+      <li><a href="#id-command"><code class="language-plaintext highlighter-rouge">id</code> command</a></li>
+      <li><a href="#hostname-command"><code class="language-plaintext highlighter-rouge">hostname</code> command</a></li>
+      <li><a href="#uname-command"><code class="language-plaintext highlighter-rouge">uname</code> command</a></li>
+    </ul>
+  </li>
+  <li><a href="#network-information">Network Information</a>
+    <ul>
+      <li><a href="#ifconfig-command"><code class="language-plaintext highlighter-rouge">ifconfig</code> command</a></li>
+      <li><a href="#ip-command"><code class="language-plaintext highlighter-rouge">ip</code> command</a></li>
+      <li><a href="#netstat-command"><code class="language-plaintext highlighter-rouge">netstat</code> command</a></li>
+      <li><a href="#ss-command"><code class="language-plaintext highlighter-rouge">ss</code> command</a></li>
+    </ul>
+  </li>
+  <li><a href="#process-information">Process Information</a>
+    <ul>
+      <li><a href="#ps-command"><code class="language-plaintext highlighter-rouge">ps</code> command</a></li>
+    </ul>
+  </li>
+  <li><a href="#user-information">User Information</a>
+    <ul>
+      <li><a href="#who-command"><code class="language-plaintext highlighter-rouge">who</code> command</a></li>
+    </ul>
+  </li>
+  <li><a href="#environment-variables">Environment Variables</a>
+    <ul>
+      <li><a href="#env-command"><code class="language-plaintext highlighter-rouge">env</code> command</a></li>
+    </ul>
+  </li>
+  <li><a href="#block-devices">Block Devices</a>
+    <ul>
+      <li><a href="#lsblk-command"><code class="language-plaintext highlighter-rouge">lsblk</code> command</a></li>
+    </ul>
+  </li>
+  <li><a href="#usb-devices">USB Devices</a>
+    <ul>
+      <li><a href="#lsusb-command"><code class="language-plaintext highlighter-rouge">lsusb</code> command</a></li>
+    </ul>
+  </li>
+  <li><a href="#open-files">Open Files</a>
+    <ul>
+      <li><a href="#lsof-command"><code class="language-plaintext highlighter-rouge">lsof</code> command</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="introduction"><span class="me-2">Introduction</span><a href="#introduction" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>This document provides a concise overview of essential Linux commands used to gather system information, focusing on identifying the system, network status, processes, users, and connected devices.  Each command is illustrated with a simple example and a brief description of its output.  Note that the exact output may vary depending on your system configuration.</p>
+
+<h2 id="identifying-the-system"><span class="me-2">Identifying the System</span><a href="#identifying-the-system" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>This section covers commands that provide basic system identification information.</p>
+
+<h3 id="id-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">id</code> command</span><a href="#id-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">id</code> command displays the user and group IDs of the currently logged-in user.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">id</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>uid=1000(sreeju) gid=1000(sreeju) groups=1000(sreeju),4(adm),20(dialout),27(sudo),29(audio),30(dip),46(plugdev),113(lpadmin),128(sambashare)
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>This shows the user ID (uid), group ID (gid), and other groups the user belongs to.</p>
+
+<h3 id="hostname-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">hostname</code> command</span><a href="#hostname-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">hostname</code> command displays the system’s hostname.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">hostname</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>mylinuxbox
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>This shows the name assigned to the system on the network.</p>
+
+<h3 id="uname-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">uname</code> command</span><a href="#uname-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">uname</code> command provides system information, including the kernel name, node name, kernel release, kernel version, machine hardware name, and processor type.  <code class="language-plaintext highlighter-rouge">uname -r</code> shows only the kernel release, and <code class="language-plaintext highlighter-rouge">uname -a</code> shows all information.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-</pre><td class="rouge-code"><pre><span class="nb">uname</span> <span class="nt">-r</span>
+</pre></td><td class="rouge-code"><pre><span class="nb">uname</span> <span class="nt">-r</span>
 <span class="nb">uname</span> <span class="nt">-a</span>
-</pre></table></code></div></div><p><strong>Sample Output:</strong></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-</pre><td class="rouge-code"><pre>5.15.0-76-generic
+</pre></td><td class="rouge-code"><pre>5.15.0-76-generic
 Linux mylinuxbox 5.15.0-76-generic #83-Ubuntu SMP Fri Sep 1 11:16:54 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
-</pre></table></code></div></div><h2 id="network-information"><span class="me-2">Network Information</span><a href="#network-information" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>This section focuses on commands used to obtain network-related information.</p><h3 id="ifconfig-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">ifconfig</code> command</span><a href="#ifconfig-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">ifconfig</code> command (often replaced by <code class="language-plaintext highlighter-rouge">ip</code>) displays network interface configuration.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>ifconfig
-</pre></table></code></div></div><p><strong>Sample Output:</strong> (Output will vary based on interfaces)</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="network-information"><span class="me-2">Network Information</span><a href="#network-information" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>This section focuses on commands used to obtain network-related information.</p>
+
+<h3 id="ifconfig-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">ifconfig</code> command</span><a href="#ifconfig-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">ifconfig</code> command (often replaced by <code class="language-plaintext highlighter-rouge">ip</code>) displays network interface configuration.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ifconfig
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong> (Output will vary based on interfaces)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -24,7 +1108,7 @@ Linux mylinuxbox 5.15.0-76-generic #83-Ubuntu SMP Fri Sep 1 11:16:54 UTC 2023 x8
 6
 7
 8
-</pre><td class="rouge-code"><pre>eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+</pre></td><td class="rouge-code"><pre>eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         inet 192.168.1.100  netmask 255.255.255.0  broadcast 192.168.1.255
         inet6 fe80::a00:27ff:fe57:670c  prefixlen 64  scopeid 0x20&lt;link&gt;
         ether 00:16:3e:57:67:0c  txqueuelen 1000  (Ethernet)
@@ -32,9 +1116,27 @@ Linux mylinuxbox 5.15.0-76-generic #83-Ubuntu SMP Fri Sep 1 11:16:54 UTC 2023 x8
         RX errors 0  dropped 0  overruns 0  frame 0
         TX packets 789012  bytes 123456789 (123.4 MB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-</pre></table></code></div></div><p>Shows details about the network interface, including IP address, MAC address, and statistics.</p><h3 id="ip-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">ip</code> command</span><a href="#ip-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">ip</code> command is a more modern and powerful alternative to <code class="language-plaintext highlighter-rouge">ifconfig</code>. <code class="language-plaintext highlighter-rouge">ip addr</code> shows interface addresses.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>ip addr
-</pre></table></code></div></div><p><strong>Sample Output:</strong> (Output will vary based on interfaces)</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Shows details about the network interface, including IP address, MAC address, and statistics.</p>
+
+<h3 id="ip-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">ip</code> command</span><a href="#ip-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">ip</code> command is a more modern and powerful alternative to <code class="language-plaintext highlighter-rouge">ifconfig</code>.  <code class="language-plaintext highlighter-rouge">ip addr</code> shows interface addresses.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ip addr
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong> (Output will vary based on interfaces)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -46,7 +1148,7 @@ Linux mylinuxbox 5.15.0-76-generic #83-Ubuntu SMP Fri Sep 1 11:16:54 UTC 2023 x8
 10
 11
 12
-</pre><td class="rouge-code"><pre>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+</pre></td><td class="rouge-code"><pre>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
@@ -58,73 +1160,225 @@ Linux mylinuxbox 5.15.0-76-generic #83-Ubuntu SMP Fri Sep 1 11:16:54 UTC 2023 x8
        valid_lft forever preferred_lft forever
     inet6 fe80::a00:27ff:fe57:670c/64 scope link 
        valid_lft forever preferred_lft forever
-</pre></table></code></div></div><h3 id="netstat-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">netstat</code> command</span><a href="#netstat-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">netstat</code> command displays network connections, routing tables, interface statistics, masquerade connections, and multicast memberships. <code class="language-plaintext highlighter-rouge">netstat -tulpn</code> shows TCP connections.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>netstat <span class="nt">-tulpn</span>
-</pre></table></code></div></div><p><strong>Sample Output:</strong> (Output will vary based on active connections)</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="netstat-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">netstat</code> command</span><a href="#netstat-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">netstat</code> command displays network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.  <code class="language-plaintext highlighter-rouge">netstat -tulpn</code> shows TCP connections.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>netstat <span class="nt">-tulpn</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong> (Output will vary based on active connections)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-</pre><td class="rouge-code"><pre>Active Internet connections (only servers)
+</pre></td><td class="rouge-code"><pre>Active Internet connections (only servers)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
 tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1234/sshd
 tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      4567/cupsd
-</pre></table></code></div></div><h3 id="ss-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">ss</code> command</span><a href="#ss-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">ss</code> command is a more modern and efficient alternative to <code class="language-plaintext highlighter-rouge">netstat</code>. <code class="language-plaintext highlighter-rouge">ss -tulpn</code> provides similar information to <code class="language-plaintext highlighter-rouge">netstat -tulpn</code>.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>ss <span class="nt">-tulpn</span>
-</pre></table></code></div></div><p><strong>Sample Output:</strong> (Output will vary based on active connections)</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="ss-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">ss</code> command</span><a href="#ss-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">ss</code> command is a more modern and efficient alternative to <code class="language-plaintext highlighter-rouge">netstat</code>. <code class="language-plaintext highlighter-rouge">ss -tulpn</code> provides similar information to <code class="language-plaintext highlighter-rouge">netstat -tulpn</code>.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ss <span class="nt">-tulpn</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong> (Output will vary based on active connections)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-</pre><td class="rouge-code"><pre>State      Recv-Q Send-Q Local Address:Port            Peer Address:Port                Process
+</pre></td><td class="rouge-code"><pre>State      Recv-Q Send-Q Local Address:Port            Peer Address:Port                Process
 LISTEN     0      128          *:22                      *:*                           users:(("sshd",pid=1234,fd=3))
 LISTEN     0      128          127.0.0.1:631             *:*                           users:(("cupsd",pid=4567,fd=4))
-</pre></table></code></div></div><h2 id="process-information"><span class="me-2">Process Information</span><a href="#process-information" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>This section covers commands for viewing running processes.</p><h3 id="ps-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">ps</code> command</span><a href="#ps-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">ps</code> command displays information about currently running processes. <code class="language-plaintext highlighter-rouge">ps aux</code> shows a comprehensive list.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>ps aux
-</pre></table></code></div></div><p><strong>Sample Output:</strong> (Output will be extensive, showing many processes)</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="process-information"><span class="me-2">Process Information</span><a href="#process-information" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>This section covers commands for viewing running processes.</p>
+
+<h3 id="ps-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">ps</code> command</span><a href="#ps-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">ps</code> command displays information about currently running processes.  <code class="language-plaintext highlighter-rouge">ps aux</code> shows a comprehensive list.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ps aux
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong> (Output will be extensive, showing many processes)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
 7
-</pre><td class="rouge-code"><pre>USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+</pre></td><td class="rouge-code"><pre>USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root           1  0.0  0.0  40924  3068 ?        Ss   15:36   0:00 /sbin/init splash
 root          2  0.0  0.0      0     0 ?        S    15:36   0:00 [kthreadd]
 root          3  0.0  0.0      0     0 ?        I&lt;   15:36   0:00 [rcu_gp]
 root          4  0.0  0.0      0     0 ?        I&lt;   15:36   0:00 [rcu_par_gp]
 ...many more processes...
 sreeju      1234  0.0  0.1 123456 12345 ?        Ss   15:40   0:01 /usr/bin/gnome-terminal -d
-</pre></table></code></div></div><h2 id="user-information"><span class="me-2">User Information</span><a href="#user-information" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>This section covers commands for viewing logged-in users.</p><h3 id="who-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">who</code> command</span><a href="#who-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">who</code> command displays who is currently logged in.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre><span class="nb">who</span>
-</pre></table></code></div></div><p><strong>Sample Output:</strong></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>sreeju    pts/0        2023-10-27 15:40 (mylinuxbox)
-</pre></table></code></div></div><h2 id="environment-variables"><span class="me-2">Environment Variables</span><a href="#environment-variables" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>This section covers displaying environment variables.</p><h3 id="env-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">env</code> command</span><a href="#env-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">env</code> command lists all current environment variables.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre><span class="nb">env</span>
-</pre></table></code></div></div><p><strong>Sample Output:</strong> (Output will vary greatly depending on the environment)</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="user-information"><span class="me-2">User Information</span><a href="#user-information" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>This section covers commands for viewing logged-in users.</p>
+
+<h3 id="who-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">who</code> command</span><a href="#who-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">who</code> command displays who is currently logged in.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">who</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>sreeju    pts/0        2023-10-27 15:40 (mylinuxbox)
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="environment-variables"><span class="me-2">Environment Variables</span><a href="#environment-variables" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>This section covers displaying environment variables.</p>
+
+<h3 id="env-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">env</code> command</span><a href="#env-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">env</code> command lists all current environment variables.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">env</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong> (Output will vary greatly depending on the environment)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-</pre><td class="rouge-code"><pre>HOME=/home/sreeju
+</pre></td><td class="rouge-code"><pre>HOME=/home/sreeju
 TERM=xterm-256color
 SHELL=/bin/bash
 ...many more variables...
-</pre></table></code></div></div><h2 id="block-devices"><span class="me-2">Block Devices</span><a href="#block-devices" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>This section covers listing block devices.</p><h3 id="lsblk-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">lsblk</code> command</span><a href="#lsblk-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">lsblk</code> command lists block devices (hard drives, SSDs, partitions).</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>lsblk
-</pre></table></code></div></div><p><strong>Sample Output:</strong> (Output will vary depending on the system’s storage configuration)</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="block-devices"><span class="me-2">Block Devices</span><a href="#block-devices" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>This section covers listing block devices.</p>
+
+<h3 id="lsblk-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">lsblk</code> command</span><a href="#lsblk-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">lsblk</code> command lists block devices (hard drives, SSDs, partitions).</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>lsblk
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong> (Output will vary depending on the system’s storage configuration)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-</pre><td class="rouge-code"><pre>NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+</pre></td><td class="rouge-code"><pre>NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sda      8:0    0 232.9G  0 disk 
 └─sda1   8:1    0 232.9G  0 part /
-</pre></table></code></div></div><h2 id="usb-devices"><span class="me-2">USB Devices</span><a href="#usb-devices" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>This section covers listing USB devices.</p><h3 id="lsusb-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">lsusb</code> command</span><a href="#lsusb-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">lsusb</code> command lists USB devices connected to the system.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>lsusb
-</pre></table></code></div></div><p><strong>Sample Output:</strong> (Output will vary depending on connected USB devices)</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="usb-devices"><span class="me-2">USB Devices</span><a href="#usb-devices" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>This section covers listing USB devices.</p>
+
+<h3 id="lsusb-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">lsusb</code> command</span><a href="#lsusb-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">lsusb</code> command lists USB devices connected to the system.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>lsusb
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong> (Output will vary depending on connected USB devices)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-</pre><td class="rouge-code"><pre>Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+</pre></td><td class="rouge-code"><pre>Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 Bus 001 Device 004: ID 046d:c52b Logitech, Inc. Unifying Receiver
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-</pre></table></code></div></div><h2 id="open-files"><span class="me-2">Open Files</span><a href="#open-files" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>This section covers listing open files.</p><h3 id="lsof-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">lsof</code> command</span><a href="#lsof-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The <code class="language-plaintext highlighter-rouge">lsof</code> command lists open files. This can be useful for troubleshooting applications or identifying which processes are using specific files.</p><p><strong>Example:</strong></p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>lsof | <span class="nb">head</span> <span class="nt">-n</span> 10
-</pre></table></code></div></div><p><strong>Sample Output:</strong> (Output will be extensive, showing many open files - <code class="language-plaintext highlighter-rouge">head</code> limits to 10 lines)</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="open-files"><span class="me-2">Open Files</span><a href="#open-files" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>This section covers listing open files.</p>
+
+<h3 id="lsof-command"><span class="me-2"><code class="language-plaintext highlighter-rouge">lsof</code> command</span><a href="#lsof-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">lsof</code> command lists open files.  This can be useful for troubleshooting applications or identifying which processes are using specific files.</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>lsof | <span class="nb">head</span> <span class="nt">-n</span> 10
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><strong>Sample Output:</strong> (Output will be extensive, showing many open files - <code class="language-plaintext highlighter-rouge">head</code> limits to 10 lines)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -132,7 +1386,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 6
 7
 8
-</pre><td class="rouge-code"><pre>COMMAND   PID   USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+</pre></td><td class="rouge-code"><pre>COMMAND   PID   USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
 systemd     1     root   cwd    DIR              8,3       4096    2 /
 systemd     1     root   rtd    DIR              8,3       4096    2 /
 systemd     1     root   txt    REG              8,0    128768    2 /lib/systemd/systemd
@@ -140,4 +1394,4286 @@ kthreadd   2     root   txt    REG              8,0    128768    2 /lib/systemd/
 rcu_gp     3     root   txt    REG              8,0    128768    2 /lib/systemd/systemd
 rcu_par_gp 4     root   txt    REG              8,0    128768    2 /lib/systemd/systemd
 ...more open files...
-</pre></table></code></div></div><h2 id="conclusion"><span class="me-2">Conclusion</span><a href="#conclusion" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>These commands provide a foundation for gathering crucial system information in Linux. Understanding their usage is essential for system administration, troubleshooting, and general system management. Remember to consult the man pages (<code class="language-plaintext highlighter-rouge">man command_name</code>) for each command to explore advanced options and detailed usage information.</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/linux/">linux</a>, <a href="/categories/system-administration/">system-administration</a>, <a href="/categories/commands/">commands</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw me-1"></i> <a href="/tags/linux-commands/" class="post-tag no-text-decoration" >linux-commands</a> <a href="/tags/system-info/" class="post-tag no-text-decoration" >system-info</a> <a href="/tags/troubleshooting/" class="post-tag no-text-decoration" >troubleshooting</a> <a href="/tags/networking/" class="post-tag no-text-decoration" >networking</a> <a href="/tags/processes/" class="post-tag no-text-decoration" >processes</a></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">Share</span> <span class="share-icons"> <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fblog.sreesreejuks.com%2FEssential-Linux-Commands-System-Information-and-Network-Status%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin"> <i class="fa-fw fab fa-linkedin"></i> </a> <a href="https://twitter.com/intent/tweet?text=Essential%20Linux%20Commands%20for%20System%20Information%20-%20Sreeju%20KS&url=https%3A%2F%2Fblog.sreesreejuks.com%2FEssential-Linux-Commands-System-Information-and-Network-Status%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Essential%20Linux%20Commands%20for%20System%20Information%20-%20Sreeju%20KS&u=https%3A%2F%2Fblog.sreesreejuks.com%2FEssential-Linux-Commands-System-Information-and-Network-Status%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fblog.sreesreejuks.com%2FEssential-Linux-Commands-System-Information-and-Network-Status%2F&text=Essential%20Linux%20Commands%20for%20System%20Information%20-%20Sreeju%20KS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy link" data-title-succeed="Link copied successfully!" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">Recently Updated</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/linux-process-management/">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</a><li class="text-truncate lh-lg"> <a href="/linux-system-internals/">Linux System Internals</a><li class="text-truncate lh-lg"> <a href="/disk-monitoring-approach/">Interview Question: Disk Space Monitoring Approach</a><li class="text-truncate lh-lg"> <a href="/Proxmox-Virtual-Environment/">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</a><li class="text-truncate lh-lg"> <a href="/text-processing-with-sed-and-awk/">Text Processing with sed and awk - The Professional's Guide</a></ul></section><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a> <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a> <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a> <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a> <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a> <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a> <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a></div></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">Further Reading</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="/linux-troubleshooting-checklist/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1744797600" data-df="ll" > Apr 16, 2025 </time><h4 class="pt-0 my-2">Linux Troubleshooting Checklist - A Professional Guide</h4><div class="text-muted"><p>A comprehensive guide to systematic Linux troubleshooting, covering system health checks, performance analysis, and standardized logging practices.</p></div></div></a></article><article class="col"> <a href="/cURL-Command-in-Linux-A-Comprehensive-Guide/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1742555880" data-df="ll" > Mar 21, 2025 </time><h4 class="pt-0 my-2">cURL Command in Linux: A Comprehensive Guide</h4><div class="text-muted"><p>Table of Contents Introduction to cURL Basic cURL Usage Specifying HTTP Methods Handling Headers Data Submission with cURL Downloading Files with cURL Uploading Files with cURL Aut...</p></div></div></a></article><article class="col"> <a href="/linux-commands-for-devops/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1739151000" data-df="ll" > Feb 10, 2025 </time><h4 class="pt-0 my-2">Essential Linux Commands for DevOps Engineers</h4><div class="text-muted"><p>As a DevOps engineer, mastering Linux commands is crucial for efficient system troubleshooting and management. 1. System Monitoring &amp;amp; Performance CPU Usage: top – Real-time process and r...</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/Beyond-consolelog-Advanced-JavaScript-Debugging-Techniques/" class="btn btn-outline-primary" aria-label="Older" ><p>Beyond console.log(): Advanced JavaScript Debugging Techniques</p></a> <a href="/Creating-a-Custom-Ubuntu-Template-in-Proxmox-with-CloudInit/" class="btn btn-outline-primary" aria-label="Newer" ><p>Creating a Custom Ubuntu Template in Proxmox with Cloud-Init</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author." >Some rights reserved.</span></p><p>Using the <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.2.4" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>.</p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a> <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a> <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a> <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a> <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a> <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a> <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a></div></section></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="toast-header"> <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" ></button></div><div class="toast-body text-center pt-0"><p class="px-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="conclusion"><span class="me-2">Conclusion</span><a href="#conclusion" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>These commands provide a foundation for gathering crucial system information in Linux.  Understanding their usage is essential for system administration, troubleshooting, and general system management.  Remember to consult the man pages (<code class="language-plaintext highlighter-rouge">man command_name</code>) for each command to explore advanced options and detailed usage information.</p>
+
+
+  </div>
+
+  <div class="post-tail-wrapper text-muted">
+    <!-- categories -->
+    
+      <div class="post-meta mb-3">
+        <i class="far fa-folder-open fa-fw me-1"></i>
+        
+          <a href="/categories/linux/">linux</a>,
+          <a href="/categories/system-administration/">system-administration</a>,
+          <a href="/categories/commands/">commands</a>
+      </div>
+    
+
+    <!-- tags -->
+    
+      <div class="post-tags">
+        <i class="fa fa-tags fa-fw me-1"></i>
+        
+          <a
+            href="/tags/linux-commands/"
+            class="post-tag no-text-decoration"
+          >linux-commands</a>
+        
+          <a
+            href="/tags/system-info/"
+            class="post-tag no-text-decoration"
+          >system-info</a>
+        
+          <a
+            href="/tags/troubleshooting/"
+            class="post-tag no-text-decoration"
+          >troubleshooting</a>
+        
+          <a
+            href="/tags/networking/"
+            class="post-tag no-text-decoration"
+          >networking</a>
+        
+          <a
+            href="/tags/processes/"
+            class="post-tag no-text-decoration"
+          >processes</a>
+        
+      </div>
+    
+
+    <div
+      class="
+        post-tail-bottom
+        d-flex justify-content-between align-items-center mt-5 pb-2
+      "
+    >
+      <div class="license-wrapper">
+        
+          
+
+          This post is licensed under 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         by the author.
+        
+      </div>
+
+      <!-- Post sharing snippet -->
+
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted">Share</span>
+  <span class="share-icons">
+    
+    
+    
+
+    
+
+      
+
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Flocalhost%3A4000%2FEssential-Linux-Commands-System-Information-and-Network-Status%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin">
+        <i class="fa-fw fab fa-linkedin"></i>
+      </a>
+    
+
+      
+
+      <a href="https://twitter.com/intent/tweet?text=Essential%20Linux%20Commands%20for%20System%20Information%20-%20Sreeju%20KS&url=http%3A%2F%2Flocalhost%3A4000%2FEssential-Linux-Commands-System-Information-and-Network-Status%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter">
+        <i class="fa-fw fa-brands fa-square-x-twitter"></i>
+      </a>
+    
+
+      
+
+      <a href="https://www.facebook.com/sharer/sharer.php?title=Essential%20Linux%20Commands%20for%20System%20Information%20-%20Sreeju%20KS&u=http%3A%2F%2Flocalhost%3A4000%2FEssential-Linux-Commands-System-Information-and-Network-Status%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook">
+        <i class="fa-fw fab fa-facebook-square"></i>
+      </a>
+    
+
+      
+
+      <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2FEssential-Linux-Commands-System-Information-and-Network-Status%2F&text=Essential%20Linux%20Commands%20for%20System%20Information%20-%20Sreeju%20KS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram">
+        <i class="fa-fw fab fa-telegram"></i>
+      </a>
+    
+
+    <button
+      id="copy-link"
+      aria-label="Copy link"
+      class="btn small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="Copy link"
+      data-title-succeed="Link copied successfully!"
+    >
+      <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
+  </span>
+</div>
+
+    </div>
+    <!-- .post-tail-bottom -->
+  </div>
+  <!-- div.post-tail-wrapper -->
+</article>
+
+
+            
+          </main>
+
+          <!-- panel -->
+          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
+            <div class="access">
+              <!-- Get 5 last posted/updated posts -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section id="access-lastmod">
+    <h2 class="panel-heading">Recently Updated</h2>
+    <ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2">
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/linux-process-management/">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/linux-system-internals/">Linux System Internals — Understanding the Engine Under the Hood</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/disk-monitoring-approach/">Interview Question: Disk Space Monitoring Approach</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/Proxmox-Virtual-Environment/">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/text-processing-with-sed-and-awk/">Text Processing with sed and awk - The Professional's Guide</a>
+        </li>
+      
+    </ul>
+  </section>
+  <!-- #access-lastmod -->
+
+
+              <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a>
+      
+    </div>
+  </section>
+
+
+            </div>
+
+            
+              
+              
+
+
+
+
+
+
+  <div class="toc-border-cover z-3"></div>
+  <section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4">
+    <h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2>
+    <nav id="toc"></nav>
+  </section>
+
+
+            
+          </aside>
+        </div>
+
+        <div class="row">
+          <!-- tail -->
+          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              
+              <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
+
+<!-- The total size of related posts -->
+
+
+<!-- An random integer that bigger than 0 -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  <aside id="related-posts" aria-labelledby="related-label">
+    <h3 class="mb-4" id="related-label">Further Reading</h3>
+    <nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+      
+        <article class="col">
+          <a href="/linux-troubleshooting-checklist/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744797600"
+  data-df="ll"
+  
+>
+  Apr 16, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Linux Troubleshooting Checklist - A Professional Guide</h4>
+              <div class="text-muted">
+                <p>A comprehensive guide to systematic Linux troubleshooting, covering system health checks, performance analysis, and standardized logging practices.</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/cURL-Command-in-Linux-A-Comprehensive-Guide/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1742555880"
+  data-df="ll"
+  
+>
+  Mar 21, 2025
+</time>
+
+              <h4 class="pt-0 my-2">cURL Command in Linux: A Comprehensive Guide</h4>
+              <div class="text-muted">
+                <p>Table of Contents    Introduction to cURL   Basic cURL Usage   Specifying HTTP Methods   Handling Headers   Data Submission with cURL   Downloading Files with cURL   Uploading Files with cURL   Aut...</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/linux-commands-for-devops/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1739151000"
+  data-df="ll"
+  
+>
+  Feb 10, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Essential Linux Commands for DevOps Engineers</h4>
+              <div class="text-muted">
+                <p>As a DevOps engineer, mastering Linux commands is crucial for efficient system troubleshooting and management.    1. System Monitoring &amp;amp; Performance  CPU Usage:    top – Real-time process and r...</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+    </nav>
+  </aside>
+  <!-- #related-posts -->
+
+
+            
+              
+              <!-- Navigation buttons at the bottom of the post. -->
+
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  
+  
+
+  
+    <a
+      href="/Beyond-consolelog-Advanced-JavaScript-Debugging-Techniques/"
+      class="btn btn-outline-primary"
+      aria-label="Older"
+    >
+      <p>Beyond console.log(): Advanced JavaScript Debugging Techniques</p>
+    </a>
+  
+
+  
+    <a
+      href="/Creating-a-Custom-Ubuntu-Template-in-Proxmox-with-CloudInit/"
+      class="btn btn-outline-primary"
+      aria-label="Newer"
+    >
+      <p>Creating a Custom Ubuntu Template in Proxmox with Cloud-Init</p>
+    </a>
+  
+</nav>
+
+            
+
+            <!-- The Footer -->
+
+<footer
+  aria-label="Site Info"
+  class="
+    d-flex flex-column justify-content-center text-muted
+    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
+  "
+>
+  <p>©
+    <time>2026</time>
+
+    
+      <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a>.
+    
+
+    
+      <span
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author."
+      >Some rights reserved.</span>
+    
+  </p>
+
+  <p>Using the <a
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="v7.2.4"
+        href="https://github.com/cotes2020/jekyll-theme-chirpy"
+        target="_blank"
+        rel="noopener"
+      >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>.
+  </p>
+</footer>
+
+          </div>
+        </div>
+
+        <!-- The Search results -->
+
+<div id="search-result-wrapper" class="d-flex justify-content-center d-none">
+  <div class="col-11 content">
+    <div id="search-hints">
+      <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a>
+      
+    </div>
+  </section>
+
+
+    </div>
+    <div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div>
+  </div>
+</div>
+
+      </div>
+
+      <aside aria-label="Scroll to Top">
+        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
+          <i class="fas fa-angle-up"></i>
+        </button>
+      </aside>
+    </div>
+
+    <div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div>
+
+    
+      <aside
+  id="notification"
+  class="toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-bs-animation="true"
+  data-bs-autohide="false"
+>
+  <div class="toast-header">
+    <button
+      type="button"
+      class="btn-close ms-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="toast-body text-center pt-0">
+    <p class="px-2 mb-3">A new version of content is available.</p>
+    <button type="button" class="btn btn-primary" aria-label="Update">
+      Update
+    </button>
+  </div>
+</aside>
+
+    
+
+    <!-- Embedded scripts -->
+
+    
+      
+      <!-- The comments switcher -->
+
+
+    
+
+    <!--
+  Jekyll Simple Search loader
+  See: <https://github.com/christian-fei/Simple-Jekyll-Search>
+-->
+
+
+
+
+
+<script>
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    SimpleJekyllSearch({
+      searchInput: document.getElementById('search-input'),
+      resultsContainer: document.getElementById('search-results'),
+      json: '/assets/js/data/search.json',
+      searchResultTemplate: '  <article class="px-1 px-sm-2 px-lg-4 px-xl-0">    <header>      <h2><a href="{url}">{title}</a></h2>      <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">        {categories}        {tags}      </div>    </header>    <p>{content}</p>  </article>',
+      noResultsText: '<p class="mt-5">Oops! No results found.</p>',
+      templateMiddleware: function(prop, value, template) {
+        if (prop === 'categories') {
+          if (value === '') {
+            return `${value}`;
+          } else {
+            return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`;
+          }
+        }
+
+        if (prop === 'tags') {
+          if (value === '') {
+            return `${value}`;
+          } else {
+            return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`;
+          }
+        }
+      }
+    });
+  });
+</script>
+
+  </body>
+</html>
+

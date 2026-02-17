@@ -1,4 +1,1297 @@
-<!doctype html><html lang="en" data-mode="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="Regular Expressions Guide - Mastering Pattern Matching in Linux" /><meta name="author" content="Sreeju KS" /><meta property="og:locale" content="en" /><meta name="description" content="A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration." /><meta property="og:description" content="A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration." /><link rel="canonical" href="https://blog.sreesreejuks.com/regular-expressions-guide/" /><meta property="og:url" content="https://blog.sreesreejuks.com/regular-expressions-guide/" /><meta property="og:site_name" content="Sreeju KS" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2025-04-17T08:03:00+05:30" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="Regular Expressions Guide - Mastering Pattern Matching in Linux" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sreeju KS","url":"https://github.com/sreesreejuks/"},"dateModified":"2025-04-17T08:03:00+05:30","datePublished":"2025-04-17T08:03:00+05:30","description":"A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration.","headline":"Regular Expressions Guide - Mastering Pattern Matching in Linux","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.sreesreejuks.com/regular-expressions-guide/"},"url":"https://blog.sreesreejuks.com/regular-expressions-guide/"}</script><title>Regular Expressions Guide - Mastering Pattern Matching in Linux | Sreeju KS</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Sreeju KS"><meta name="application-name" content="Sreeju KS"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-E66HPNGEJR"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-E66HPNGEJR'); </script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://gravatar.com/avatar/ed8980df17ba2ea58cd48fe0c6964ca3?size=256" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">Sreeju KS</a><p class="site-subtitle fst-italic mb-0">Documenting the journey of DevOps, cloud computing, and deployment</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>ABOUT</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"> <a href="https://github.com/sreesreejuks" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="https://www.linkedin.com/in/sreesreejuks" aria-label="linkedin" target="_blank" rel="noopener noreferrer" > <i class="fab fa-linkedin"></i> </a> <a href="https://www.instagram.com/sreesreejuks" aria-label="instagram" target="_blank" rel="noopener noreferrer" > <i class="fab fa-instagram"></i> </a> <a href="javascript:location.href = 'mailto:' + ['mail','sreesreejuks.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">Home</a> </span> <span>Regular Expressions Guide - Mastering Pattern Matching in Linux</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> Post</div><button type="button" id="search-trigger" class="btn btn-link"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>Regular Expressions Guide - Mastering Pattern Matching in Linux</h1><p class="post-desc fw-light mb-4">A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration.</p><div class="post-meta text-muted"> <span> Posted <time data-ts="1744857180" data-df="ll" data-bs-toggle="tooltip" data-bs-placement="bottom" > Apr 17, 2025 </time> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/sreesreejuks/">Sreeju KS</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="2585 words" > <em>14 min</em> read</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">Regular Expressions Guide - Mastering Pattern Matching in Linux</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">Contents</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">Regular Expressions Guide - Mastering Pattern Matching in Linux</div><button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75"> <i class="fas fa-close"></i> </button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><blockquote><p>“Regular expressions are like a Swiss Army knife for text - once mastered, there’s almost no text-processing challenge you can’t solve.”</p></blockquote><h2 id="table-of-contents"><span class="me-2">Table of Contents</span><a href="#table-of-contents" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><a href="#-beginner-vs-professional-approach">Beginner vs Professional Approach</a><li><a href="#-why-regular-expressions-matter">Why Regular Expressions Matter</a><li><a href="#-regex-syntax-fundamentals">Regex Syntax Fundamentals</a><li><a href="#-basic-vs-extended-regex">Basic vs Extended Regex</a><li><a href="#-character-classes">Character Classes</a><li><a href="#-anchors-and-boundaries">Anchors and Boundaries</a><li><a href="#-quantifiers-and-repetition">Quantifiers and Repetition</a><li><a href="#-grouping-and-capturing">Grouping and Capturing</a><li><a href="#-practical-examples">Practical Examples</a><li><a href="#-tools-that-use-regex">Tools That Use Regex</a><li><a href="#-log-analysis-patterns">Log Analysis Patterns</a><li><a href="#-system-administration-use-cases">System Administration Use Cases</a><li><a href="#-common-pitfalls">Common Pitfalls</a><li><a href="#-testing-and-debugging">Testing and Debugging</a><li><a href="#-final-thought">Final Thought</a></ul><h2 id="-beginner-vs-professional-approach"><span class="me-2">🎯 Beginner vs Professional Approach</span><a href="#-beginner-vs-professional-approach" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="table-wrapper"><table><thead><tr><th>Beginner<th>Professional<tbody><tr><td>Copies regex patterns without understanding<td>Builds patterns incrementally, testing as they go<tr><td>Uses trial and error<td>Plans regex based on text structure<tr><td>Struggles with syntax errors<td>Understands different regex flavors and their limitations<tr><td>Creates overly complicated patterns<td>Writes simple, maintainable patterns<tr><td>Uses regex for simple tasks only<td>Combines regex with other tools for complex text processing<tr><td>Abandons regex when it gets complicated<td>Breaks complex patterns into manageable pieces<tr><td>Memorizes common patterns<td>Understands the principles to create any pattern needed</table></div><blockquote><p><strong>Tip:</strong> Don’t try to write complex regular expressions all at once. Build them incrementally, testing each component before moving on.</p></blockquote><h2 id="-why-regular-expressions-matter"><span class="me-2">🧠 Why Regular Expressions Matter</span><a href="#-why-regular-expressions-matter" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Regular expressions transform how you work with text in Linux. Instead of using multiple commands and temporary files, regex allows you to:</p><ol><li><strong>Extract specific information</strong> from unstructured text<li><strong>Validate data formats</strong> (email addresses, IP addresses, dates)<li><strong>Transform text</strong> consistently across multiple files<li><strong>Identify patterns</strong> in logs and outputs<li><strong>Automate repetitive text processing tasks</strong></ol><p>Most importantly, regex works across numerous Linux tools, including grep, sed, awk, vim, and programming languages. Learn it once, apply it everywhere.</p><p>The difference between manually processing text and using regex is like the difference between copying files one by one versus using rsync with patterns. One approach scales, the other doesn’t.</p><h2 id="-regex-syntax-fundamentals"><span class="me-2">📚 Regex Syntax Fundamentals</span><a href="#-regex-syntax-fundamentals" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Regular expressions use special characters to define patterns:</p><div class="table-wrapper"><table><thead><tr><th>Character<th>Function<th>Example<th>Matches<tbody><tr><td><code class="language-plaintext highlighter-rouge">.</code><td>Any single character<td><code class="language-plaintext highlighter-rouge">c.t</code><td>“cat”, “cot”, “c5t”<tr><td><code class="language-plaintext highlighter-rouge">^</code><td>Start of line<td><code class="language-plaintext highlighter-rouge">^The</code><td>Lines starting with “The”<tr><td><code class="language-plaintext highlighter-rouge">$</code><td>End of line<td><code class="language-plaintext highlighter-rouge">end$</code><td>Lines ending with “end”<tr><td><code class="language-plaintext highlighter-rouge">*</code><td>Zero or more of preceding<td><code class="language-plaintext highlighter-rouge">ab*c</code><td>“ac”, “abc”, “abbc”<tr><td><code class="language-plaintext highlighter-rouge">+</code><td>One or more of preceding<td><code class="language-plaintext highlighter-rouge">ab+c</code><td>“abc”, “abbc”, but not “ac”<tr><td><code class="language-plaintext highlighter-rouge">?</code><td>Zero or one of preceding<td><code class="language-plaintext highlighter-rouge">colou?r</code><td>“color”, “colour”<tr><td><code class="language-plaintext highlighter-rouge">\</code><td>Escape character<td><code class="language-plaintext highlighter-rouge">\.</code><td>A literal period<tr><td><code class="language-plaintext highlighter-rouge">\|</code><td>Alternation (OR)<td><code class="language-plaintext highlighter-rouge">cat\|dog</code><td>“cat” or “dog”<tr><td><code class="language-plaintext highlighter-rouge">[]</code><td>Character class<td><code class="language-plaintext highlighter-rouge">[aeiou]</code><td>Any single vowel<tr><td><code class="language-plaintext highlighter-rouge">[^]</code><td>Negated character class<td><code class="language-plaintext highlighter-rouge">[^0-9]</code><td>Any non-digit<tr><td><code class="language-plaintext highlighter-rouge">()</code><td>Grouping<td><code class="language-plaintext highlighter-rouge">(in)</code><td>Groups “in” for capturing or repetition</table></div><h3 id="understanding-basic-pattern-building"><span class="me-2">Understanding Basic Pattern Building</span><a href="#understanding-basic-pattern-building" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- `site.alt_lang` can specify a language different from the UI -->
+<html lang="en" data-mode="light">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+  ><!-- Setup Open Graph image -->
+
+  
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Regular Expressions Guide - Mastering Pattern Matching in Linux" />
+<meta name="author" content="Sreeju KS" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration." />
+<meta property="og:description" content="A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration." />
+<link rel="canonical" href="http://localhost:4000/regular-expressions-guide/" />
+<meta property="og:url" content="http://localhost:4000/regular-expressions-guide/" />
+<meta property="og:site_name" content="Sreeju KS" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-04-17T08:03:00+05:30" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Regular Expressions Guide - Mastering Pattern Matching in Linux" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sreeju KS","url":"https://github.com/sreesreejuks/"},"dateModified":"2025-04-17T08:03:00+05:30","datePublished":"2025-04-17T08:03:00+05:30","description":"A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration.","headline":"Regular Expressions Guide - Mastering Pattern Matching in Linux","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/regular-expressions-guide/"},"url":"http://localhost:4000/regular-expressions-guide/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <title>Regular Expressions Guide - Mastering Pattern Matching in Linux | Sreeju KS
+  </title>
+
+  <!--
+  The Favicons for Web, Android, Microsoft, and iOS (iPhone and iPad) Apps
+  Generated by: https://realfavicongenerator.net/
+-->
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+
+<link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="Sreeju KS">
+<meta name="application-name" content="Sreeju KS">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+
+  <!-- Resource Hints -->
+  
+    
+      
+        <link rel="preconnect" href="https://fonts.googleapis.com" >
+      
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" >
+      
+    
+      
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" >
+      
+    
+      
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" >
+      
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" >
+      
+    
+  
+
+  <!-- Bootstrap -->
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css">
+
+  <!-- Web Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css">
+
+  <!-- 3rd-party Dependencies -->
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
+  
+
+  
+    <!-- Image Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
+  
+
+  <!-- Scripts -->
+
+  <script src="/assets/js/dist/theme.min.js"></script>
+
+  <!-- JS selector for site. -->
+
+<!-- commons -->
+
+
+
+<!-- layout specified -->
+
+
+  
+
+  
+    <!-- image lazy-loading & popup & clipboard -->
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script>
+
+
+
+
+
+
+
+<script defer src="/assets/js/dist/post.min.js"></script>
+
+
+
+<!-- Pageviews -->
+
+  
+
+  
+
+
+
+  
+
+  <!-- A placeholder to allow defining custom metadata -->
+
+</head>
+
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E66HPNGEJR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E66HPNGEJR');
+  </script>
+
+  <body>
+    <!-- The Side Bar -->
+
+<aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
+  <header class="profile-wrapper">
+    <a href="/" id="avatar" class="rounded-circle"><img src="https://gravatar.com/avatar/ed8980df17ba2ea58cd48fe0c6964ca3?size=256" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a>
+
+    <a class="site-title d-block" href="/">Sreeju KS</a>
+    <p class="site-subtitle fst-italic mb-0">Documenting the journey of DevOps, cloud computing, and deployment</p>
+  </header>
+  <!-- .profile-wrapper -->
+
+  <nav class="flex-column flex-grow-1 w-100 ps-0">
+    <ul class="nav">
+      <!-- home -->
+      <li class="nav-item">
+        <a href="/" class="nav-link">
+          <i class="fa-fw fas fa-home"></i>
+          <span>HOME</span>
+        </a>
+      </li>
+      <!-- the real tabs -->
+      
+        <li class="nav-item">
+          <a href="/categories/" class="nav-link">
+            <i class="fa-fw fas fa-stream"></i>
+            
+
+            <span>CATEGORIES</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/tags/" class="nav-link">
+            <i class="fa-fw fas fa-tags"></i>
+            
+
+            <span>TAGS</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/archives/" class="nav-link">
+            <i class="fa-fw fas fa-archive"></i>
+            
+
+            <span>ARCHIVES</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/about/" class="nav-link">
+            <i class="fa-fw fas fa-info-circle"></i>
+            
+
+            <span>ABOUT</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+    </ul>
+  </nav>
+
+  <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
+    
+
+    
+      
+
+      
+        <a
+          href="https://github.com/sreesreejuks"
+          aria-label="github"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://www.linkedin.com/in/sreesreejuks"
+          aria-label="linkedin"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://www.instagram.com/sreesreejuks"
+          aria-label="instagram"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="javascript:location.href = 'mailto:' + ['mail','sreesreejuks.com'].join('@')"
+          aria-label="email"
+          
+
+          
+
+          
+
+          
+        >
+          <i class="fas fa-envelope"></i>
+        </a>
+      
+    
+  </div>
+  <!-- .sidebar-bottom -->
+</aside>
+<!-- #sidebar -->
+
+
+    <div id="main-wrapper" class="d-flex justify-content-center">
+      <div class="container d-flex flex-column px-xxl-5">
+        <!-- The Top Bar -->
+
+<header id="topbar-wrapper" aria-label="Top Bar">
+  <div
+    id="topbar"
+    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
+  >
+    <nav id="breadcrumb" aria-label="Breadcrumb">
+      
+
+      
+        
+          
+            <span>
+              <a href="/">Home</a>
+            </span>
+
+          
+        
+          
+            
+              <span>Regular Expressions Guide - Mastering Pattern Matching in Linux</span>
+            
+
+          
+        
+      
+    </nav>
+    <!-- endof #breadcrumb -->
+
+    <button type="button" id="sidebar-trigger" class="btn btn-link">
+      <i class="fas fa-bars fa-fw"></i>
+    </button>
+
+    <div id="topbar-title">
+      Post
+    </div>
+
+    <button type="button" id="search-trigger" class="btn btn-link">
+      <i class="fas fa-search fa-fw"></i>
+    </button>
+
+    <search id="search" class="align-items-center ms-3 ms-lg-0">
+      <i class="fas fa-search fa-fw"></i>
+      <input
+        class="form-control"
+        id="search-input"
+        type="search"
+        aria-label="search"
+        autocomplete="off"
+        placeholder="Search..."
+      >
+    </search>
+    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button>
+  </div>
+</header>
+
+
+        <div class="row flex-grow-1">
+          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              <!-- Refactor the HTML structure -->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Change the icon of checkbox -->
+
+
+
+<!-- Handle images -->
+
+
+
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- return -->
+
+
+
+
+
+
+
+
+
+
+<article class="px-1" data-toc="true">
+  <header>
+    <h1 data-toc-skip>Regular Expressions Guide - Mastering Pattern Matching in Linux</h1>
+    
+      <p class="post-desc fw-light mb-4">A comprehensive guide to regular expressions in Linux, covering basic to advanced patterns, tools compatibility, and practical examples for text processing, log analysis, and system administration.</p>
+    
+
+    <div class="post-meta text-muted">
+      <!-- published date -->
+      <span>
+        Posted
+        <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744857180"
+  data-df="ll"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  Apr 17, 2025
+</time>
+
+      </span>
+
+      <!-- lastmod date -->
+      
+
+      
+
+      <div class="d-flex justify-content-between">
+        <!-- author(s) -->
+        <span>
+          
+
+          By
+
+          <em>
+            
+              
+                <a href="https://github.com/sreesreejuks/">Sreeju KS</a>
+                
+              
+            
+          </em>
+        </span>
+
+        <div>
+          <!-- pageviews -->
+          
+
+          <!-- read time -->
+          <!-- Calculate the post's reading time, and display the word count in tooltip -->
+
+
+
+<!-- words per minute -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span
+  class="readtime"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="2585 words"
+>
+  <em>14 min</em> read</span>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  
+    <div id="toc-bar" class="d-flex align-items-center justify-content-between invisible">
+      <span class="label text-truncate">Regular Expressions Guide - Mastering Pattern Matching in Linux</span>
+      <button type="button" class="toc-trigger btn me-1">
+        <i class="fa-solid fa-list-ul fa-fw"></i>
+      </button>
+    </div>
+
+    <button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm">
+      <span class="label ps-2 pe-1">Contents</span>
+      <i class="fa-solid fa-angle-right fa-fw"></i>
+    </button>
+
+    <dialog id="toc-popup" class="p-0">
+      <div class="header d-flex flex-row align-items-center justify-content-between">
+        <div class="label text-truncate py-2 ms-4">Regular Expressions Guide - Mastering Pattern Matching in Linux</div>
+        <button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75">
+          <i class="fas fa-close"></i>
+        </button>
+      </div>
+      <div id="toc-popup-content" class="px-4 py-3 pb-4"></div>
+    </dialog>
+  
+
+  <div class="content">
+    <blockquote>
+  <p>“Regular expressions are like a Swiss Army knife for text - once mastered, there’s almost no text-processing challenge you can’t solve.”</p>
+</blockquote>
+
+<h2 id="table-of-contents"><span class="me-2">Table of Contents</span><a href="#table-of-contents" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<ul>
+  <li><a href="#-beginner-vs-professional-approach">Beginner vs Professional Approach</a></li>
+  <li><a href="#-why-regular-expressions-matter">Why Regular Expressions Matter</a></li>
+  <li><a href="#-regex-syntax-fundamentals">Regex Syntax Fundamentals</a></li>
+  <li><a href="#-basic-vs-extended-regex">Basic vs Extended Regex</a></li>
+  <li><a href="#-character-classes">Character Classes</a></li>
+  <li><a href="#-anchors-and-boundaries">Anchors and Boundaries</a></li>
+  <li><a href="#-quantifiers-and-repetition">Quantifiers and Repetition</a></li>
+  <li><a href="#-grouping-and-capturing">Grouping and Capturing</a></li>
+  <li><a href="#-practical-examples">Practical Examples</a></li>
+  <li><a href="#-tools-that-use-regex">Tools That Use Regex</a></li>
+  <li><a href="#-log-analysis-patterns">Log Analysis Patterns</a></li>
+  <li><a href="#-system-administration-use-cases">System Administration Use Cases</a></li>
+  <li><a href="#-common-pitfalls">Common Pitfalls</a></li>
+  <li><a href="#-testing-and-debugging">Testing and Debugging</a></li>
+  <li><a href="#-final-thought">Final Thought</a></li>
+</ul>
+
+<h2 id="-beginner-vs-professional-approach"><span class="me-2">🎯 Beginner vs Professional Approach</span><a href="#-beginner-vs-professional-approach" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Beginner</th>
+      <th>Professional</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Copies regex patterns without understanding</td>
+      <td>Builds patterns incrementally, testing as they go</td>
+    </tr>
+    <tr>
+      <td>Uses trial and error</td>
+      <td>Plans regex based on text structure</td>
+    </tr>
+    <tr>
+      <td>Struggles with syntax errors</td>
+      <td>Understands different regex flavors and their limitations</td>
+    </tr>
+    <tr>
+      <td>Creates overly complicated patterns</td>
+      <td>Writes simple, maintainable patterns</td>
+    </tr>
+    <tr>
+      <td>Uses regex for simple tasks only</td>
+      <td>Combines regex with other tools for complex text processing</td>
+    </tr>
+    <tr>
+      <td>Abandons regex when it gets complicated</td>
+      <td>Breaks complex patterns into manageable pieces</td>
+    </tr>
+    <tr>
+      <td>Memorizes common patterns</td>
+      <td>Understands the principles to create any pattern needed</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> Don’t try to write complex regular expressions all at once. Build them incrementally, testing each component before moving on.</p>
+</blockquote>
+
+<h2 id="-why-regular-expressions-matter"><span class="me-2">🧠 Why Regular Expressions Matter</span><a href="#-why-regular-expressions-matter" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Regular expressions transform how you work with text in Linux. Instead of using multiple commands and temporary files, regex allows you to:</p>
+
+<ol>
+  <li><strong>Extract specific information</strong> from unstructured text</li>
+  <li><strong>Validate data formats</strong> (email addresses, IP addresses, dates)</li>
+  <li><strong>Transform text</strong> consistently across multiple files</li>
+  <li><strong>Identify patterns</strong> in logs and outputs</li>
+  <li><strong>Automate repetitive text processing tasks</strong></li>
+</ol>
+
+<p>Most importantly, regex works across numerous Linux tools, including grep, sed, awk, vim, and programming languages. Learn it once, apply it everywhere.</p>
+
+<p>The difference between manually processing text and using regex is like the difference between copying files one by one versus using rsync with patterns. One approach scales, the other doesn’t.</p>
+
+<h2 id="-regex-syntax-fundamentals"><span class="me-2">📚 Regex Syntax Fundamentals</span><a href="#-regex-syntax-fundamentals" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Regular expressions use special characters to define patterns:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Character</th>
+      <th>Function</th>
+      <th>Example</th>
+      <th>Matches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td>Any single character</td>
+      <td><code class="language-plaintext highlighter-rouge">c.t</code></td>
+      <td>“cat”, “cot”, “c5t”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td>Start of line</td>
+      <td><code class="language-plaintext highlighter-rouge">^The</code></td>
+      <td>Lines starting with “The”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>End of line</td>
+      <td><code class="language-plaintext highlighter-rouge">end$</code></td>
+      <td>Lines ending with “end”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Zero or more of preceding</td>
+      <td><code class="language-plaintext highlighter-rouge">ab*c</code></td>
+      <td>“ac”, “abc”, “abbc”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>One or more of preceding</td>
+      <td><code class="language-plaintext highlighter-rouge">ab+c</code></td>
+      <td>“abc”, “abbc”, but not “ac”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?</code></td>
+      <td>Zero or one of preceding</td>
+      <td><code class="language-plaintext highlighter-rouge">colou?r</code></td>
+      <td>“color”, “colour”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\</code></td>
+      <td>Escape character</td>
+      <td><code class="language-plaintext highlighter-rouge">\.</code></td>
+      <td>A literal period</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\|</code></td>
+      <td>Alternation (OR)</td>
+      <td><code class="language-plaintext highlighter-rouge">cat\|dog</code></td>
+      <td>“cat” or “dog”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+      <td>Character class</td>
+      <td><code class="language-plaintext highlighter-rouge">[aeiou]</code></td>
+      <td>Any single vowel</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[^]</code></td>
+      <td>Negated character class</td>
+      <td><code class="language-plaintext highlighter-rouge">[^0-9]</code></td>
+      <td>Any non-digit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">()</code></td>
+      <td>Grouping</td>
+      <td><code class="language-plaintext highlighter-rouge">(in)</code></td>
+      <td>Groups “in” for capturing or repetition</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="understanding-basic-pattern-building"><span class="me-2">Understanding Basic Pattern Building</span><a href="#understanding-basic-pattern-building" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -9,7 +1302,7 @@
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Match a specific word</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Match a specific word</span>
 <span class="nb">grep</span> <span class="s2">"error"</span> logfile.txt
 
 <span class="c"># Match variations of a word</span>
@@ -20,13 +1313,206 @@
 
 <span class="c"># Match at end of line</span>
 <span class="nb">grep</span> <span class="s2">"terminated</span><span class="se">\.</span><span class="s2">$"</span> logfile.txt
-</pre></table></code></div></div><blockquote><p><strong>Info:</strong> Regular expression syntax varies slightly between tools. Always check the specific tool’s documentation for exact syntax support.</p></blockquote><h2 id="-basic-vs-extended-regex"><span class="me-2">🔄 Basic vs Extended Regex</span><a href="#-basic-vs-extended-regex" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Linux tools support different regex flavors:</p><div class="table-wrapper"><table><thead><tr><th>Feature<th>Basic Regex (BRE)<th>Extended Regex (ERE)<th>Perl Compatible (PCRE)<tbody><tr><td>Default in<td><code class="language-plaintext highlighter-rouge">grep</code>, <code class="language-plaintext highlighter-rouge">sed</code><td><code class="language-plaintext highlighter-rouge">grep -E</code>, <code class="language-plaintext highlighter-rouge">egrep</code>, <code class="language-plaintext highlighter-rouge">awk</code><td><code class="language-plaintext highlighter-rouge">grep -P</code>, <code class="language-plaintext highlighter-rouge">perl</code><tr><td>Meta characters<td>Need escaping: <code class="language-plaintext highlighter-rouge">\+</code>, <code class="language-plaintext highlighter-rouge">\?</code>, <code class="language-plaintext highlighter-rouge">\|</code><td>No escaping: <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">?</code>, <code class="language-plaintext highlighter-rouge">\|</code><td>Additional features: <code class="language-plaintext highlighter-rouge">\d</code>, <code class="language-plaintext highlighter-rouge">\w</code>, <code class="language-plaintext highlighter-rouge">\s</code><tr><td>Groups<td><code class="language-plaintext highlighter-rouge">\(pattern\)</code><td><code class="language-plaintext highlighter-rouge">(pattern)</code><td><code class="language-plaintext highlighter-rouge">(pattern)</code> + named groups<tr><td>Alternation<td><code class="language-plaintext highlighter-rouge">\|</code><td><code class="language-plaintext highlighter-rouge">\|</code><td><code class="language-plaintext highlighter-rouge">\|</code><tr><td>Lookbehind/ahead<td>No<td>No<td>Yes<tr><td>Backreferences<td><code class="language-plaintext highlighter-rouge">\1</code> through <code class="language-plaintext highlighter-rouge">\9</code><td><code class="language-plaintext highlighter-rouge">\1</code> through <code class="language-plaintext highlighter-rouge">\9</code><td><code class="language-plaintext highlighter-rouge">\1</code>, <code class="language-plaintext highlighter-rouge">\2</code> or <code class="language-plaintext highlighter-rouge">$1</code>, <code class="language-plaintext highlighter-rouge">$2</code></table></div><h3 id="example-matching-email-addresses"><span class="me-2">Example: Matching Email Addresses</span><a href="#example-matching-email-addresses" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>Basic regex (grep):</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre><span class="nb">grep</span> <span class="s2">"^[a-zA-Z0-9._%+-]</span><span class="se">\+</span><span class="s2">@[a-zA-Z0-9.-]</span><span class="se">\+\.</span><span class="s2">[a-zA-Z]</span><span class="se">\{</span><span class="s2">2,</span><span class="se">\}</span><span class="s2">$"</span> file.txt
-</pre></table></code></div></div><p>Extended regex (grep -E):</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre><span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+</span><span class="se">\.</span><span class="s2">[a-zA-Z]{2,}$"</span> file.txt
-</pre></table></code></div></div><p>Perl-compatible (grep -P):</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre><span class="nb">grep</span> <span class="nt">-P</span> <span class="s2">"^</span><span class="se">\w</span><span class="s2">+([.-]?</span><span class="se">\w</span><span class="s2">+)*@</span><span class="se">\w</span><span class="s2">+([.-]?</span><span class="se">\w</span><span class="s2">+)*(</span><span class="se">\.\w</span><span class="s2">{2,})+$"</span> file.txt
-</pre></table></code></div></div><blockquote><p><strong>Warning:</strong> Always test your regex on sample data before using it on important files.</p></blockquote><h2 id="-character-classes"><span class="me-2">🔎 Character Classes</span><a href="#-character-classes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Character classes match specific characters from a set:</p><div class="table-wrapper"><table><thead><tr><th>Class<th>Matches<th>Example<th>Matches<tbody><tr><td><code class="language-plaintext highlighter-rouge">[abc]</code><td>Any character in the set<td><code class="language-plaintext highlighter-rouge">[aeiou]</code><td>Any vowel<tr><td><code class="language-plaintext highlighter-rouge">[^abc]</code><td>Any character NOT in the set<td><code class="language-plaintext highlighter-rouge">[^0-9]</code><td>Any non-digit<tr><td><code class="language-plaintext highlighter-rouge">[a-z]</code><td>Range of characters<td><code class="language-plaintext highlighter-rouge">[a-zA-Z]</code><td>Any letter<tr><td><code class="language-plaintext highlighter-rouge">[:alpha:]</code><td>Alphabetic characters<td><code class="language-plaintext highlighter-rouge">[[:alpha:]]</code><td>Any letter<tr><td><code class="language-plaintext highlighter-rouge">[:digit:]</code><td>Digits<td><code class="language-plaintext highlighter-rouge">[[:digit:]]</code><td>Any digit<tr><td><code class="language-plaintext highlighter-rouge">[:alnum:]</code><td>Alphanumeric<td><code class="language-plaintext highlighter-rouge">[[:alnum:]]</code><td>Any letter or digit<tr><td><code class="language-plaintext highlighter-rouge">[:space:]</code><td>Whitespace<td><code class="language-plaintext highlighter-rouge">[[:space:]]</code><td>Spaces, tabs, newlines<tr><td><code class="language-plaintext highlighter-rouge">[:punct:]</code><td>Punctuation<td><code class="language-plaintext highlighter-rouge">[[:punct:]]</code><td>Punctuation marks</table></div><p>In PCRE (Perl Compatible Regular Expressions), shorthand classes are available:</p><div class="table-wrapper"><table><thead><tr><th>Shorthand<th>Equivalent<th>Matches<tbody><tr><td><code class="language-plaintext highlighter-rouge">\d</code><td><code class="language-plaintext highlighter-rouge">[0-9]</code><td>Digits<tr><td><code class="language-plaintext highlighter-rouge">\D</code><td><code class="language-plaintext highlighter-rouge">[^0-9]</code><td>Non-digits<tr><td><code class="language-plaintext highlighter-rouge">\w</code><td><code class="language-plaintext highlighter-rouge">[a-zA-Z0-9_]</code><td>Word characters<tr><td><code class="language-plaintext highlighter-rouge">\W</code><td><code class="language-plaintext highlighter-rouge">[^a-zA-Z0-9_]</code><td>Non-word characters<tr><td><code class="language-plaintext highlighter-rouge">\s</code><td><code class="language-plaintext highlighter-rouge">[ \t\n\r\f]</code><td>Whitespace<tr><td><code class="language-plaintext highlighter-rouge">\S</code><td><code class="language-plaintext highlighter-rouge">[^ \t\n\r\f]</code><td>Non-whitespace</table></div><h3 id="example-using-character-classes"><span class="me-2">Example: Using Character Classes</span><a href="#example-using-character-classes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Info:</strong> Regular expression syntax varies slightly between tools. Always check the specific tool’s documentation for exact syntax support.</p>
+</blockquote>
+
+<h2 id="-basic-vs-extended-regex"><span class="me-2">🔄 Basic vs Extended Regex</span><a href="#-basic-vs-extended-regex" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Linux tools support different regex flavors:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Basic Regex (BRE)</th>
+      <th>Extended Regex (ERE)</th>
+      <th>Perl Compatible (PCRE)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default in</td>
+      <td><code class="language-plaintext highlighter-rouge">grep</code>, <code class="language-plaintext highlighter-rouge">sed</code></td>
+      <td><code class="language-plaintext highlighter-rouge">grep -E</code>, <code class="language-plaintext highlighter-rouge">egrep</code>, <code class="language-plaintext highlighter-rouge">awk</code></td>
+      <td><code class="language-plaintext highlighter-rouge">grep -P</code>, <code class="language-plaintext highlighter-rouge">perl</code></td>
+    </tr>
+    <tr>
+      <td>Meta characters</td>
+      <td>Need escaping: <code class="language-plaintext highlighter-rouge">\+</code>, <code class="language-plaintext highlighter-rouge">\?</code>, <code class="language-plaintext highlighter-rouge">\|</code></td>
+      <td>No escaping: <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">?</code>, <code class="language-plaintext highlighter-rouge">\|</code></td>
+      <td>Additional features: <code class="language-plaintext highlighter-rouge">\d</code>, <code class="language-plaintext highlighter-rouge">\w</code>, <code class="language-plaintext highlighter-rouge">\s</code></td>
+    </tr>
+    <tr>
+      <td>Groups</td>
+      <td><code class="language-plaintext highlighter-rouge">\(pattern\)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">(pattern)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">(pattern)</code> + named groups</td>
+    </tr>
+    <tr>
+      <td>Alternation</td>
+      <td><code class="language-plaintext highlighter-rouge">\|</code></td>
+      <td><code class="language-plaintext highlighter-rouge">\|</code></td>
+      <td><code class="language-plaintext highlighter-rouge">\|</code></td>
+    </tr>
+    <tr>
+      <td>Lookbehind/ahead</td>
+      <td>No</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Backreferences</td>
+      <td><code class="language-plaintext highlighter-rouge">\1</code> through <code class="language-plaintext highlighter-rouge">\9</code></td>
+      <td><code class="language-plaintext highlighter-rouge">\1</code> through <code class="language-plaintext highlighter-rouge">\9</code></td>
+      <td><code class="language-plaintext highlighter-rouge">\1</code>, <code class="language-plaintext highlighter-rouge">\2</code> or <code class="language-plaintext highlighter-rouge">$1</code>, <code class="language-plaintext highlighter-rouge">$2</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="example-matching-email-addresses"><span class="me-2">Example: Matching Email Addresses</span><a href="#example-matching-email-addresses" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>Basic regex (grep):</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">grep</span> <span class="s2">"^[a-zA-Z0-9._%+-]</span><span class="se">\+</span><span class="s2">@[a-zA-Z0-9.-]</span><span class="se">\+\.</span><span class="s2">[a-zA-Z]</span><span class="se">\{</span><span class="s2">2,</span><span class="se">\}</span><span class="s2">$"</span> file.txt
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Extended regex (grep -E):</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+</span><span class="se">\.</span><span class="s2">[a-zA-Z]{2,}$"</span> file.txt
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Perl-compatible (grep -P):</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">grep</span> <span class="nt">-P</span> <span class="s2">"^</span><span class="se">\w</span><span class="s2">+([.-]?</span><span class="se">\w</span><span class="s2">+)*@</span><span class="se">\w</span><span class="s2">+([.-]?</span><span class="se">\w</span><span class="s2">+)*(</span><span class="se">\.\w</span><span class="s2">{2,})+$"</span> file.txt
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Warning:</strong> Always test your regex on sample data before using it on important files.</p>
+</blockquote>
+
+<h2 id="-character-classes"><span class="me-2">🔎 Character Classes</span><a href="#-character-classes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Character classes match specific characters from a set:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Matches</th>
+      <th>Example</th>
+      <th>Matches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[abc]</code></td>
+      <td>Any character in the set</td>
+      <td><code class="language-plaintext highlighter-rouge">[aeiou]</code></td>
+      <td>Any vowel</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[^abc]</code></td>
+      <td>Any character NOT in the set</td>
+      <td><code class="language-plaintext highlighter-rouge">[^0-9]</code></td>
+      <td>Any non-digit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[a-z]</code></td>
+      <td>Range of characters</td>
+      <td><code class="language-plaintext highlighter-rouge">[a-zA-Z]</code></td>
+      <td>Any letter</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[:alpha:]</code></td>
+      <td>Alphabetic characters</td>
+      <td><code class="language-plaintext highlighter-rouge">[[:alpha:]]</code></td>
+      <td>Any letter</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[:digit:]</code></td>
+      <td>Digits</td>
+      <td><code class="language-plaintext highlighter-rouge">[[:digit:]]</code></td>
+      <td>Any digit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[:alnum:]</code></td>
+      <td>Alphanumeric</td>
+      <td><code class="language-plaintext highlighter-rouge">[[:alnum:]]</code></td>
+      <td>Any letter or digit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[:space:]</code></td>
+      <td>Whitespace</td>
+      <td><code class="language-plaintext highlighter-rouge">[[:space:]]</code></td>
+      <td>Spaces, tabs, newlines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[:punct:]</code></td>
+      <td>Punctuation</td>
+      <td><code class="language-plaintext highlighter-rouge">[[:punct:]]</code></td>
+      <td>Punctuation marks</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>In PCRE (Perl Compatible Regular Expressions), shorthand classes are available:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Shorthand</th>
+      <th>Equivalent</th>
+      <th>Matches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\d</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[0-9]</code></td>
+      <td>Digits</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\D</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[^0-9]</code></td>
+      <td>Non-digits</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\w</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[a-zA-Z0-9_]</code></td>
+      <td>Word characters</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\W</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[^a-zA-Z0-9_]</code></td>
+      <td>Non-word characters</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\s</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[ \t\n\r\f]</code></td>
+      <td>Whitespace</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\S</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[^ \t\n\r\f]</code></td>
+      <td>Non-whitespace</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="example-using-character-classes"><span class="me-2">Example: Using Character Classes</span><a href="#example-using-character-classes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -34,7 +1520,7 @@
 6
 7
 8
-</pre><td class="rouge-code"><pre><span class="c"># Match lines containing exactly 5 digits</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Match lines containing exactly 5 digits</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^[0-9]{5}$"</span> data.txt
 
 <span class="c"># Match lines with alphanumeric characters only</span>
@@ -42,7 +1528,70 @@
 
 <span class="c"># Match valid usernames (letters, numbers, underscore, 3-16 chars)</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^[a-zA-Z][a-zA-Z0-9_]{2,15}$"</span> users.txt
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> Use character classes instead of listing individual characters when possible. They’re more readable and maintain consistent behavior across locales.</p></blockquote><h2 id="-anchors-and-boundaries"><span class="me-2">🔖 Anchors and Boundaries</span><a href="#-anchors-and-boundaries" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Anchors match positions rather than characters:</p><div class="table-wrapper"><table><thead><tr><th>Anchor<th>Matches<th>Example<th>Matches<tbody><tr><td><code class="language-plaintext highlighter-rouge">^</code><td>Start of line<td><code class="language-plaintext highlighter-rouge">^log</code><td>Lines starting with “log”<tr><td><code class="language-plaintext highlighter-rouge">$</code><td>End of line<td><code class="language-plaintext highlighter-rouge">error$</code><td>Lines ending with “error”<tr><td><code class="language-plaintext highlighter-rouge">\b</code><td>Word boundary<td><code class="language-plaintext highlighter-rouge">\bcat\b</code><td>“cat” as a whole word<tr><td><code class="language-plaintext highlighter-rouge">\B</code><td>Non-word boundary<td><code class="language-plaintext highlighter-rouge">\Bcat\B</code><td>“cat” only when inside another word<tr><td><code class="language-plaintext highlighter-rouge">\&lt;</code><td>Start of word<td><code class="language-plaintext highlighter-rouge">\&lt;cat</code><td>Words starting with “cat”<tr><td><code class="language-plaintext highlighter-rouge">\&gt;</code><td>End of word<td><code class="language-plaintext highlighter-rouge">cat\&gt;</code><td>Words ending with “cat”</table></div><h3 id="example-using-anchors"><span class="me-2">Example: Using Anchors</span><a href="#example-using-anchors" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> Use character classes instead of listing individual characters when possible. They’re more readable and maintain consistent behavior across locales.</p>
+</blockquote>
+
+<h2 id="-anchors-and-boundaries"><span class="me-2">🔖 Anchors and Boundaries</span><a href="#-anchors-and-boundaries" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Anchors match positions rather than characters:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Anchor</th>
+      <th>Matches</th>
+      <th>Example</th>
+      <th>Matches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td>Start of line</td>
+      <td><code class="language-plaintext highlighter-rouge">^log</code></td>
+      <td>Lines starting with “log”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>End of line</td>
+      <td><code class="language-plaintext highlighter-rouge">error$</code></td>
+      <td>Lines ending with “error”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\b</code></td>
+      <td>Word boundary</td>
+      <td><code class="language-plaintext highlighter-rouge">\bcat\b</code></td>
+      <td>“cat” as a whole word</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\B</code></td>
+      <td>Non-word boundary</td>
+      <td><code class="language-plaintext highlighter-rouge">\Bcat\B</code></td>
+      <td>“cat” only when inside another word</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\&lt;</code></td>
+      <td>Start of word</td>
+      <td><code class="language-plaintext highlighter-rouge">\&lt;cat</code></td>
+      <td>Words starting with “cat”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\&gt;</code></td>
+      <td>End of word</td>
+      <td><code class="language-plaintext highlighter-rouge">cat\&gt;</code></td>
+      <td>Words ending with “cat”</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="example-using-anchors"><span class="me-2">Example: Using Anchors</span><a href="#example-using-anchors" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -53,7 +1602,7 @@
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Match lines that are exactly "ERROR"</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Match lines that are exactly "ERROR"</span>
 <span class="nb">grep</span> <span class="s2">"^ERROR$"</span> logfile.txt
 
 <span class="c"># Match "error" as a complete word</span>
@@ -64,7 +1613,97 @@
 
 <span class="c"># Match lines that are empty or whitespace only</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^</span><span class="se">\s</span><span class="s2">*$"</span> config.txt
-</pre></table></code></div></div><blockquote><p><strong>Note:</strong> Word boundaries depend on the definition of a “word character” (<code class="language-plaintext highlighter-rouge">\w</code>), which is typically [a-zA-Z0-9_].</p></blockquote><h2 id="-quantifiers-and-repetition"><span class="me-2">📏 Quantifiers and Repetition</span><a href="#-quantifiers-and-repetition" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Quantifiers control how many times an element can appear:</p><div class="table-wrapper"><table><thead><tr><th>Quantifier<th>Matches<th>Example<th>Matches<tbody><tr><td><code class="language-plaintext highlighter-rouge">*</code><td>Zero or more<td><code class="language-plaintext highlighter-rouge">ab*c</code><td>“ac”, “abc”, “abbc”, etc.<tr><td><code class="language-plaintext highlighter-rouge">+</code><td>One or more<td><code class="language-plaintext highlighter-rouge">ab+c</code><td>“abc”, “abbc”, etc. (not “ac”)<tr><td><code class="language-plaintext highlighter-rouge">?</code><td>Zero or one<td><code class="language-plaintext highlighter-rouge">ab?c</code><td>“ac” or “abc”<tr><td><code class="language-plaintext highlighter-rouge">{n}</code><td>Exactly n<td><code class="language-plaintext highlighter-rouge">a{3}</code><td>“aaa”<tr><td><code class="language-plaintext highlighter-rouge">{n,}</code><td>n or more<td><code class="language-plaintext highlighter-rouge">a{2,}</code><td>“aa”, “aaa”, etc.<tr><td><code class="language-plaintext highlighter-rouge">{n,m}</code><td>Between n and m<td><code class="language-plaintext highlighter-rouge">a{2,4}</code><td>“aa”, “aaa”, or “aaaa”</table></div><p>By default, quantifiers are “greedy” - they match as much as possible. Add <code class="language-plaintext highlighter-rouge">?</code> after a quantifier to make it “non-greedy”:</p><div class="table-wrapper"><table><thead><tr><th>Greedy<th>Non-Greedy<th>Example<th>Difference<tbody><tr><td><code class="language-plaintext highlighter-rouge">*</code><td><code class="language-plaintext highlighter-rouge">*?</code><td><code class="language-plaintext highlighter-rouge">&lt;.*&gt;</code> vs <code class="language-plaintext highlighter-rouge">&lt;.*?&gt;</code><td><code class="language-plaintext highlighter-rouge">&lt;tag&gt;text&lt;/tag&gt;</code> - greedy matches all, non-greedy matches <code class="language-plaintext highlighter-rouge">&lt;tag&gt;</code><tr><td><code class="language-plaintext highlighter-rouge">+</code><td><code class="language-plaintext highlighter-rouge">+?</code><td><code class="language-plaintext highlighter-rouge">".+"</code> vs <code class="language-plaintext highlighter-rouge">".+?"</code><td><code class="language-plaintext highlighter-rouge">"first" "second"</code> - greedy matches both quotes, non-greedy matches each</table></div><h3 id="example-using-quantifiers"><span class="me-2">Example: Using Quantifiers</span><a href="#example-using-quantifiers" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Note:</strong> Word boundaries depend on the definition of a “word character” (<code class="language-plaintext highlighter-rouge">\w</code>), which is typically [a-zA-Z0-9_].</p>
+</blockquote>
+
+<h2 id="-quantifiers-and-repetition"><span class="me-2">📏 Quantifiers and Repetition</span><a href="#-quantifiers-and-repetition" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Quantifiers control how many times an element can appear:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Quantifier</th>
+      <th>Matches</th>
+      <th>Example</th>
+      <th>Matches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Zero or more</td>
+      <td><code class="language-plaintext highlighter-rouge">ab*c</code></td>
+      <td>“ac”, “abc”, “abbc”, etc.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>One or more</td>
+      <td><code class="language-plaintext highlighter-rouge">ab+c</code></td>
+      <td>“abc”, “abbc”, etc. (not “ac”)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?</code></td>
+      <td>Zero or one</td>
+      <td><code class="language-plaintext highlighter-rouge">ab?c</code></td>
+      <td>“ac” or “abc”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{n}</code></td>
+      <td>Exactly n</td>
+      <td><code class="language-plaintext highlighter-rouge">a{3}</code></td>
+      <td>“aaa”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{n,}</code></td>
+      <td>n or more</td>
+      <td><code class="language-plaintext highlighter-rouge">a{2,}</code></td>
+      <td>“aa”, “aaa”, etc.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{n,m}</code></td>
+      <td>Between n and m</td>
+      <td><code class="language-plaintext highlighter-rouge">a{2,4}</code></td>
+      <td>“aa”, “aaa”, or “aaaa”</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>By default, quantifiers are “greedy” - they match as much as possible. Add <code class="language-plaintext highlighter-rouge">?</code> after a quantifier to make it “non-greedy”:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Greedy</th>
+      <th>Non-Greedy</th>
+      <th>Example</th>
+      <th>Difference</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td><code class="language-plaintext highlighter-rouge">*?</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;.*&gt;</code> vs <code class="language-plaintext highlighter-rouge">&lt;.*?&gt;</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;tag&gt;text&lt;/tag&gt;</code> - greedy matches all, non-greedy matches <code class="language-plaintext highlighter-rouge">&lt;tag&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td><code class="language-plaintext highlighter-rouge">+?</code></td>
+      <td><code class="language-plaintext highlighter-rouge">".+"</code> vs <code class="language-plaintext highlighter-rouge">".+?"</code></td>
+      <td><code class="language-plaintext highlighter-rouge">"first" "second"</code> - greedy matches both quotes, non-greedy matches each</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="example-using-quantifiers"><span class="me-2">Example: Using Quantifiers</span><a href="#example-using-quantifiers" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -75,7 +1714,7 @@
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Match phone numbers (10 digits, optional separators)</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Match phone numbers (10 digits, optional separators)</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"[0-9]{3}[- ]?[0-9]{3}[- ]?[0-9]{4}"</span> contacts.txt
 
 <span class="c"># Match IP addresses</span>
@@ -86,17 +1725,44 @@
 
 <span class="c"># Match valid hexadecimal colors</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"#[0-9a-fA-F]{6}"</span> styles.css
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> When writing complex patterns with quantifiers, break them down into smaller parts and test each part individually.</p></blockquote><h2 id="-grouping-and-capturing"><span class="me-2">🧩 Grouping and Capturing</span><a href="#-grouping-and-capturing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Parentheses <code class="language-plaintext highlighter-rouge">()</code> serve two purposes in regex:</p><ol><li><strong>Grouping</strong> elements for applying quantifiers<li><strong>Capturing</strong> text for backreferences</ol><h3 id="grouping"><span class="me-2">Grouping</span><a href="#grouping" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> When writing complex patterns with quantifiers, break them down into smaller parts and test each part individually.</p>
+</blockquote>
+
+<h2 id="-grouping-and-capturing"><span class="me-2">🧩 Grouping and Capturing</span><a href="#-grouping-and-capturing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Parentheses <code class="language-plaintext highlighter-rouge">()</code> serve two purposes in regex:</p>
+
+<ol>
+  <li><strong>Grouping</strong> elements for applying quantifiers</li>
+  <li><strong>Capturing</strong> text for backreferences</li>
+</ol>
+
+<h3 id="grouping"><span class="me-2">Grouping</span><a href="#grouping" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre><td class="rouge-code"><pre><span class="c"># Match "cat" or "dog" followed by "s"</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Match "cat" or "dog" followed by "s"</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"(cat|dog)s"</span> pets.txt
 
 <span class="c"># Match repeated words</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"(word ){3}"</span> text.txt  <span class="c"># Matches "word word word "</span>
-</pre></table></code></div></div><h3 id="capturing-and-backreferences"><span class="me-2">Capturing and Backreferences</span><a href="#capturing-and-backreferences" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>Backreferences let you refer to previously matched groups:</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="capturing-and-backreferences"><span class="me-2">Capturing and Backreferences</span><a href="#capturing-and-backreferences" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>Backreferences let you refer to previously matched groups:</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -104,7 +1770,7 @@
 6
 7
 8
-</pre><td class="rouge-code"><pre><span class="c"># Find duplicated words</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Find duplicated words</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"</span><span class="se">\b</span><span class="s2">(</span><span class="se">\w</span><span class="s2">+)</span><span class="se">\s</span><span class="s2">+</span><span class="se">\1\b</span><span class="s2">"</span> document.txt
 
 <span class="c"># Find tag pairs (simple HTML/XML)</span>
@@ -112,7 +1778,13 @@
 
 <span class="c"># Find quoted text with same quote type</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"(['</span><span class="se">\"</span><span class="s2">])(.*?)</span><span class="se">\1</span><span class="s2">"</span> code.txt
-</pre></table></code></div></div><h3 id="example-advanced-capturing-in-sed"><span class="me-2">Example: Advanced Capturing in sed</span><a href="#example-advanced-capturing-in-sed" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="example-advanced-capturing-in-sed"><span class="me-2">Example: Advanced Capturing in sed</span><a href="#example-advanced-capturing-in-sed" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -121,7 +1793,7 @@
 7
 8
 9
-</pre><td class="rouge-code"><pre><span class="c"># Swap first and last name</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Swap first and last name</span>
 <span class="nb">echo</span> <span class="s2">"Smith, John"</span> | <span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'s/([^,]*), (.*)/\2 \1/'</span>
 <span class="c"># Output: John Smith</span>
 
@@ -130,17 +1802,35 @@
 
 <span class="c"># Extract domain from email addresses</span>
 <span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'s/.*@([^.]+\..+)/\1/'</span> emails.txt
-</pre></table></code></div></div><blockquote><p><strong>Warning:</strong> In basic regex (BRE), you need to escape parentheses: <code class="language-plaintext highlighter-rouge">\(pattern\)</code> with backreferences as <code class="language-plaintext highlighter-rouge">\1</code>.</p></blockquote><h2 id="️-practical-examples"><span class="me-2">🛠️ Practical Examples</span><a href="#️-practical-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="example-1-validating-email-addresses"><span class="me-2">Example 1: Validating Email Addresses</span><a href="#example-1-validating-email-addresses" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Warning:</strong> In basic regex (BRE), you need to escape parentheses: <code class="language-plaintext highlighter-rouge">\(pattern\)</code> with backreferences as <code class="language-plaintext highlighter-rouge">\1</code>.</p>
+</blockquote>
+
+<h2 id="️-practical-examples"><span class="me-2">🛠️ Practical Examples</span><a href="#️-practical-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<h3 id="example-1-validating-email-addresses"><span class="me-2">Example 1: Validating Email Addresses</span><a href="#example-1-validating-email-addresses" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre><td class="rouge-code"><pre><span class="c"># Simple email validation</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Simple email validation</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+</span><span class="se">\.</span><span class="s2">[a-zA-Z]{2,}$"</span> emails.txt
 
 <span class="c"># More comprehensive email validation</span>
 <span class="nb">grep</span> <span class="nt">-P</span> <span class="s2">"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+</span><span class="se">\.</span><span class="s2">[a-zA-Z]{2,6}$"</span> emails.txt
-</pre></table></code></div></div><h3 id="example-2-extracting-ip-addresses-from-logs"><span class="me-2">Example 2: Extracting IP Addresses from Logs</span><a href="#example-2-extracting-ip-addresses-from-logs" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="example-2-extracting-ip-addresses-from-logs"><span class="me-2">Example 2: Extracting IP Addresses from Logs</span><a href="#example-2-extracting-ip-addresses-from-logs" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -148,7 +1838,7 @@
 6
 7
 8
-</pre><td class="rouge-code"><pre><span class="c"># Extract IPv4 addresses</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Extract IPv4 addresses</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="nt">-o</span> <span class="s2">"([0-9]{1,3}</span><span class="se">\.</span><span class="s2">){3}[0-9]{1,3}"</span> server.log
 
 <span class="c"># Extract only valid IPv4 addresses (simple version)</span>
@@ -156,7 +1846,13 @@
 
 <span class="c"># More precise IPv4 validation (requires PCRE)</span>
 <span class="nb">grep</span> <span class="nt">-P</span> <span class="nt">-o</span> <span class="s2">"(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)</span><span class="se">\.</span><span class="s2">){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"</span> server.log
-</pre></table></code></div></div><h3 id="example-3-processing-csv-data"><span class="me-2">Example 3: Processing CSV Data</span><a href="#example-3-processing-csv-data" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="example-3-processing-csv-data"><span class="me-2">Example 3: Processing CSV Data</span><a href="#example-3-processing-csv-data" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -164,7 +1860,7 @@
 6
 7
 8
-</pre><td class="rouge-code"><pre><span class="c"># Extract specific columns from CSV</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Extract specific columns from CSV</span>
 <span class="nb">awk</span> <span class="nt">-F</span>, <span class="s1">'{print $1, $3}'</span> data.csv
 
 <span class="c"># Find CSV rows where a specific column matches a pattern</span>
@@ -172,7 +1868,13 @@
 
 <span class="c"># Replace values in specific column</span>
 <span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'s/^([^,]*,)N\/A(,.*)/\1Unknown\2/'</span> data.csv
-</pre></table></code></div></div><h3 id="example-4-code-analysis"><span class="me-2">Example 4: Code Analysis</span><a href="#example-4-code-analysis" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="example-4-code-analysis"><span class="me-2">Example 4: Code Analysis</span><a href="#example-4-code-analysis" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -180,7 +1882,7 @@
 6
 7
 8
-</pre><td class="rouge-code"><pre><span class="c"># Find function definitions in C code</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Find function definitions in C code</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'^[a-zA-Z_][a-zA-Z0-9_]*\s+[a-zA-Z_][a-zA-Z0-9_]*\s*\('</span> <span class="k">*</span>.c
 
 <span class="c"># Find TODO comments in code</span>
@@ -188,7 +1890,76 @@
 
 <span class="c"># Find potential security issues (hardcoded credentials)</span>
 <span class="nb">grep</span> <span class="nt">-r</span> <span class="nt">-E</span> <span class="s1">'(password|api_key|token|secret)\s*=\s*["\047][^\047"]+["\047]'</span> <span class="nt">--include</span><span class="o">=</span><span class="s2">"*.py"</span> <span class="nb">.</span>
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> The <code class="language-plaintext highlighter-rouge">-o</code> flag in grep outputs only the matching portion of the line, which is useful for extracting specific patterns.</p></blockquote><h2 id="-tools-that-use-regex"><span class="me-2">🔧 Tools That Use Regex</span><a href="#-tools-that-use-regex" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Different tools implement regex with slight variations:</p><div class="table-wrapper"><table><thead><tr><th>Tool<th>Implementation<th>Use Case<th>Example<tbody><tr><td><code class="language-plaintext highlighter-rouge">grep</code><td>BRE by default, <code class="language-plaintext highlighter-rouge">-E</code> for ERE, <code class="language-plaintext highlighter-rouge">-P</code> for PCRE<td>Finding patterns<td><code class="language-plaintext highlighter-rouge">grep -E "pattern" file</code><tr><td><code class="language-plaintext highlighter-rouge">sed</code><td>BRE by default, <code class="language-plaintext highlighter-rouge">-E</code> for ERE<td>Search and replace<td><code class="language-plaintext highlighter-rouge">sed -E 's/pattern/replacement/' file</code><tr><td><code class="language-plaintext highlighter-rouge">awk</code><td>ERE<td>Text processing<td><code class="language-plaintext highlighter-rouge">awk '/pattern/ {print $2}' file</code><tr><td><code class="language-plaintext highlighter-rouge">vim</code><td>Custom flavor<td>Text editing<td><code class="language-plaintext highlighter-rouge">/pattern</code> to search<tr><td><code class="language-plaintext highlighter-rouge">find</code><td>Simple patterns<td>File searching<td><code class="language-plaintext highlighter-rouge">find . -regex ".*\.txt"</code><tr><td><code class="language-plaintext highlighter-rouge">bash</code><td>Basic pattern matching<td>File globbing<td><code class="language-plaintext highlighter-rouge">[[ $var =~ pattern ]]</code><tr><td><code class="language-plaintext highlighter-rouge">perl</code><td>PCRE<td>Advanced text processing<td><code class="language-plaintext highlighter-rouge">perl -ne 'print if /pattern/' file</code></table></div><h3 id="tool-specific-examples"><span class="me-2">Tool-specific Examples</span><a href="#tool-specific-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> The <code class="language-plaintext highlighter-rouge">-o</code> flag in grep outputs only the matching portion of the line, which is useful for extracting specific patterns.</p>
+</blockquote>
+
+<h2 id="-tools-that-use-regex"><span class="me-2">🔧 Tools That Use Regex</span><a href="#-tools-that-use-regex" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Different tools implement regex with slight variations:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Implementation</th>
+      <th>Use Case</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep</code></td>
+      <td>BRE by default, <code class="language-plaintext highlighter-rouge">-E</code> for ERE, <code class="language-plaintext highlighter-rouge">-P</code> for PCRE</td>
+      <td>Finding patterns</td>
+      <td><code class="language-plaintext highlighter-rouge">grep -E "pattern" file</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sed</code></td>
+      <td>BRE by default, <code class="language-plaintext highlighter-rouge">-E</code> for ERE</td>
+      <td>Search and replace</td>
+      <td><code class="language-plaintext highlighter-rouge">sed -E 's/pattern/replacement/' file</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">awk</code></td>
+      <td>ERE</td>
+      <td>Text processing</td>
+      <td><code class="language-plaintext highlighter-rouge">awk '/pattern/ {print $2}' file</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">vim</code></td>
+      <td>Custom flavor</td>
+      <td>Text editing</td>
+      <td><code class="language-plaintext highlighter-rouge">/pattern</code> to search</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find</code></td>
+      <td>Simple patterns</td>
+      <td>File searching</td>
+      <td><code class="language-plaintext highlighter-rouge">find . -regex ".*\.txt"</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bash</code></td>
+      <td>Basic pattern matching</td>
+      <td>File globbing</td>
+      <td><code class="language-plaintext highlighter-rouge">[[ $var =~ pattern ]]</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">perl</code></td>
+      <td>PCRE</td>
+      <td>Advanced text processing</td>
+      <td><code class="language-plaintext highlighter-rouge">perl -ne 'print if /pattern/' file</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="tool-specific-examples"><span class="me-2">Tool-specific Examples</span><a href="#tool-specific-examples" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -204,7 +1975,7 @@
 14
 15
 16
-</pre><td class="rouge-code"><pre><span class="c"># grep: Find lines with "error" in multiple files</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># grep: Find lines with "error" in multiple files</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"error"</span> <span class="nt">--include</span><span class="o">=</span><span class="s2">"*.log"</span> <span class="nt">-r</span> /var/log/
 
 <span class="c"># sed: Replace all occurrences of "color" with "colour"</span>
@@ -220,7 +1991,21 @@
 
 <span class="c"># find: Find files with specific patterns</span>
 find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-regex</span> <span class="s2">".*</span><span class="se">\.</span><span class="s2">(jpg|png|gif)"</span>
-</pre></table></code></div></div><blockquote><p><strong>Note:</strong> When using regex with <code class="language-plaintext highlighter-rouge">find</code>, be aware that it matches the whole path, not just the filename.</p></blockquote><h2 id="-log-analysis-patterns"><span class="me-2">📊 Log Analysis Patterns</span><a href="#-log-analysis-patterns" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Regular expressions are particularly useful for log analysis:</p><h3 id="common-log-patterns"><span class="me-2">Common Log Patterns</span><a href="#common-log-patterns" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Note:</strong> When using regex with <code class="language-plaintext highlighter-rouge">find</code>, be aware that it matches the whole path, not just the filename.</p>
+</blockquote>
+
+<h2 id="-log-analysis-patterns"><span class="me-2">📊 Log Analysis Patterns</span><a href="#-log-analysis-patterns" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Regular expressions are particularly useful for log analysis:</p>
+
+<h3 id="common-log-patterns"><span class="me-2">Common Log Patterns</span><a href="#common-log-patterns" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -234,7 +2019,7 @@ find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">
 12
 13
 14
-</pre><td class="rouge-code"><pre><span class="c"># Extract error messages</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Extract error messages</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"ERROR|FATAL|EXCEPTION"</span> app.log
 
 <span class="c"># Find failed login attempts</span>
@@ -248,7 +2033,13 @@ find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">
 
 <span class="c"># Extract requests taking more than 1 second</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"completed in ([1-9][0-9]{3,}|[0-9]{2,}000) ms"</span> app.log
-</pre></table></code></div></div><h3 id="parsing-apachenginx-access-logs"><span class="me-2">Parsing Apache/Nginx Access Logs</span><a href="#parsing-apachenginx-access-logs" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="parsing-apachenginx-access-logs"><span class="me-2">Parsing Apache/Nginx Access Logs</span><a href="#parsing-apachenginx-access-logs" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -262,7 +2053,7 @@ find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">
 12
 13
 14
-</pre><td class="rouge-code"><pre><span class="c"># Extract IP addresses</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Extract IP addresses</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="nt">-o</span> <span class="s2">"^[0-9]+</span><span class="se">\.</span><span class="s2">[0-9]+</span><span class="se">\.</span><span class="s2">[0-9]+</span><span class="se">\.</span><span class="s2">[0-9]+"</span> access.log
 
 <span class="c"># Find all POST requests</span>
@@ -276,7 +2067,21 @@ find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">
 
 <span class="c"># Find requests from specific referrers</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'"https?://([^/]*\.)?example\.com/'</span> access.log
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> Use the <code class="language-plaintext highlighter-rouge">-o</code> flag to extract just the matching portion, which helps when analyzing large log files.</p></blockquote><h2 id="️-system-administration-use-cases"><span class="me-2">🖥️ System Administration Use Cases</span><a href="#️-system-administration-use-cases" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Regular expressions can significantly improve system administration tasks:</p><h3 id="user-and-group-management"><span class="me-2">User and Group Management</span><a href="#user-and-group-management" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> Use the <code class="language-plaintext highlighter-rouge">-o</code> flag to extract just the matching portion, which helps when analyzing large log files.</p>
+</blockquote>
+
+<h2 id="️-system-administration-use-cases"><span class="me-2">🖥️ System Administration Use Cases</span><a href="#️-system-administration-use-cases" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Regular expressions can significantly improve system administration tasks:</p>
+
+<h3 id="user-and-group-management"><span class="me-2">User and Group Management</span><a href="#user-and-group-management" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -287,7 +2092,7 @@ find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Find users with bash shell</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Find users with bash shell</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">":/bin/bash$"</span> /etc/passwd
 
 <span class="c"># List system users (UID &lt; 1000)</span>
@@ -298,7 +2103,13 @@ find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">
 
 <span class="c"># Extract members of specific groups</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^(sudo|admin|wheel):"</span> /etc/group | <span class="nb">grep</span> <span class="nt">-E</span> <span class="nt">-o</span> <span class="s2">":[^:]+$"</span> | <span class="nb">tr</span> <span class="nt">-d</span> <span class="s1">':'</span> | <span class="nb">tr</span> <span class="s1">','</span> <span class="s1">'\n'</span>
-</pre></table></code></div></div><h3 id="configuration-management"><span class="me-2">Configuration Management</span><a href="#configuration-management" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="configuration-management"><span class="me-2">Configuration Management</span><a href="#configuration-management" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -309,7 +2120,7 @@ find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Find commented configuration options</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Find commented configuration options</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^#[^#]"</span> /etc/ssh/sshd_config
 
 <span class="c"># Find uncommented settings</span>
@@ -320,7 +2131,13 @@ find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">
 
 <span class="c"># Find specific settings and their values</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^[^#]*</span><span class="se">\b</span><span class="s2">max_connections</span><span class="se">\b</span><span class="s2">.*="</span> /etc/postgresql/<span class="k">*</span>/main/postgresql.conf
-</pre></table></code></div></div><h3 id="security-auditing"><span class="me-2">Security Auditing</span><a href="#security-auditing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="security-auditing"><span class="me-2">Security Auditing</span><a href="#security-auditing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -331,7 +2148,7 @@ find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Find world-writable files</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Find world-writable files</span>
 find / <span class="nt">-type</span> f <span class="nt">-perm</span> <span class="nt">-002</span> <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-l</span> <span class="o">{}</span> <span class="se">\;</span> 2&gt;/dev/null
 
 <span class="c"># Check for unauthorized SSH keys</span>
@@ -342,7 +2159,68 @@ ss <span class="nt">-tulpn</span> | <span class="nb">grep</span> <span class="nt
 
 <span class="c"># Find passwordless sudo entries</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"NOPASSWD"</span> /etc/sudoers /etc/sudoers.d/<span class="k">*</span> 2&gt;/dev/null
-</pre></table></code></div></div><blockquote><p><strong>Warning:</strong> Always test these patterns in a controlled environment before using them in production.</p></blockquote><h2 id="️-common-pitfalls"><span class="me-2">⚠️ Common Pitfalls</span><a href="#️-common-pitfalls" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Even experienced regex users make these common mistakes:</p><div class="table-wrapper"><table><thead><tr><th>Pitfall<th>Problem<th>Solution<tbody><tr><td>Greedy quantifiers<td><code class="language-plaintext highlighter-rouge">.*</code> matches too much<td>Use non-greedy <code class="language-plaintext highlighter-rouge">.*?</code> or be more specific<tr><td>Character escaping<td>Forgetting to escape special chars<td>Escape <code class="language-plaintext highlighter-rouge">.</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">?</code>, <code class="language-plaintext highlighter-rouge">[</code>, <code class="language-plaintext highlighter-rouge">]</code>, <code class="language-plaintext highlighter-rouge">(</code>, <code class="language-plaintext highlighter-rouge">)</code>, <code class="language-plaintext highlighter-rouge">{</code>, <code class="language-plaintext highlighter-rouge">}</code>, <code class="language-plaintext highlighter-rouge">^</code>, <code class="language-plaintext highlighter-rouge">$</code>, <code class="language-plaintext highlighter-rouge">\|</code><tr><td>Wrong character class<td><code class="language-plaintext highlighter-rouge">[.+?]</code> looks for literal <code class="language-plaintext highlighter-rouge">.</code>, <code class="language-plaintext highlighter-rouge">+</code>, or <code class="language-plaintext highlighter-rouge">?</code><td>Use escaping for metacharacters inside classes<tr><td>Incorrect anchoring<td>Not using <code class="language-plaintext highlighter-rouge">^</code> and <code class="language-plaintext highlighter-rouge">$</code> when necessary<td>Use anchors to match entire lines<tr><td>Regex flavor mismatch<td>Using PCRE syntax in BRE<td>Know which flavor your tool uses<tr><td>Inefficient patterns<td><code class="language-plaintext highlighter-rouge">(a|ab)</code> tries both<td>Optimize to <code class="language-plaintext highlighter-rouge">a(b)?</code><tr><td>Catastrophic backtracking<td><code class="language-plaintext highlighter-rouge">(a+)+</code> on “aaaaaa!” causes exponential matches<td>Avoid nested repetition quantifiers</table></div><h3 id="examples-of-improved-patterns"><span class="me-2">Examples of Improved Patterns</span><a href="#examples-of-improved-patterns" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Warning:</strong> Always test these patterns in a controlled environment before using them in production.</p>
+</blockquote>
+
+<h2 id="️-common-pitfalls"><span class="me-2">⚠️ Common Pitfalls</span><a href="#️-common-pitfalls" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Even experienced regex users make these common mistakes:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Pitfall</th>
+      <th>Problem</th>
+      <th>Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Greedy quantifiers</td>
+      <td><code class="language-plaintext highlighter-rouge">.*</code> matches too much</td>
+      <td>Use non-greedy <code class="language-plaintext highlighter-rouge">.*?</code> or be more specific</td>
+    </tr>
+    <tr>
+      <td>Character escaping</td>
+      <td>Forgetting to escape special chars</td>
+      <td>Escape <code class="language-plaintext highlighter-rouge">.</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">?</code>, <code class="language-plaintext highlighter-rouge">[</code>, <code class="language-plaintext highlighter-rouge">]</code>, <code class="language-plaintext highlighter-rouge">(</code>, <code class="language-plaintext highlighter-rouge">)</code>, <code class="language-plaintext highlighter-rouge">{</code>, <code class="language-plaintext highlighter-rouge">}</code>, <code class="language-plaintext highlighter-rouge">^</code>, <code class="language-plaintext highlighter-rouge">$</code>, <code class="language-plaintext highlighter-rouge">\|</code></td>
+    </tr>
+    <tr>
+      <td>Wrong character class</td>
+      <td><code class="language-plaintext highlighter-rouge">[.+?]</code> looks for literal <code class="language-plaintext highlighter-rouge">.</code>, <code class="language-plaintext highlighter-rouge">+</code>, or <code class="language-plaintext highlighter-rouge">?</code></td>
+      <td>Use escaping for metacharacters inside classes</td>
+    </tr>
+    <tr>
+      <td>Incorrect anchoring</td>
+      <td>Not using <code class="language-plaintext highlighter-rouge">^</code> and <code class="language-plaintext highlighter-rouge">$</code> when necessary</td>
+      <td>Use anchors to match entire lines</td>
+    </tr>
+    <tr>
+      <td>Regex flavor mismatch</td>
+      <td>Using PCRE syntax in BRE</td>
+      <td>Know which flavor your tool uses</td>
+    </tr>
+    <tr>
+      <td>Inefficient patterns</td>
+      <td><code class="language-plaintext highlighter-rouge">(a|ab)</code> tries both</td>
+      <td>Optimize to <code class="language-plaintext highlighter-rouge">a(b)?</code></td>
+    </tr>
+    <tr>
+      <td>Catastrophic backtracking</td>
+      <td><code class="language-plaintext highlighter-rouge">(a+)+</code> on “aaaaaa!” causes exponential matches</td>
+      <td>Avoid nested repetition quantifiers</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h3 id="examples-of-improved-patterns"><span class="me-2">Examples of Improved Patterns</span><a href="#examples-of-improved-patterns" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -350,7 +2228,7 @@ ss <span class="nt">-tulpn</span> | <span class="nb">grep</span> <span class="nt
 6
 7
 8
-</pre><td class="rouge-code"><pre><span class="c"># Instead of this (greedy, matches too much)</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Instead of this (greedy, matches too much)</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"&lt;div&gt;.*&lt;/div&gt;"</span> file.html
 
 <span class="c"># Use this (non-greedy, matches minimal content)</span>
@@ -358,7 +2236,29 @@ ss <span class="nt">-tulpn</span> | <span class="nb">grep</span> <span class="nt
 
 <span class="c"># Or even better (more specific)</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"&lt;div&gt;[^&lt;]*&lt;/div&gt;"</span> file.html
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> When a regex isn’t working as expected, test it on simplified examples first, then gradually add complexity.</p></blockquote><h2 id="-testing-and-debugging"><span class="me-2">🔍 Testing and Debugging</span><a href="#-testing-and-debugging" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Effective regex development requires good testing practices:</p><h3 id="online-testing-tools"><span class="me-2">Online Testing Tools</span><a href="#online-testing-tools" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><ul><li><a href="https://regex101.com/">Regex101</a> - Interactive testing with explanation<li><a href="https://regexr.com/">Regexr</a> - Visual regex testing<li><a href="https://www.debuggex.com/">Debuggex</a> - Visual railroad diagrams</ul><h3 id="command-line-testing"><span class="me-2">Command-line Testing</span><a href="#command-line-testing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> When a regex isn’t working as expected, test it on simplified examples first, then gradually add complexity.</p>
+</blockquote>
+
+<h2 id="-testing-and-debugging"><span class="me-2">🔍 Testing and Debugging</span><a href="#-testing-and-debugging" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Effective regex development requires good testing practices:</p>
+
+<h3 id="online-testing-tools"><span class="me-2">Online Testing Tools</span><a href="#online-testing-tools" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<ul>
+  <li><a href="https://regex101.com/">Regex101</a> - Interactive testing with explanation</li>
+  <li><a href="https://regexr.com/">Regexr</a> - Visual regex testing</li>
+  <li><a href="https://www.debuggex.com/">Debuggex</a> - Visual railroad diagrams</li>
+</ul>
+
+<h3 id="command-line-testing"><span class="me-2">Command-line Testing</span><a href="#command-line-testing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -369,7 +2269,7 @@ ss <span class="nt">-tulpn</span> | <span class="nb">grep</span> <span class="nt
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Test regex against sample input</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Test regex against sample input</span>
 <span class="nb">echo</span> <span class="s2">"test string"</span> | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"pattern"</span>
 
 <span class="c"># Print all matches with line numbers</span>
@@ -380,7 +2280,13 @@ ss <span class="nt">-tulpn</span> | <span class="nb">grep</span> <span class="nt
 
 <span class="c"># Check what a complex pattern is matching</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="nt">-o</span> <span class="s2">"my(complex|pattern)[0-9]+"</span> file.txt
-</pre></table></code></div></div><h3 id="step-by-step-development"><span class="me-2">Step-by-step Development</span><a href="#step-by-step-development" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<h3 id="step-by-step-development"><span class="me-2">Step-by-step Development</span><a href="#step-by-step-development" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -391,7 +2297,7 @@ ss <span class="nt">-tulpn</span> | <span class="nb">grep</span> <span class="nt
 9
 10
 11
-</pre><td class="rouge-code"><pre><span class="c"># Start with a simple pattern</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Start with a simple pattern</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"error"</span> logs.txt
 
 <span class="c"># Add specificity</span>
@@ -402,4 +2308,4363 @@ ss <span class="nt">-tulpn</span> | <span class="nb">grep</span> <span class="nt
 
 <span class="c"># Refine and extract specific parts</span>
 <span class="nb">grep</span> <span class="nt">-E</span> <span class="nt">-o</span> <span class="s2">"error: [^ ]+"</span> logs.txt | <span class="nb">sort</span> | <span class="nb">uniq</span> <span class="nt">-c</span> | <span class="nb">sort</span> <span class="nt">-nr</span>
-</pre></table></code></div></div><blockquote><p><strong>Tip:</strong> When debugging complex regex, break it into smaller components and test each one separately.</p></blockquote><h2 id="-final-thought"><span class="me-2">📌 Final Thought</span><a href="#-final-thought" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><blockquote><p>“Regular expressions are like a language within a language - they may look cryptic at first, but they give you superpowers to solve in seconds what would take hours to do manually.”</p></blockquote><p>Regular expressions are an investment in your Linux skill set. While they have a learning curve, the payoff is immense. Start with simple patterns applied to real problems you face, gradually building your regex vocabulary.</p><p>Professional Linux users know that regex is rarely a one-off solution - they maintain a personal library of tested patterns for common tasks. By understanding regex fundamentals rather than just copying patterns, you develop the ability to adapt and create solutions for any text processing challenge.</p><p>Remember, the goal isn’t to write the most complex regex possible. It’s to write the simplest regex that solves your problem accurately.</p><h2 id="related-articles"><span class="me-2">Related Articles</span><a href="#related-articles" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><a href="/linux-beginner-vs-professional-mindset">Linux Beginner vs Professional Mindset</a><li><a href="/man-page-reading-strategies">Man Page Reading Strategies</a><li><a href="/text-processing-with-sed-and-awk">Text Processing with sed and awk</a><li><a href="/linux-command-line-basics">Linux Command Line Basics</a><li><a href="/bash-scripting-fundamentals">Bash Scripting Fundamentals</a><li><a href="/linux-troubleshooting-checklist">Linux Troubleshooting Checklist</a><li><a href="/shell-script-templates">Shell Script Templates</a></ul></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/tutorials/">tutorials</a>, <a href="/categories/system-administration/">system-administration</a>, <a href="/categories/devops/">devops</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw me-1"></i> <a href="/tags/linux/" class="post-tag no-text-decoration" >linux</a> <a href="/tags/regex/" class="post-tag no-text-decoration" >regex</a> <a href="/tags/pattern-matching/" class="post-tag no-text-decoration" >pattern-matching</a> <a href="/tags/text-processing/" class="post-tag no-text-decoration" >text-processing</a></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">Share</span> <span class="share-icons"> <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fblog.sreesreejuks.com%2Fregular-expressions-guide%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin"> <i class="fa-fw fab fa-linkedin"></i> </a> <a href="https://twitter.com/intent/tweet?text=Regular%20Expressions%20Guide%20-%20Mastering%20Pattern%20Matching%20in%20Linux%20-%20Sreeju%20KS&url=https%3A%2F%2Fblog.sreesreejuks.com%2Fregular-expressions-guide%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Regular%20Expressions%20Guide%20-%20Mastering%20Pattern%20Matching%20in%20Linux%20-%20Sreeju%20KS&u=https%3A%2F%2Fblog.sreesreejuks.com%2Fregular-expressions-guide%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fblog.sreesreejuks.com%2Fregular-expressions-guide%2F&text=Regular%20Expressions%20Guide%20-%20Mastering%20Pattern%20Matching%20in%20Linux%20-%20Sreeju%20KS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy link" data-title-succeed="Link copied successfully!" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">Recently Updated</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/linux-process-management/">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</a><li class="text-truncate lh-lg"> <a href="/linux-system-internals/">Linux System Internals</a><li class="text-truncate lh-lg"> <a href="/disk-monitoring-approach/">Interview Question: Disk Space Monitoring Approach</a><li class="text-truncate lh-lg"> <a href="/Proxmox-Virtual-Environment/">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</a><li class="text-truncate lh-lg"> <a href="/text-processing-with-sed-and-awk/">Text Processing with sed and awk - The Professional's Guide</a></ul></section><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a> <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a> <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a> <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a> <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a> <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a> <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a></div></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">Further Reading</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="/text-processing-with-sed-and-awk/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1744870500" data-df="ll" > Apr 17, 2025 </time><h4 class="pt-0 my-2">Text Processing with sed and awk - The Professional's Guide</h4><div class="text-muted"><p>A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently.</p></div></div></a></article><article class="col"> <a href="/linux-beginner-vs-professional-mindset/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1744740060" data-df="ll" > Apr 15, 2025 </time><h4 class="pt-0 my-2">Beginner vs Professional – The Real Linux Mindset</h4><div class="text-muted"><p>A comprehensive guide to developing a professional Linux mindset, covering command-line mastery, documentation techniques, regex basics, and troubleshooting approaches for Linux users.</p></div></div></a></article><article class="col"> <a href="/linux-troubleshooting-checklist/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1744797600" data-df="ll" > Apr 16, 2025 </time><h4 class="pt-0 my-2">Linux Troubleshooting Checklist - A Professional Guide</h4><div class="text-muted"><p>A comprehensive guide to systematic Linux troubleshooting, covering system health checks, performance analysis, and standardized logging practices.</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/linux-troubleshooting-checklist/" class="btn btn-outline-primary" aria-label="Older" ><p>Linux Troubleshooting Checklist - A Professional Guide</p></a> <a href="/text-processing-with-sed-and-awk/" class="btn btn-outline-primary" aria-label="Newer" ><p>Text Processing with sed and awk - The Professional's Guide</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author." >Some rights reserved.</span></p><p>Using the <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.2.4" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>.</p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a> <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a> <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a> <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a> <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a> <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a> <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a></div></section></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="toast-header"> <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" ></button></div><div class="toast-body text-center pt-0"><p class="px-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Tip:</strong> When debugging complex regex, break it into smaller components and test each one separately.</p>
+</blockquote>
+
+<h2 id="-final-thought"><span class="me-2">📌 Final Thought</span><a href="#-final-thought" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<blockquote>
+  <p>“Regular expressions are like a language within a language - they may look cryptic at first, but they give you superpowers to solve in seconds what would take hours to do manually.”</p>
+</blockquote>
+
+<p>Regular expressions are an investment in your Linux skill set. While they have a learning curve, the payoff is immense. Start with simple patterns applied to real problems you face, gradually building your regex vocabulary.</p>
+
+<p>Professional Linux users know that regex is rarely a one-off solution - they maintain a personal library of tested patterns for common tasks. By understanding regex fundamentals rather than just copying patterns, you develop the ability to adapt and create solutions for any text processing challenge.</p>
+
+<p>Remember, the goal isn’t to write the most complex regex possible. It’s to write the simplest regex that solves your problem accurately.</p>
+
+<h2 id="related-articles"><span class="me-2">Related Articles</span><a href="#related-articles" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<ul>
+  <li><a href="/linux-beginner-vs-professional-mindset">Linux Beginner vs Professional Mindset</a></li>
+  <li><a href="/man-page-reading-strategies">Man Page Reading Strategies</a></li>
+  <li><a href="/text-processing-with-sed-and-awk">Text Processing with sed and awk</a></li>
+  <li><a href="/linux-command-line-basics">Linux Command Line Basics</a></li>
+  <li><a href="/bash-scripting-fundamentals">Bash Scripting Fundamentals</a></li>
+  <li><a href="/linux-troubleshooting-checklist">Linux Troubleshooting Checklist</a></li>
+  <li><a href="/shell-script-templates">Shell Script Templates</a></li>
+</ul>
+
+  </div>
+
+  <div class="post-tail-wrapper text-muted">
+    <!-- categories -->
+    
+      <div class="post-meta mb-3">
+        <i class="far fa-folder-open fa-fw me-1"></i>
+        
+          <a href="/categories/tutorials/">tutorials</a>,
+          <a href="/categories/system-administration/">system-administration</a>,
+          <a href="/categories/devops/">devops</a>
+      </div>
+    
+
+    <!-- tags -->
+    
+      <div class="post-tags">
+        <i class="fa fa-tags fa-fw me-1"></i>
+        
+          <a
+            href="/tags/linux/"
+            class="post-tag no-text-decoration"
+          >linux</a>
+        
+          <a
+            href="/tags/regex/"
+            class="post-tag no-text-decoration"
+          >regex</a>
+        
+          <a
+            href="/tags/pattern-matching/"
+            class="post-tag no-text-decoration"
+          >pattern-matching</a>
+        
+          <a
+            href="/tags/text-processing/"
+            class="post-tag no-text-decoration"
+          >text-processing</a>
+        
+      </div>
+    
+
+    <div
+      class="
+        post-tail-bottom
+        d-flex justify-content-between align-items-center mt-5 pb-2
+      "
+    >
+      <div class="license-wrapper">
+        
+          
+
+          This post is licensed under 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         by the author.
+        
+      </div>
+
+      <!-- Post sharing snippet -->
+
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted">Share</span>
+  <span class="share-icons">
+    
+    
+    
+
+    
+
+      
+
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Flocalhost%3A4000%2Fregular-expressions-guide%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin">
+        <i class="fa-fw fab fa-linkedin"></i>
+      </a>
+    
+
+      
+
+      <a href="https://twitter.com/intent/tweet?text=Regular%20Expressions%20Guide%20-%20Mastering%20Pattern%20Matching%20in%20Linux%20-%20Sreeju%20KS&url=http%3A%2F%2Flocalhost%3A4000%2Fregular-expressions-guide%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter">
+        <i class="fa-fw fa-brands fa-square-x-twitter"></i>
+      </a>
+    
+
+      
+
+      <a href="https://www.facebook.com/sharer/sharer.php?title=Regular%20Expressions%20Guide%20-%20Mastering%20Pattern%20Matching%20in%20Linux%20-%20Sreeju%20KS&u=http%3A%2F%2Flocalhost%3A4000%2Fregular-expressions-guide%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook">
+        <i class="fa-fw fab fa-facebook-square"></i>
+      </a>
+    
+
+      
+
+      <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fregular-expressions-guide%2F&text=Regular%20Expressions%20Guide%20-%20Mastering%20Pattern%20Matching%20in%20Linux%20-%20Sreeju%20KS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram">
+        <i class="fa-fw fab fa-telegram"></i>
+      </a>
+    
+
+    <button
+      id="copy-link"
+      aria-label="Copy link"
+      class="btn small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="Copy link"
+      data-title-succeed="Link copied successfully!"
+    >
+      <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
+  </span>
+</div>
+
+    </div>
+    <!-- .post-tail-bottom -->
+  </div>
+  <!-- div.post-tail-wrapper -->
+</article>
+
+
+            
+          </main>
+
+          <!-- panel -->
+          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
+            <div class="access">
+              <!-- Get 5 last posted/updated posts -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section id="access-lastmod">
+    <h2 class="panel-heading">Recently Updated</h2>
+    <ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2">
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/linux-process-management/">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/linux-system-internals/">Linux System Internals — Understanding the Engine Under the Hood</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/disk-monitoring-approach/">Interview Question: Disk Space Monitoring Approach</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/Proxmox-Virtual-Environment/">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/text-processing-with-sed-and-awk/">Text Processing with sed and awk - The Professional's Guide</a>
+        </li>
+      
+    </ul>
+  </section>
+  <!-- #access-lastmod -->
+
+
+              <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a>
+      
+    </div>
+  </section>
+
+
+            </div>
+
+            
+              
+              
+
+
+
+
+
+
+  <div class="toc-border-cover z-3"></div>
+  <section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4">
+    <h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2>
+    <nav id="toc"></nav>
+  </section>
+
+
+            
+          </aside>
+        </div>
+
+        <div class="row">
+          <!-- tail -->
+          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              
+              <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
+
+<!-- The total size of related posts -->
+
+
+<!-- An random integer that bigger than 0 -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  <aside id="related-posts" aria-labelledby="related-label">
+    <h3 class="mb-4" id="related-label">Further Reading</h3>
+    <nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+      
+        <article class="col">
+          <a href="/text-processing-with-sed-and-awk/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744870500"
+  data-df="ll"
+  
+>
+  Apr 17, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Text Processing with sed and awk - The Professional's Guide</h4>
+              <div class="text-muted">
+                <p>A comprehensive guide to text processing in Linux using sed and awk, covering basic to advanced techniques, real-world examples, and professional approaches to manipulating text data efficiently.</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/linux-beginner-vs-professional-mindset/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744740060"
+  data-df="ll"
+  
+>
+  Apr 15, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Beginner vs Professional – The Real Linux Mindset</h4>
+              <div class="text-muted">
+                <p>A comprehensive guide to developing a professional Linux mindset, covering command-line mastery, documentation techniques, regex basics, and troubleshooting approaches for Linux users.</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/linux-troubleshooting-checklist/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744797600"
+  data-df="ll"
+  
+>
+  Apr 16, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Linux Troubleshooting Checklist - A Professional Guide</h4>
+              <div class="text-muted">
+                <p>A comprehensive guide to systematic Linux troubleshooting, covering system health checks, performance analysis, and standardized logging practices.</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+    </nav>
+  </aside>
+  <!-- #related-posts -->
+
+
+            
+              
+              <!-- Navigation buttons at the bottom of the post. -->
+
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  
+  
+
+  
+    <a
+      href="/linux-troubleshooting-checklist/"
+      class="btn btn-outline-primary"
+      aria-label="Older"
+    >
+      <p>Linux Troubleshooting Checklist - A Professional Guide</p>
+    </a>
+  
+
+  
+    <a
+      href="/text-processing-with-sed-and-awk/"
+      class="btn btn-outline-primary"
+      aria-label="Newer"
+    >
+      <p>Text Processing with sed and awk - The Professional's Guide</p>
+    </a>
+  
+</nav>
+
+            
+
+            <!-- The Footer -->
+
+<footer
+  aria-label="Site Info"
+  class="
+    d-flex flex-column justify-content-center text-muted
+    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
+  "
+>
+  <p>©
+    <time>2026</time>
+
+    
+      <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a>.
+    
+
+    
+      <span
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author."
+      >Some rights reserved.</span>
+    
+  </p>
+
+  <p>Using the <a
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="v7.2.4"
+        href="https://github.com/cotes2020/jekyll-theme-chirpy"
+        target="_blank"
+        rel="noopener"
+      >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>.
+  </p>
+</footer>
+
+          </div>
+        </div>
+
+        <!-- The Search results -->
+
+<div id="search-result-wrapper" class="d-flex justify-content-center d-none">
+  <div class="col-11 content">
+    <div id="search-hints">
+      <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a>
+      
+    </div>
+  </section>
+
+
+    </div>
+    <div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div>
+  </div>
+</div>
+
+      </div>
+
+      <aside aria-label="Scroll to Top">
+        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
+          <i class="fas fa-angle-up"></i>
+        </button>
+      </aside>
+    </div>
+
+    <div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div>
+
+    
+      <aside
+  id="notification"
+  class="toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-bs-animation="true"
+  data-bs-autohide="false"
+>
+  <div class="toast-header">
+    <button
+      type="button"
+      class="btn-close ms-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="toast-body text-center pt-0">
+    <p class="px-2 mb-3">A new version of content is available.</p>
+    <button type="button" class="btn btn-primary" aria-label="Update">
+      Update
+    </button>
+  </div>
+</aside>
+
+    
+
+    <!-- Embedded scripts -->
+
+    
+      
+      <!-- The comments switcher -->
+
+
+    
+
+    <!--
+  Jekyll Simple Search loader
+  See: <https://github.com/christian-fei/Simple-Jekyll-Search>
+-->
+
+
+
+
+
+<script>
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    SimpleJekyllSearch({
+      searchInput: document.getElementById('search-input'),
+      resultsContainer: document.getElementById('search-results'),
+      json: '/assets/js/data/search.json',
+      searchResultTemplate: '  <article class="px-1 px-sm-2 px-lg-4 px-xl-0">    <header>      <h2><a href="{url}">{title}</a></h2>      <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">        {categories}        {tags}      </div>    </header>    <p>{content}</p>  </article>',
+      noResultsText: '<p class="mt-5">Oops! No results found.</p>',
+      templateMiddleware: function(prop, value, template) {
+        if (prop === 'categories') {
+          if (value === '') {
+            return `${value}`;
+          } else {
+            return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`;
+          }
+        }
+
+        if (prop === 'tags') {
+          if (value === '') {
+            return `${value}`;
+          } else {
+            return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`;
+          }
+        }
+      }
+    });
+  });
+</script>
+
+  </body>
+</html>
+

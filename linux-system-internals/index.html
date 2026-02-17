@@ -1,4 +1,894 @@
-<!doctype html><html lang="en" data-mode="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="Linux System Internals" /><meta property="og:locale" content="en" /><meta name="description" content="🖥️ Linux System Internals — Understanding the Engine Under the Hood" /><meta property="og:description" content="🖥️ Linux System Internals — Understanding the Engine Under the Hood" /><link rel="canonical" href="https://blog.sreesreejuks.com/linux-system-internals/" /><meta property="og:url" content="https://blog.sreesreejuks.com/linux-system-internals/" /><meta property="og:site_name" content="Sreeju KS" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2026-02-07T00:00:00+05:30" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="Linux System Internals" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-02-07T00:00:00+05:30","datePublished":"2026-02-07T00:00:00+05:30","description":"🖥️ Linux System Internals — Understanding the Engine Under the Hood","headline":"Linux System Internals","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.sreesreejuks.com/linux-system-internals/"},"url":"https://blog.sreesreejuks.com/linux-system-internals/"}</script><title>Linux System Internals | Sreeju KS</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Sreeju KS"><meta name="application-name" content="Sreeju KS"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-E66HPNGEJR"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-E66HPNGEJR'); </script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://gravatar.com/avatar/ed8980df17ba2ea58cd48fe0c6964ca3?size=256" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">Sreeju KS</a><p class="site-subtitle fst-italic mb-0">Documenting the journey of DevOps, cloud computing, and deployment</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>ABOUT</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"> <a href="https://github.com/sreesreejuks" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="https://www.linkedin.com/in/sreesreejuks" aria-label="linkedin" target="_blank" rel="noopener noreferrer" > <i class="fab fa-linkedin"></i> </a> <a href="https://www.instagram.com/sreesreejuks" aria-label="instagram" target="_blank" rel="noopener noreferrer" > <i class="fab fa-instagram"></i> </a> <a href="javascript:location.href = 'mailto:' + ['mail','sreesreejuks.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">Home</a> </span> <span>Linux System Internals</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> Post</div><button type="button" id="search-trigger" class="btn btn-link"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>Linux System Internals</h1><div class="post-meta text-muted"> <span> Posted <time data-ts="1770402600" data-df="ll" data-bs-toggle="tooltip" data-bs-placement="bottom" > Feb 7, 2026 </time> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="1461 words" > <em>8 min</em> read</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">Linux System Internals</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">Contents</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">Linux System Internals</div><button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75"> <i class="fas fa-close"></i> </button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><h1 id="️-linux-system-internals--understanding-the-engine-under-the-hood">🖥️ Linux System Internals — Understanding the Engine Under the Hood</h1><hr /><h2 id="-what-you-will-learn"><span class="me-2">🎯 What You Will Learn</span><a href="#-what-you-will-learn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>What actually happens inside the OS when you type and run a command in a terminal<li>What a <strong>process</strong> is, how it’s represented, and how it differs from a program<li>What a <strong>system call (syscall)</strong> is and why it’s the bridge between user space and kernel space<li>What <strong>file descriptors</strong> are and why almost everything in Linux is treated as a file<li>How <code class="language-plaintext highlighter-rouge">/proc</code> and <code class="language-plaintext highlighter-rouge">/dev</code> expose the kernel’s internal state as navigable file trees</ul><hr /><h2 id="-topic-overview"><span class="me-2">📝 Topic Overview</span><a href="#-topic-overview" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><hr /><h3 id="-what-happens-when-you-run-a-command"><span class="me-2">🔹 What Happens When You Run a Command?</span><a href="#-what-happens-when-you-run-a-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>When you type <code class="language-plaintext highlighter-rouge">ls -la</code> and press Enter, a multi-step process unfolds across several layers of the operating system.</p><p><strong>Step-by-step breakdown:</strong></p><ol><li>The <strong>shell</strong> (e.g., <code class="language-plaintext highlighter-rouge">bash</code>, <code class="language-plaintext highlighter-rouge">zsh</code>) reads your input and parses it into a command name and arguments.<li>The shell calls <code class="language-plaintext highlighter-rouge">fork()</code> — a syscall that creates a <strong>child process</strong> as a near-identical copy of the shell itself.<li>In the child process, the shell calls <code class="language-plaintext highlighter-rouge">execve()</code> — another syscall — to <strong>replace the child’s memory image</strong> with the <code class="language-plaintext highlighter-rouge">ls</code> binary found in <code class="language-plaintext highlighter-rouge">$PATH</code> (typically <code class="language-plaintext highlighter-rouge">/usr/bin/ls</code>).<li>The kernel loads the ELF binary into memory, sets up the stack, heap, and text segments, and begins execution.<li><code class="language-plaintext highlighter-rouge">ls</code> runs, makes syscalls like <code class="language-plaintext highlighter-rouge">getdents64()</code> to read directory entries, and writes output via <code class="language-plaintext highlighter-rouge">write()</code> to <em>stdout</em> (file descriptor 1).<li>The parent shell calls <code class="language-plaintext highlighter-rouge">wait()</code>, blocking until the child exits. On exit, the child’s resources are cleaned up and its <strong>exit code</strong> is returned to the shell.</ol><blockquote><p><strong>Key insight:</strong> You never “run” a program directly — the shell always forks itself first, then replaces the forked child with the target binary. This is the <strong>fork-exec pattern</strong>, the cornerstone of Unix process creation.</p></blockquote><hr /><h3 id="-what-is-a-process"><span class="me-2">🔹 What Is a Process?</span><a href="#-what-is-a-process" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>A <strong>process</strong> is an instance of a running program — a program in execution, complete with its own isolated resources.</p><p>Every process has:</p><ul><li>A unique <strong>PID</strong> (Process ID)<li>Its own <strong>virtual address space</strong> (stack, heap, text/code, data segments)<li><strong>File descriptors</strong> (open files, sockets, pipes)<li>A <strong>process state</strong>: running, sleeping, zombie, stopped, etc.<li>A <strong>parent process</strong> (every process except PID 1 has one)</ul><p><strong>Program vs Process:</strong> A <em>program</em> is a static file on disk (e.g., <code class="language-plaintext highlighter-rouge">/usr/bin/python3</code>). A <em>process</em> is that program actively loaded into memory and running. You can have 10 Python processes all spawned from the same binary.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- `site.alt_lang` can specify a language different from the UI -->
+<html lang="en" data-mode="light">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+  ><!-- Setup Open Graph image -->
+
+  
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Linux System Internals — Understanding the Engine Under the Hood" />
+<meta name="author" content="Sreeju KS" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development." />
+<meta property="og:description" content="A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development." />
+<link rel="canonical" href="http://localhost:4000/linux-system-internals/" />
+<meta property="og:url" content="http://localhost:4000/linux-system-internals/" />
+<meta property="og:site_name" content="Sreeju KS" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-02-07T10:00:00+05:30" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Linux System Internals — Understanding the Engine Under the Hood" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sreeju KS","url":"https://github.com/sreesreejuks/"},"dateModified":"2026-02-07T10:00:00+05:30","datePublished":"2026-02-07T10:00:00+05:30","description":"A minimalist digital notebook for sharing technical insights, guides, and references on DevOps, cloud computing, and software development.","headline":"Linux System Internals — Understanding the Engine Under the Hood","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/linux-system-internals/"},"url":"http://localhost:4000/linux-system-internals/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <title>Linux System Internals — Understanding the Engine Under the Hood | Sreeju KS
+  </title>
+
+  <!--
+  The Favicons for Web, Android, Microsoft, and iOS (iPhone and iPad) Apps
+  Generated by: https://realfavicongenerator.net/
+-->
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+
+  <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+
+<link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="Sreeju KS">
+<meta name="application-name" content="Sreeju KS">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+
+  <!-- Resource Hints -->
+  
+    
+      
+        <link rel="preconnect" href="https://fonts.googleapis.com" >
+      
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" >
+      
+    
+      
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" >
+      
+    
+      
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" >
+      
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" >
+      
+    
+  
+
+  <!-- Bootstrap -->
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css">
+
+  <!-- Web Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css">
+
+  <!-- 3rd-party Dependencies -->
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
+  
+
+  
+    <!-- Image Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
+  
+
+  <!-- Scripts -->
+
+  <script src="/assets/js/dist/theme.min.js"></script>
+
+  <!-- JS selector for site. -->
+
+<!-- commons -->
+
+
+
+<!-- layout specified -->
+
+
+  
+
+  
+    <!-- image lazy-loading & popup & clipboard -->
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script>
+
+
+
+
+
+
+
+<script defer src="/assets/js/dist/post.min.js"></script>
+
+
+
+<!-- Pageviews -->
+
+  
+
+  
+
+
+
+  
+
+  <!-- A placeholder to allow defining custom metadata -->
+
+</head>
+
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E66HPNGEJR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E66HPNGEJR');
+  </script>
+
+  <body>
+    <!-- The Side Bar -->
+
+<aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
+  <header class="profile-wrapper">
+    <a href="/" id="avatar" class="rounded-circle"><img src="https://gravatar.com/avatar/ed8980df17ba2ea58cd48fe0c6964ca3?size=256" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a>
+
+    <a class="site-title d-block" href="/">Sreeju KS</a>
+    <p class="site-subtitle fst-italic mb-0">Documenting the journey of DevOps, cloud computing, and deployment</p>
+  </header>
+  <!-- .profile-wrapper -->
+
+  <nav class="flex-column flex-grow-1 w-100 ps-0">
+    <ul class="nav">
+      <!-- home -->
+      <li class="nav-item">
+        <a href="/" class="nav-link">
+          <i class="fa-fw fas fa-home"></i>
+          <span>HOME</span>
+        </a>
+      </li>
+      <!-- the real tabs -->
+      
+        <li class="nav-item">
+          <a href="/categories/" class="nav-link">
+            <i class="fa-fw fas fa-stream"></i>
+            
+
+            <span>CATEGORIES</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/tags/" class="nav-link">
+            <i class="fa-fw fas fa-tags"></i>
+            
+
+            <span>TAGS</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/archives/" class="nav-link">
+            <i class="fa-fw fas fa-archive"></i>
+            
+
+            <span>ARCHIVES</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+        <li class="nav-item">
+          <a href="/about/" class="nav-link">
+            <i class="fa-fw fas fa-info-circle"></i>
+            
+
+            <span>ABOUT</span>
+          </a>
+        </li>
+        <!-- .nav-item -->
+      
+    </ul>
+  </nav>
+
+  <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
+    
+
+    
+      
+
+      
+        <a
+          href="https://github.com/sreesreejuks"
+          aria-label="github"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://www.linkedin.com/in/sreesreejuks"
+          aria-label="linkedin"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="https://www.instagram.com/sreesreejuks"
+          aria-label="instagram"
+          
+
+          
+            target="_blank"
+            
+          
+
+          
+
+          
+            rel="noopener noreferrer"
+          
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+      
+    
+      
+
+      
+        <a
+          href="javascript:location.href = 'mailto:' + ['mail','sreesreejuks.com'].join('@')"
+          aria-label="email"
+          
+
+          
+
+          
+
+          
+        >
+          <i class="fas fa-envelope"></i>
+        </a>
+      
+    
+  </div>
+  <!-- .sidebar-bottom -->
+</aside>
+<!-- #sidebar -->
+
+
+    <div id="main-wrapper" class="d-flex justify-content-center">
+      <div class="container d-flex flex-column px-xxl-5">
+        <!-- The Top Bar -->
+
+<header id="topbar-wrapper" aria-label="Top Bar">
+  <div
+    id="topbar"
+    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
+  >
+    <nav id="breadcrumb" aria-label="Breadcrumb">
+      
+
+      
+        
+          
+            <span>
+              <a href="/">Home</a>
+            </span>
+
+          
+        
+          
+            
+              <span>Linux System Internals — Understanding the Engine Under the Hood</span>
+            
+
+          
+        
+      
+    </nav>
+    <!-- endof #breadcrumb -->
+
+    <button type="button" id="sidebar-trigger" class="btn btn-link">
+      <i class="fas fa-bars fa-fw"></i>
+    </button>
+
+    <div id="topbar-title">
+      Post
+    </div>
+
+    <button type="button" id="search-trigger" class="btn btn-link">
+      <i class="fas fa-search fa-fw"></i>
+    </button>
+
+    <search id="search" class="align-items-center ms-3 ms-lg-0">
+      <i class="fas fa-search fa-fw"></i>
+      <input
+        class="form-control"
+        id="search-input"
+        type="search"
+        aria-label="search"
+        autocomplete="off"
+        placeholder="Search..."
+      >
+    </search>
+    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button>
+  </div>
+</header>
+
+
+        <div class="row flex-grow-1">
+          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              <!-- Refactor the HTML structure -->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Change the icon of checkbox -->
+
+
+
+<!-- Handle images -->
+
+
+
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- return -->
+
+
+
+
+
+
+
+
+
+
+<article class="px-1" data-toc="true">
+  <header>
+    <h1 data-toc-skip>Linux System Internals — Understanding the Engine Under the Hood</h1>
+    
+
+    <div class="post-meta text-muted">
+      <!-- published date -->
+      <span>
+        Posted
+        <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1770438600"
+  data-df="ll"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  Feb  7, 2026
+</time>
+
+      </span>
+
+      <!-- lastmod date -->
+      
+
+      
+
+      <div class="d-flex justify-content-between">
+        <!-- author(s) -->
+        <span>
+          
+
+          By
+
+          <em>
+            
+              
+                <a href="https://github.com/sreesreejuks/">Sreeju KS</a>
+                
+              
+            
+          </em>
+        </span>
+
+        <div>
+          <!-- pageviews -->
+          
+
+          <!-- read time -->
+          <!-- Calculate the post's reading time, and display the word count in tooltip -->
+
+
+
+<!-- words per minute -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span
+  class="readtime"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="1477 words"
+>
+  <em>8 min</em> read</span>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  
+    <div id="toc-bar" class="d-flex align-items-center justify-content-between invisible">
+      <span class="label text-truncate">Linux System Internals — Understanding the Engine Under the Hood</span>
+      <button type="button" class="toc-trigger btn me-1">
+        <i class="fa-solid fa-list-ul fa-fw"></i>
+      </button>
+    </div>
+
+    <button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm">
+      <span class="label ps-2 pe-1">Contents</span>
+      <i class="fa-solid fa-angle-right fa-fw"></i>
+    </button>
+
+    <dialog id="toc-popup" class="p-0">
+      <div class="header d-flex flex-row align-items-center justify-content-between">
+        <div class="label text-truncate py-2 ms-4">Linux System Internals — Understanding the Engine Under the Hood</div>
+        <button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75">
+          <i class="fas fa-close"></i>
+        </button>
+      </div>
+      <div id="toc-popup-content" class="px-4 py-3 pb-4"></div>
+    </dialog>
+  
+
+  <div class="content">
+    <hr />
+
+<h2 id="-what-you-will-learn"><span class="me-2">🎯 What You Will Learn</span><a href="#-what-you-will-learn" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<ul>
+  <li>What actually happens inside the OS when you type and run a command in a terminal</li>
+  <li>What a <strong>process</strong> is, how it’s represented, and how it differs from a program</li>
+  <li>What a <strong>system call (syscall)</strong> is and why it’s the bridge between user space and kernel space</li>
+  <li>What <strong>file descriptors</strong> are and why almost everything in Linux is treated as a file</li>
+  <li>How <code class="language-plaintext highlighter-rouge">/proc</code> and <code class="language-plaintext highlighter-rouge">/dev</code> expose the kernel’s internal state as navigable file trees</li>
+</ul>
+
+<hr />
+
+<h2 id="-topic-overview"><span class="me-2">📝 Topic Overview</span><a href="#-topic-overview" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<hr />
+
+<h3 id="-what-happens-when-you-run-a-command"><span class="me-2">🔹 What Happens When You Run a Command?</span><a href="#-what-happens-when-you-run-a-command" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>When you type <code class="language-plaintext highlighter-rouge">ls -la</code> and press Enter, a multi-step process unfolds across several layers of the operating system.</p>
+
+<p><strong>Step-by-step breakdown:</strong></p>
+
+<ol>
+  <li>The <strong>shell</strong> (e.g., <code class="language-plaintext highlighter-rouge">bash</code>, <code class="language-plaintext highlighter-rouge">zsh</code>) reads your input and parses it into a command name and arguments.</li>
+  <li>The shell calls <code class="language-plaintext highlighter-rouge">fork()</code> — a syscall that creates a <strong>child process</strong> as a near-identical copy of the shell itself.</li>
+  <li>In the child process, the shell calls <code class="language-plaintext highlighter-rouge">execve()</code> — another syscall — to <strong>replace the child’s memory image</strong> with the <code class="language-plaintext highlighter-rouge">ls</code> binary found in <code class="language-plaintext highlighter-rouge">$PATH</code> (typically <code class="language-plaintext highlighter-rouge">/usr/bin/ls</code>).</li>
+  <li>The kernel loads the ELF binary into memory, sets up the stack, heap, and text segments, and begins execution.</li>
+  <li><code class="language-plaintext highlighter-rouge">ls</code> runs, makes syscalls like <code class="language-plaintext highlighter-rouge">getdents64()</code> to read directory entries, and writes output via <code class="language-plaintext highlighter-rouge">write()</code> to <em>stdout</em> (file descriptor 1).</li>
+  <li>The parent shell calls <code class="language-plaintext highlighter-rouge">wait()</code>, blocking until the child exits. On exit, the child’s resources are cleaned up and its <strong>exit code</strong> is returned to the shell.</li>
+</ol>
+
+<blockquote>
+  <p><strong>Key insight:</strong> You never “run” a program directly — the shell always forks itself first, then replaces the forked child with the target binary. This is the <strong>fork-exec pattern</strong>, the cornerstone of Unix process creation.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="-what-is-a-process"><span class="me-2">🔹 What Is a Process?</span><a href="#-what-is-a-process" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>A <strong>process</strong> is an instance of a running program — a program in execution, complete with its own isolated resources.</p>
+
+<p>Every process has:</p>
+<ul>
+  <li>A unique <strong>PID</strong> (Process ID)</li>
+  <li>Its own <strong>virtual address space</strong> (stack, heap, text/code, data segments)</li>
+  <li><strong>File descriptors</strong> (open files, sockets, pipes)</li>
+  <li>A <strong>process state</strong>: running, sleeping, zombie, stopped, etc.</li>
+  <li>A <strong>parent process</strong> (every process except PID 1 has one)</li>
+</ul>
+
+<p><strong>Program vs Process:</strong> A <em>program</em> is a static file on disk (e.g., <code class="language-plaintext highlighter-rouge">/usr/bin/python3</code>). A <em>process</em> is that program actively loaded into memory and running. You can have 10 Python processes all spawned from the same binary.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -7,7 +897,7 @@
 7
 8
 9
-</pre><td class="rouge-code"><pre><span class="c"># View all running processes with full details</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># View all running processes with full details</span>
 ps aux
 
 <span class="c"># View process tree (shows parent-child relationships)</span>
@@ -16,27 +906,153 @@ pstree <span class="nt">-p</span>
 <span class="c"># Monitor processes in real time</span>
 top
 htop  <span class="c"># more user-friendly</span>
-</pre></table></code></div></div><hr /><h3 id="-what-is-a-syscall"><span class="me-2">🔹 What Is a Syscall?</span><a href="#-what-is-a-syscall" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>A <strong>system call (syscall)</strong> is a controlled entry point into the <strong>kernel</strong> — the mechanism user-space programs use to request privileged operations from the OS.</p><p>Modern CPUs enforce a hard boundary between <strong>user space</strong> (where applications run) and <strong>kernel space</strong> (where the OS kernel runs). User code cannot directly touch hardware, allocate memory from the kernel, or read another process’s memory. To do any of these, it must ask the kernel via a syscall.</p><p><strong>Common syscalls you use every day:</strong></p><div class="table-wrapper"><table><thead><tr><th>Syscall<th>What It Does<tbody><tr><td><code class="language-plaintext highlighter-rouge">fork()</code><td>Create a child process<tr><td><code class="language-plaintext highlighter-rouge">execve()</code><td>Replace current process with a new program<tr><td><code class="language-plaintext highlighter-rouge">open()</code><td>Open a file, return a file descriptor<tr><td><code class="language-plaintext highlighter-rouge">read()</code><td>Read bytes from a file descriptor<tr><td><code class="language-plaintext highlighter-rouge">write()</code><td>Write bytes to a file descriptor<tr><td><code class="language-plaintext highlighter-rouge">close()</code><td>Close a file descriptor<tr><td><code class="language-plaintext highlighter-rouge">mmap()</code><td>Map files or memory into the process address space<tr><td><code class="language-plaintext highlighter-rouge">exit()</code><td>Terminate the current process<tr><td><code class="language-plaintext highlighter-rouge">wait()</code><td>Wait for a child process to finish<tr><td><code class="language-plaintext highlighter-rouge">socket()</code><td>Create a network socket</table></div><p><strong>How it works mechanically:</strong> The program places the syscall number in a CPU register (e.g., <code class="language-plaintext highlighter-rouge">rax</code> on x86-64), puts arguments in other registers, then executes a special CPU instruction (<code class="language-plaintext highlighter-rouge">syscall</code> on x86-64). The CPU switches to kernel mode, the kernel dispatches to the appropriate handler, executes it, and returns the result.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<hr />
+
+<h3 id="-what-is-a-syscall"><span class="me-2">🔹 What Is a Syscall?</span><a href="#-what-is-a-syscall" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>A <strong>system call (syscall)</strong> is a controlled entry point into the <strong>kernel</strong> — the mechanism user-space programs use to request privileged operations from the OS.</p>
+
+<p>Modern CPUs enforce a hard boundary between <strong>user space</strong> (where applications run) and <strong>kernel space</strong> (where the OS kernel runs). User code cannot directly touch hardware, allocate memory from the kernel, or read another process’s memory. To do any of these, it must ask the kernel via a syscall.</p>
+
+<p><strong>Common syscalls you use every day:</strong></p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Syscall</th>
+      <th>What It Does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">fork()</code></td>
+      <td>Create a child process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">execve()</code></td>
+      <td>Replace current process with a new program</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">open()</code></td>
+      <td>Open a file, return a file descriptor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">read()</code></td>
+      <td>Read bytes from a file descriptor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">write()</code></td>
+      <td>Write bytes to a file descriptor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">close()</code></td>
+      <td>Close a file descriptor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mmap()</code></td>
+      <td>Map files or memory into the process address space</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">exit()</code></td>
+      <td>Terminate the current process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">wait()</code></td>
+      <td>Wait for a child process to finish</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">socket()</code></td>
+      <td>Create a network socket</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>How it works mechanically:</strong> The program places the syscall number in a CPU register (e.g., <code class="language-plaintext highlighter-rouge">rax</code> on x86-64), puts arguments in other registers, then executes a special CPU instruction (<code class="language-plaintext highlighter-rouge">syscall</code> on x86-64). The CPU switches to kernel mode, the kernel dispatches to the appropriate handler, executes it, and returns the result.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre><td class="rouge-code"><pre><span class="c"># Trace all syscalls made by a running command</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Trace all syscalls made by a running command</span>
 strace <span class="nb">ls</span> <span class="nt">-la</span>
 
 <span class="c"># Count syscall frequency</span>
 strace <span class="nt">-c</span> <span class="nb">ls</span> <span class="nt">-la</span>
-</pre></table></code></div></div><blockquote><p><strong>Analogy:</strong> Syscalls are like a restaurant menu — user programs can only order from the menu (the defined syscall interface). They cannot walk into the kitchen (kernel space) directly.</p></blockquote><hr /><h3 id="-what-is-a-file-descriptor"><span class="me-2">🔹 What Is a File Descriptor?</span><a href="#-what-is-a-file-descriptor" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>A <strong>file descriptor (FD)</strong> is a non-negative integer that represents an open I/O resource within a process. In Linux, almost everything — regular files, directories, pipes, sockets, terminals, devices — is accessed through file descriptors.</p><p><strong>Standard file descriptors (always pre-opened):</strong></p><div class="table-wrapper"><table><thead><tr><th>FD<th>Name<th>Default Target<tbody><tr><td><code class="language-plaintext highlighter-rouge">0</code><td><code class="language-plaintext highlighter-rouge">stdin</code><td>Keyboard (terminal input)<tr><td><code class="language-plaintext highlighter-rouge">1</code><td><code class="language-plaintext highlighter-rouge">stdout</code><td>Terminal output<tr><td><code class="language-plaintext highlighter-rouge">2</code><td><code class="language-plaintext highlighter-rouge">stderr</code><td>Terminal error output</table></div><p>When you call <code class="language-plaintext highlighter-rouge">open()</code>, the kernel returns the lowest available FD integer (starting from 3). Reading and writing then use that integer via <code class="language-plaintext highlighter-rouge">read(fd, ...)</code> and <code class="language-plaintext highlighter-rouge">write(fd, ...)</code>.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>Analogy:</strong> Syscalls are like a restaurant menu — user programs can only order from the menu (the defined syscall interface). They cannot walk into the kitchen (kernel space) directly.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="-what-is-a-file-descriptor"><span class="me-2">🔹 What Is a File Descriptor?</span><a href="#-what-is-a-file-descriptor" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>A <strong>file descriptor (FD)</strong> is a non-negative integer that represents an open I/O resource within a process. In Linux, almost everything — regular files, directories, pipes, sockets, terminals, devices — is accessed through file descriptors.</p>
+
+<p><strong>Standard file descriptors (always pre-opened):</strong></p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>FD</th>
+      <th>Name</th>
+      <th>Default Target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td><code class="language-plaintext highlighter-rouge">stdin</code></td>
+      <td>Keyboard (terminal input)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td><code class="language-plaintext highlighter-rouge">stdout</code></td>
+      <td>Terminal output</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">2</code></td>
+      <td><code class="language-plaintext highlighter-rouge">stderr</code></td>
+      <td>Terminal error output</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>When you call <code class="language-plaintext highlighter-rouge">open()</code>, the kernel returns the lowest available FD integer (starting from 3). Reading and writing then use that integer via <code class="language-plaintext highlighter-rouge">read(fd, ...)</code> and <code class="language-plaintext highlighter-rouge">write(fd, ...)</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre><td class="rouge-code"><pre><span class="c"># See all open file descriptors for a process (replace PID)</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># See all open file descriptors for a process (replace PID)</span>
 <span class="nb">ls</span> <span class="nt">-la</span> /proc/&lt;PID&gt;/fd
 
 <span class="c"># Example: see FDs for your shell</span>
 <span class="nb">ls</span> <span class="nt">-la</span> /proc/<span class="nv">$$</span>/fd
-</pre></table></code></div></div><blockquote><p><strong>“Everything is a file”</strong> is one of Unix’s foundational philosophies. A network socket, a hardware device, even inter-process communication via pipes — all use the same <code class="language-plaintext highlighter-rouge">open/read/write/close</code> interface. This uniformity is what makes shell pipelines (<code class="language-plaintext highlighter-rouge">cmd1 | cmd2</code>) and I/O redirection (<code class="language-plaintext highlighter-rouge">cmd &gt; file</code>) so powerful.</p></blockquote><hr /><h3 id="-what-is-proc"><span class="me-2">🔹 What Is <code class="language-plaintext highlighter-rouge">/proc</code>?</span><a href="#-what-is-proc" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><code class="language-plaintext highlighter-rouge">/proc</code> is a <strong>virtual filesystem</strong> (not on disk) — a window into the live state of the kernel and all running processes, presented as a directory tree.</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>“Everything is a file”</strong> is one of Unix’s foundational philosophies. A network socket, a hardware device, even inter-process communication via pipes — all use the same <code class="language-plaintext highlighter-rouge">open/read/write/close</code> interface. This uniformity is what makes shell pipelines (<code class="language-plaintext highlighter-rouge">cmd1 | cmd2</code>) and I/O redirection (<code class="language-plaintext highlighter-rouge">cmd &gt; file</code>) so powerful.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="-what-is-proc"><span class="me-2">🔹 What Is <code class="language-plaintext highlighter-rouge">/proc</code>?</span><a href="#-what-is-proc" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p><code class="language-plaintext highlighter-rouge">/proc</code> is a <strong>virtual filesystem</strong> (not on disk) — a window into the live state of the kernel and all running processes, presented as a directory tree.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -45,7 +1061,7 @@ strace <span class="nt">-c</span> <span class="nb">ls</span> <span class="nt">-l
 7
 8
 9
-</pre><td class="rouge-code"><pre><span class="nb">ls</span> /proc
+</pre></td><td class="rouge-code"><pre><span class="nb">ls</span> /proc
 <span class="c"># Output: numbered dirs (one per PID), plus: cpuinfo, meminfo, uptime, version, etc.</span>
 
 <span class="nb">cat</span> /proc/cpuinfo       <span class="c"># CPU model, cores, flags</span>
@@ -54,17 +1070,82 @@ strace <span class="nt">-c</span> <span class="nb">ls</span> <span class="nt">-l
 <span class="nb">cat</span> /proc/version       <span class="c"># Kernel version string</span>
 <span class="nb">cat</span> /proc/<span class="nv">$$</span>/status     <span class="c"># Status of the current shell process</span>
 <span class="nb">cat</span> /proc/<span class="nv">$$</span>/maps       <span class="c"># Virtual memory map of the current process</span>
-</pre></table></code></div></div><p>Each numbered directory (e.g., <code class="language-plaintext highlighter-rouge">/proc/1234</code>) represents process 1234, containing: <code class="language-plaintext highlighter-rouge">cmdline</code>, <code class="language-plaintext highlighter-rouge">environ</code>, <code class="language-plaintext highlighter-rouge">fd/</code>, <code class="language-plaintext highlighter-rouge">maps</code>, <code class="language-plaintext highlighter-rouge">status</code>, <code class="language-plaintext highlighter-rouge">stat</code>, and more.</p><hr /><h3 id="-what-is-dev"><span class="me-2">🔹 What Is <code class="language-plaintext highlighter-rouge">/dev</code>?</span><a href="#-what-is-dev" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><code class="language-plaintext highlighter-rouge">/dev</code> is a directory containing <strong>device files</strong> — special files that represent hardware and virtual devices. Interacting with a device is as simple as reading or writing to its file.</p><div class="table-wrapper"><table><thead><tr><th>Device File<th>Description<tbody><tr><td><code class="language-plaintext highlighter-rouge">/dev/sda</code>, <code class="language-plaintext highlighter-rouge">/dev/nvme0n1</code><td>Block storage (hard drive, SSD)<tr><td><code class="language-plaintext highlighter-rouge">/dev/null</code><td>Discards all writes; reads return EOF<tr><td><code class="language-plaintext highlighter-rouge">/dev/zero</code><td>Reads return an endless stream of zero bytes<tr><td><code class="language-plaintext highlighter-rouge">/dev/random</code>, <code class="language-plaintext highlighter-rouge">/dev/urandom</code><td>Cryptographically secure random bytes<tr><td><code class="language-plaintext highlighter-rouge">/dev/tty</code><td>The process’s controlling terminal<tr><td><code class="language-plaintext highlighter-rouge">/dev/stdin</code>, <code class="language-plaintext highlighter-rouge">/dev/stdout</code><td>Symlinks to FD 0 and 1</table></div><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Each numbered directory (e.g., <code class="language-plaintext highlighter-rouge">/proc/1234</code>) represents process 1234, containing: <code class="language-plaintext highlighter-rouge">cmdline</code>, <code class="language-plaintext highlighter-rouge">environ</code>, <code class="language-plaintext highlighter-rouge">fd/</code>, <code class="language-plaintext highlighter-rouge">maps</code>, <code class="language-plaintext highlighter-rouge">status</code>, <code class="language-plaintext highlighter-rouge">stat</code>, and more.</p>
+
+<hr />
+
+<h3 id="-what-is-dev"><span class="me-2">🔹 What Is <code class="language-plaintext highlighter-rouge">/dev</code>?</span><a href="#-what-is-dev" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p><code class="language-plaintext highlighter-rouge">/dev</code> is a directory containing <strong>device files</strong> — special files that represent hardware and virtual devices. Interacting with a device is as simple as reading or writing to its file.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Device File</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/dev/sda</code>, <code class="language-plaintext highlighter-rouge">/dev/nvme0n1</code></td>
+      <td>Block storage (hard drive, SSD)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/dev/null</code></td>
+      <td>Discards all writes; reads return EOF</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/dev/zero</code></td>
+      <td>Reads return an endless stream of zero bytes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/dev/random</code>, <code class="language-plaintext highlighter-rouge">/dev/urandom</code></td>
+      <td>Cryptographically secure random bytes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/dev/tty</code></td>
+      <td>The process’s controlling terminal</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/dev/stdin</code>, <code class="language-plaintext highlighter-rouge">/dev/stdout</code></td>
+      <td>Symlinks to FD 0 and 1</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre><td class="rouge-code"><pre><span class="c"># Silence output by redirecting to the void</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Silence output by redirecting to the void</span>
 <span class="nb">rm </span>important_file 2&gt;/dev/null
 
 <span class="c"># Fill a file with zeros (e.g., create a 1MB blank file)</span>
 <span class="nb">dd </span><span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>blank.bin <span class="nv">bs</span><span class="o">=</span>1M <span class="nv">count</span><span class="o">=</span>1
-</pre></table></code></div></div><hr /><h3 id="-how-does-the-kernel-schedule-tasks"><span class="me-2">🔹 How Does the Kernel Schedule Tasks?</span><a href="#-how-does-the-kernel-schedule-tasks" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>The Linux <strong>scheduler</strong> determines which process runs on which CPU core at any given moment. Linux uses the <strong>Completely Fair Scheduler (CFS)</strong> as its default scheduler (introduced in kernel 2.6.23).</p><p><strong>Core concepts:</strong></p><ul><li>The scheduler maintains a <strong>red-black tree</strong> of runnable processes, sorted by <em>virtual runtime</em> (<code class="language-plaintext highlighter-rouge">vruntime</code>) — how long each process has run weighted by its priority.<li>The process with the <strong>smallest vruntime always runs next</strong> — ensuring every process gets a fair share of CPU time.<li><strong>Nice values</strong> (<code class="language-plaintext highlighter-rouge">-20</code> to <code class="language-plaintext highlighter-rouge">+19</code>) adjust priority. Lower nice = higher priority. Default is <code class="language-plaintext highlighter-rouge">0</code>.<li>Processes can be <em>preempted</em> — the kernel can forcibly interrupt a running process to give CPU time to another.</ul><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></div></div>
+
+<hr />
+
+<h3 id="-how-does-the-kernel-schedule-tasks"><span class="me-2">🔹 How Does the Kernel Schedule Tasks?</span><a href="#-how-does-the-kernel-schedule-tasks" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>The Linux <strong>scheduler</strong> determines which process runs on which CPU core at any given moment. Linux uses the <strong>Completely Fair Scheduler (CFS)</strong> as its default scheduler (introduced in kernel 2.6.23).</p>
+
+<p><strong>Core concepts:</strong></p>
+<ul>
+  <li>The scheduler maintains a <strong>red-black tree</strong> of runnable processes, sorted by <em>virtual runtime</em> (<code class="language-plaintext highlighter-rouge">vruntime</code>) — how long each process has run weighted by its priority.</li>
+  <li>The process with the <strong>smallest vruntime always runs next</strong> — ensuring every process gets a fair share of CPU time.</li>
+  <li><strong>Nice values</strong> (<code class="language-plaintext highlighter-rouge">-20</code> to <code class="language-plaintext highlighter-rouge">+19</code>) adjust priority. Lower nice = higher priority. Default is <code class="language-plaintext highlighter-rouge">0</code>.</li>
+  <li>Processes can be <em>preempted</em> — the kernel can forcibly interrupt a running process to give CPU time to another.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -72,7 +1153,7 @@ strace <span class="nt">-c</span> <span class="nb">ls</span> <span class="nt">-l
 6
 7
 8
-</pre><td class="rouge-code"><pre><span class="c"># Run a command with lower priority (nicer to other processes)</span>
+</pre></td><td class="rouge-code"><pre><span class="c"># Run a command with lower priority (nicer to other processes)</span>
 <span class="nb">nice</span> <span class="nt">-n</span> 10 ./my_script.sh
 
 <span class="c"># Change priority of a running process</span>
@@ -80,6 +1161,4249 @@ renice +5 <span class="nt">-p</span> &lt;PID&gt;
 
 <span class="c"># View scheduler stats per process</span>
 <span class="nb">cat</span> /proc/&lt;PID&gt;/sched
-</pre></table></code></div></div><hr /><h2 id="-references--learning-resources"><span class="me-2">💡 References &amp; Learning Resources</span><a href="#-references--learning-resources" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><strong>“The Linux Programming Interface”</strong> by Michael Kerrisk — the definitive reference <em>(Advanced/Deep dive)</em><li><strong>“Linux Kernel Development”</strong> by Robert Love — internals explained clearly <em>(Intermediate)</em><li><code class="language-plaintext highlighter-rouge">man 2 syscalls</code> — complete syscall list from the Linux man pages <em>(Beginner-friendly)</em><li><strong>“Operating Systems: Three Easy Pieces”</strong> (ostep.org) — free online OS textbook <em>(Beginner-friendly)</em><li>Linux kernel source: <code class="language-plaintext highlighter-rouge">https://elixir.bootlin.com/linux/latest/source</code> <em>(Advanced/Deep dive)</em></ul><hr /><h2 id="-quick-recap"><span class="me-2">📊 Quick Recap</span><a href="#-quick-recap" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>Every command runs via the <strong>fork-exec pattern</strong>: the shell forks a child, then the child execs the target binary.<li>A <strong>process</strong> is a running instance of a program with its own PID, memory space, and file descriptors.<li><strong>Syscalls</strong> are the only safe, controlled gateway from user-space code into the kernel — triggered by a CPU instruction that switches privilege levels.<li><strong>File descriptors</strong> are integers that abstract all I/O resources; FDs 0, 1, 2 are stdin, stdout, and stderr.<li><strong><code class="language-plaintext highlighter-rouge">/proc</code></strong> is a live, in-memory pseudo-filesystem exposing the kernel’s view of every process and system state.<li><strong><code class="language-plaintext highlighter-rouge">/dev</code></strong> contains device files — reading/writing them interacts with hardware or virtual devices like <code class="language-plaintext highlighter-rouge">/dev/null</code> and <code class="language-plaintext highlighter-rouge">/dev/urandom</code>.<li>The <strong>CFS scheduler</strong> uses virtual runtime on a red-black tree to ensure fair CPU time distribution; <code class="language-plaintext highlighter-rouge">nice</code> values tune priority.</ul><hr /><h2 id="️-tags"><span class="me-2">🏷️ Tags</span><a href="#️-tags" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre><td class="rouge-code"><pre>#Linux #SystemInternals #Kernel #Process #Syscall #FileDescriptor #proc #dev #CFS #Scheduler #UnixPhilosophy #OperatingSystems #CLI #Intermediate #ComputerScience
-</pre></table></code></div></div></div><div class="post-tail-wrapper text-muted"><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">Share</span> <span class="share-icons"> <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fblog.sreesreejuks.com%2Flinux-system-internals%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin"> <i class="fa-fw fab fa-linkedin"></i> </a> <a href="https://twitter.com/intent/tweet?text=Linux%20System%20Internals%20-%20Sreeju%20KS&url=https%3A%2F%2Fblog.sreesreejuks.com%2Flinux-system-internals%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Linux%20System%20Internals%20-%20Sreeju%20KS&u=https%3A%2F%2Fblog.sreesreejuks.com%2Flinux-system-internals%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fblog.sreesreejuks.com%2Flinux-system-internals%2F&text=Linux%20System%20Internals%20-%20Sreeju%20KS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy link" data-title-succeed="Link copied successfully!" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">Recently Updated</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/linux-process-management/">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</a><li class="text-truncate lh-lg"> <a href="/linux-system-internals/">Linux System Internals</a><li class="text-truncate lh-lg"> <a href="/disk-monitoring-approach/">Interview Question: Disk Space Monitoring Approach</a><li class="text-truncate lh-lg"> <a href="/Proxmox-Virtual-Environment/">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</a><li class="text-truncate lh-lg"> <a href="/text-processing-with-sed-and-awk/">Text Processing with sed and awk - The Professional's Guide</a></ul></section><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a> <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a> <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a> <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a> <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a> <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a> <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a></div></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/disk-monitoring-approach/" class="btn btn-outline-primary" aria-label="Older" ><p>Interview Question: Disk Space Monitoring Approach</p></a> <a href="/linux-process-management/" class="btn btn-outline-primary" aria-label="Newer" ><p>Linux Process Management — Mastering ps, top, kill & Process Lifecycle</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author." >Some rights reserved.</span></p><p>Using the <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.2.4" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>.</p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a> <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a> <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a> <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a> <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a> <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a> <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a> <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a></div></section></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="toast-header"> <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" ></button></div><div class="toast-body text-center pt-0"><p class="px-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>
+</pre></td></tr></tbody></table></code></div></div>
+
+<hr />
+
+<h2 id="-references--learning-resources"><span class="me-2">💡 References &amp; Learning Resources</span><a href="#-references--learning-resources" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<ul>
+  <li><strong>“The Linux Programming Interface”</strong> by Michael Kerrisk — the definitive reference <em>(Advanced/Deep dive)</em></li>
+  <li><strong>“Linux Kernel Development”</strong> by Robert Love — internals explained clearly <em>(Intermediate)</em></li>
+  <li><code class="language-plaintext highlighter-rouge">man 2 syscalls</code> — complete syscall list from the Linux man pages <em>(Beginner-friendly)</em></li>
+  <li><strong>“Operating Systems: Three Easy Pieces”</strong> (ostep.org) — free online OS textbook <em>(Beginner-friendly)</em></li>
+  <li>Linux kernel source: <code class="language-plaintext highlighter-rouge">https://elixir.bootlin.com/linux/latest/source</code> <em>(Advanced/Deep dive)</em></li>
+</ul>
+
+<hr />
+
+<h2 id="-quick-recap"><span class="me-2">📊 Quick Recap</span><a href="#-quick-recap" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<ul>
+  <li>Every command runs via the <strong>fork-exec pattern</strong>: the shell forks a child, then the child execs the target binary.</li>
+  <li>A <strong>process</strong> is a running instance of a program with its own PID, memory space, and file descriptors.</li>
+  <li><strong>Syscalls</strong> are the only safe, controlled gateway from user-space code into the kernel — triggered by a CPU instruction that switches privilege levels.</li>
+  <li><strong>File descriptors</strong> are integers that abstract all I/O resources; FDs 0, 1, 2 are stdin, stdout, and stderr.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">/proc</code></strong> is a live, in-memory pseudo-filesystem exposing the kernel’s view of every process and system state.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">/dev</code></strong> contains device files — reading/writing them interacts with hardware or virtual devices like <code class="language-plaintext highlighter-rouge">/dev/null</code> and <code class="language-plaintext highlighter-rouge">/dev/urandom</code>.</li>
+  <li>The <strong>CFS scheduler</strong> uses virtual runtime on a red-black tree to ensure fair CPU time distribution; <code class="language-plaintext highlighter-rouge">nice</code> values tune priority.</li>
+</ul>
+
+<hr />
+
+<h2 id="-take-it-further"><span class="me-2">🚀 Take It Further</span><a href="#-take-it-further" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Now that you understand the theory, see how to monitor and control these processes in real-time. Check out the <a href="https://blog.sreesreejuks.com/linux-process-management">Linux Process Management Guide</a>.</p>
+
+<hr />
+
+<h2 id="️-tags"><span class="me-2">🏷️ Tags</span><a href="#️-tags" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>#Linux #SystemInternals #Kernel #Process #Syscall #FileDescriptor #proc #dev #CFS #Scheduler #UnixPhilosophy #OperatingSystems #CLI #Intermediate #ComputerScience
+</pre></td></tr></tbody></table></code></div></div>
+
+  </div>
+
+  <div class="post-tail-wrapper text-muted">
+    <!-- categories -->
+    
+      <div class="post-meta mb-3">
+        <i class="far fa-folder-open fa-fw me-1"></i>
+        
+          <a href="/categories/linux/">linux</a>,
+          <a href="/categories/system-internals/">system-internals</a>
+      </div>
+    
+
+    <!-- tags -->
+    
+      <div class="post-tags">
+        <i class="fa fa-tags fa-fw me-1"></i>
+        
+          <a
+            href="/tags/kernel/"
+            class="post-tag no-text-decoration"
+          >kernel</a>
+        
+          <a
+            href="/tags/process/"
+            class="post-tag no-text-decoration"
+          >process</a>
+        
+          <a
+            href="/tags/syscall/"
+            class="post-tag no-text-decoration"
+          >syscall</a>
+        
+          <a
+            href="/tags/file-descriptor/"
+            class="post-tag no-text-decoration"
+          >file-descriptor</a>
+        
+          <a
+            href="/tags/internals/"
+            class="post-tag no-text-decoration"
+          >internals</a>
+        
+      </div>
+    
+
+    <div
+      class="
+        post-tail-bottom
+        d-flex justify-content-between align-items-center mt-5 pb-2
+      "
+    >
+      <div class="license-wrapper">
+        
+          
+
+          This post is licensed under 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         by the author.
+        
+      </div>
+
+      <!-- Post sharing snippet -->
+
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted">Share</span>
+  <span class="share-icons">
+    
+    
+    
+
+    
+
+      
+
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Flocalhost%3A4000%2Flinux-system-internals%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin">
+        <i class="fa-fw fab fa-linkedin"></i>
+      </a>
+    
+
+      
+
+      <a href="https://twitter.com/intent/tweet?text=Linux%20System%20Internals%20%E2%80%94%20Understanding%20the%20Engine%20Under%20the%20Hood%20-%20Sreeju%20KS&url=http%3A%2F%2Flocalhost%3A4000%2Flinux-system-internals%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter">
+        <i class="fa-fw fa-brands fa-square-x-twitter"></i>
+      </a>
+    
+
+      
+
+      <a href="https://www.facebook.com/sharer/sharer.php?title=Linux%20System%20Internals%20%E2%80%94%20Understanding%20the%20Engine%20Under%20the%20Hood%20-%20Sreeju%20KS&u=http%3A%2F%2Flocalhost%3A4000%2Flinux-system-internals%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook">
+        <i class="fa-fw fab fa-facebook-square"></i>
+      </a>
+    
+
+      
+
+      <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Flinux-system-internals%2F&text=Linux%20System%20Internals%20%E2%80%94%20Understanding%20the%20Engine%20Under%20the%20Hood%20-%20Sreeju%20KS" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram">
+        <i class="fa-fw fab fa-telegram"></i>
+      </a>
+    
+
+    <button
+      id="copy-link"
+      aria-label="Copy link"
+      class="btn small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="Copy link"
+      data-title-succeed="Link copied successfully!"
+    >
+      <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
+  </span>
+</div>
+
+    </div>
+    <!-- .post-tail-bottom -->
+  </div>
+  <!-- div.post-tail-wrapper -->
+</article>
+
+
+            
+          </main>
+
+          <!-- panel -->
+          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
+            <div class="access">
+              <!-- Get 5 last posted/updated posts -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section id="access-lastmod">
+    <h2 class="panel-heading">Recently Updated</h2>
+    <ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2">
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/linux-process-management/">Linux Process Management — Mastering ps, top, kill & Process Lifecycle</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/linux-system-internals/">Linux System Internals — Understanding the Engine Under the Hood</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/disk-monitoring-approach/">Interview Question: Disk Space Monitoring Approach</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/Proxmox-Virtual-Environment/">Setting up a Kubernetes Cluster on Proxmox (from Scratch!)</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/text-processing-with-sed-and-awk/">Text Processing with sed and awk - The Professional's Guide</a>
+        </li>
+      
+    </ul>
+  </section>
+  <!-- #access-lastmod -->
+
+
+              <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a>
+      
+    </div>
+  </section>
+
+
+            </div>
+
+            
+              
+              
+
+
+
+
+
+
+  <div class="toc-border-cover z-3"></div>
+  <section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4">
+    <h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2>
+    <nav id="toc"></nav>
+  </section>
+
+
+            
+          </aside>
+        </div>
+
+        <div class="row">
+          <!-- tail -->
+          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              
+              <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
+
+<!-- The total size of related posts -->
+
+
+<!-- An random integer that bigger than 0 -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+
+
+
+
+
+
+
+
+
+
+  <aside id="related-posts" aria-labelledby="related-label">
+    <h3 class="mb-4" id="related-label">Further Reading</h3>
+    <nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+      
+        <article class="col">
+          <a href="/How-to-Expand-Storage-in-Proxmox-Virtual-Machines/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744515300"
+  data-df="ll"
+  
+>
+  Apr 13, 2025
+</time>
+
+              <h4 class="pt-0 my-2">How to Expand Storage in Proxmox Virtual Machines</h4>
+              <div class="text-muted">
+                <p>When running virtual machines in Proxmox, you might eventually need to increase their storage capacity. This post walks through the process of expanding the disk space for a Proxmox VM and ensuring...</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/Creating-a-Custom-Ubuntu-Template-in-Proxmox-with-CloudInit/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744454880"
+  data-df="ll"
+  
+>
+  Apr 12, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Creating a Custom Ubuntu Template in Proxmox with Cloud-Init</h4>
+              <div class="text-muted">
+                <p>Table of Contents    Introduction   Prerequisites   Downloading the Ubuntu Cloud Image   Creating the Virtual Machine   Importing the Cloud Image   Configuring Disk and Cloud-Init   Boot Setup   In...</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/Essential-Linux-Commands-System-Information-and-Network-Status/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1744392600"
+  data-df="ll"
+  
+>
+  Apr 11, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Essential Linux Commands for System Information</h4>
+              <div class="text-muted">
+                <p>Table of Contents    Introduction   Identifying the System            id command       hostname command       uname command           Network Information            ifconfig command       ip comman...</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+    </nav>
+  </aside>
+  <!-- #related-posts -->
+
+
+            
+              
+              <!-- Navigation buttons at the bottom of the post. -->
+
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  
+  
+
+  
+    <a
+      href="/disk-monitoring-approach/"
+      class="btn btn-outline-primary"
+      aria-label="Older"
+    >
+      <p>Interview Question: Disk Space Monitoring Approach</p>
+    </a>
+  
+
+  
+    <a
+      href="/linux-process-management/"
+      class="btn btn-outline-primary"
+      aria-label="Newer"
+    >
+      <p>Linux Process Management — Mastering ps, top, kill & Process Lifecycle</p>
+    </a>
+  
+</nav>
+
+            
+
+            <!-- The Footer -->
+
+<footer
+  aria-label="Site Info"
+  class="
+    d-flex flex-column justify-content-center text-muted
+    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
+  "
+>
+  <p>©
+    <time>2026</time>
+
+    
+      <a href="https://www.linkedin.com/in/sreesreejuks">Sreeju KS</a>.
+    
+
+    
+      <span
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author."
+      >Some rights reserved.</span>
+    
+  </p>
+
+  <p>Using the <a
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="v7.2.4"
+        href="https://github.com/cotes2020/jekyll-theme-chirpy"
+        target="_blank"
+        rel="noopener"
+      >Chirpy</a> theme for <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>.
+  </p>
+</footer>
+
+          </div>
+        </div>
+
+        <!-- The Search results -->
+
+<div id="search-result-wrapper" class="d-flex justify-content-center d-none">
+  <div class="col-11 content">
+    <div id="search-hints">
+      <!-- The trending tags list -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <section>
+    <h2 class="panel-heading">Trending Tags</h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/commands/">commands</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/devops/">devops</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/proxmox/">proxmox</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/bash/">bash</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/command-line/">command-line</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/docker/">docker</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/automation/">automation</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/aws/">aws</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/cli-commands/">cli commands</a>
+      
+    </div>
+  </section>
+
+
+    </div>
+    <div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div>
+  </div>
+</div>
+
+      </div>
+
+      <aside aria-label="Scroll to Top">
+        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
+          <i class="fas fa-angle-up"></i>
+        </button>
+      </aside>
+    </div>
+
+    <div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div>
+
+    
+      <aside
+  id="notification"
+  class="toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-bs-animation="true"
+  data-bs-autohide="false"
+>
+  <div class="toast-header">
+    <button
+      type="button"
+      class="btn-close ms-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="toast-body text-center pt-0">
+    <p class="px-2 mb-3">A new version of content is available.</p>
+    <button type="button" class="btn btn-primary" aria-label="Update">
+      Update
+    </button>
+  </div>
+</aside>
+
+    
+
+    <!-- Embedded scripts -->
+
+    
+      
+      <!-- The comments switcher -->
+
+
+    
+
+    <!--
+  Jekyll Simple Search loader
+  See: <https://github.com/christian-fei/Simple-Jekyll-Search>
+-->
+
+
+
+
+
+<script>
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    SimpleJekyllSearch({
+      searchInput: document.getElementById('search-input'),
+      resultsContainer: document.getElementById('search-results'),
+      json: '/assets/js/data/search.json',
+      searchResultTemplate: '  <article class="px-1 px-sm-2 px-lg-4 px-xl-0">    <header>      <h2><a href="{url}">{title}</a></h2>      <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">        {categories}        {tags}      </div>    </header>    <p>{content}</p>  </article>',
+      noResultsText: '<p class="mt-5">Oops! No results found.</p>',
+      templateMiddleware: function(prop, value, template) {
+        if (prop === 'categories') {
+          if (value === '') {
+            return `${value}`;
+          } else {
+            return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`;
+          }
+        }
+
+        if (prop === 'tags') {
+          if (value === '') {
+            return `${value}`;
+          } else {
+            return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`;
+          }
+        }
+      }
+    });
+  });
+</script>
+
+  </body>
+</html>
+
